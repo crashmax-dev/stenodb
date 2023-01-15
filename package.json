@@ -1,7 +1,7 @@
 {
-  "name": "lowdb-json-provider",
+  "name": "@crashmax/lowdb",
   "version": "1.0.0",
-  "description": "lowdb-json-provider",
+  "description": "@crashmax/lowdb",
   "type": "module",
   "files": [
     "dist"

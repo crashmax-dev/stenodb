@@ -1,6 +1,11 @@
 {
   "extends": "@crashmax/tsconfig",
   "compilerOptions": {
-    "rootDir": "."
-  }
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "strictNullChecks": true
+  },
+  "include": [
+    "src"
+  ]
 }

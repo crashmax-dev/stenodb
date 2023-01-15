@@ -1,0 +1,20 @@
+{
+  "name": "@node-esm/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./*": "./dist/*"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "dist/*"
+      ]
+    }
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepare": "pnpm build"
+  }
+}

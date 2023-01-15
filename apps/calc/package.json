@@ -1,0 +1,13 @@
+{
+  "name": "calc",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "pnpm build && cross-env NODE_ENV=production node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "del-cli dist && tsc"
+  },
+  "dependencies": {
+    "@node-esm/shared": "workspace:*"
+  }
+}

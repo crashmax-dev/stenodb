@@ -1,9 +1,9 @@
 import { join } from 'node:path'
-import { DatabaseProvider } from '../src/index.js'
+import { LowProvider } from '../src/index.js'
 import { Post, User } from './entities.js'
 
 const databasePath = join(process.cwd(), 'database')
-const databaseProvider = new DatabaseProvider(databasePath)
+const databaseProvider = new LowProvider(databasePath)
 const databaseUsers = await databaseProvider.createDatabase<User[]>('users', [])
 
 const post = new Post('Lorem ipsum')

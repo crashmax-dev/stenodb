@@ -1,7 +1,7 @@
 import { Low } from 'lowdb'
 import type { JSONFile } from 'lowdb/node'
 
-export class Database<T extends unknown> extends Low<T> {
+export class LowDatabase<T extends unknown> extends Low<T> {
   constructor(adapter: JSONFile<T>, private readonly initialData?: T) {
     super(adapter)
   }

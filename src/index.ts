@@ -1,2 +1,3 @@
-export { Database } from './database.js'
-export { DatabaseProvider } from './provider.js'
+export { LowProvider } from './provider.js'
+export { LowDatabase } from './database.js'
+export * from 'lowdb'

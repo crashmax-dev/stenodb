@@ -1,9 +1,9 @@
 import { mkdirSync, readFile, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { JSONFile } from 'lowdb/node'
-import { Database } from './database.js'
+import { LowDatabase } from './database.js'
 
-export class DatabaseProvider {
+export class LowProvider {
   constructor(private readonly databasePath: string) {
     this.initializeFolder()
   }
@@ -29,12 +29,12 @@ export class DatabaseProvider {
   async createDatabase<T extends unknown>(
     filename: string,
     initialData?: T
-  ): Promise<Database<T>> {
+  ): Promise<LowDatabase<T>> {
     const file = this.getDatabaseFilePath(filename)
     const adapter = new JSONFile<T>(file)
     this.removeEmptyFile(file)
 
-    const db = new Database<T>(adapter, initialData)
+    const db = new LowDatabase<T>(adapter, initialData)
     await db.read()
 
     if (initialData) {

@@ -7,7 +7,6 @@ specifiers:
   ava: ^5.1.0
   cross-env: ^7.0.3
   del-cli: ^5.0.0
-  husky: ^8.0.3
   lowdb: ^5.0.5
   tsx: ^3.12.2
   typescript: ^4.9.4
@@ -22,7 +21,6 @@ devDependencies:
   ava: 5.1.0
   cross-env: 7.0.3
   del-cli: 5.0.0
-  husky: 8.0.3
   tsx: 3.12.2
   typescript: 4.9.4
 
@@ -1230,12 +1228,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       lru-cache: 6.0.0
-    dev: true
-
-  /husky/8.0.3:
-    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
-    engines: {node: '>=14'}
-    hasBin: true
     dev: true
 
   /ignore-by-default/2.1.0:

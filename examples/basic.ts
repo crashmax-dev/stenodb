@@ -7,10 +7,10 @@ const databaseProvider = new LowProvider(databasePath)
 const databaseUsers = await databaseProvider.createDatabase<User[]>('users', [])
 
 const post = new Post('Lorem ipsum')
-const user = new User('John', post, post, post)
+const user = new User('John', post)
 user.posts.push(post)
 
-databaseUsers.data!.push(user)
-await databaseUsers.write()
+await databaseUsers.writeData([user])
+await databaseUsers.resetData()
 
 console.log(user)

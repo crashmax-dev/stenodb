@@ -1,8 +1,14 @@
 import { Low } from 'lowdb'
+import { LowDirectoryProvider } from './directory.js'
 import type { JSONFile } from 'lowdb/node'
 
 export class LowDatabase<T extends unknown> extends Low<T> {
-  constructor(adapter: JSONFile<T>, private readonly initialData?: T) {
+  constructor(
+    adapter: JSONFile<T>,
+    private readonly filename: string,
+    private readonly directoryProvider: LowDirectoryProvider,
+    private readonly initialData?: T
+  ) {
     super(adapter)
   }
 
@@ -13,6 +19,7 @@ export class LowDatabase<T extends unknown> extends Low<T> {
 
   async resetData(): Promise<void> {
     if (this.initialData) {
+      this.directoryProvider.createTempFile(this.filename)
       await this.writeData(this.initialData)
     }
   }

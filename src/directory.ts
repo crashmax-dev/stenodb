@@ -1,26 +1,22 @@
 import { mkdir, readFile, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-
-function nanoid(): string {
-  return Math.random().toString(36).slice(2)
-}
+import { nanoid } from './helpers.js'
+import { WinstonLogger } from './logger.js'
 
 export class LowDirectoryProvider {
-  private baseDirectory: string
-  private tempDirectory: string
+  private readonly temporaryDirectory: string
+  private logger: WinstonLogger
 
-  constructor(private readonly basePath: string) {
-    this.initialize()
+  constructor(private readonly databasePath: string) {
+    this.temporaryDirectory = join(this.databasePath, 'temp')
+
+    mkdir(this.temporaryDirectory, { recursive: true }, (err) => {
+      if (err) throw err
+    })
   }
 
-  private initialize(): void {
-    this.baseDirectory = this.basePath
-    this.tempDirectory = join(this.basePath, 'temp')
-
-    mkdir(this.tempDirectory, { recursive: true }, (err) => {
-      if (err) throw err
-      console.log('Created directory:', this.baseDirectory)
-    })
+  setLogger(logger: WinstonLogger): void {
+    this.logger = logger
   }
 
   removeFile(file: string, size = 0): void {
@@ -29,27 +25,29 @@ export class LowDirectoryProvider {
 
       if (size > 0 || buffer.byteLength === size) {
         rmSync(file)
+        this.logger.info(`Removed database: ${file}`)
       }
     })
   }
 
-  createTempFile(filename: string): void {
+  createTemporaryFile(filename: string): void {
     const file = this.getDatabaseFile(filename)
     readFile(file, (err, buffer) => {
       if (err) throw err
 
-      const tempFile = this.getDatabaseTempFile(filename)
+      const tempFile = this.getDatabaseTemporaryFile(filename)
       writeFileSync(tempFile, buffer)
+      this.logger.info(`Created temporary database: ${tempFile}`)
     })
   }
 
   getDatabaseFile(filename: string): string {
-    return join(this.baseDirectory, `${filename}.json`)
+    return join(this.databasePath, `${filename}.json`)
   }
 
-  getDatabaseTempFile(filename: string): string {
+  getDatabaseTemporaryFile(filename: string): string {
     return join(
-      this.tempDirectory,
+      this.temporaryDirectory,
       `${filename}-${Date.now()}-${nanoid()}.json`
     )
   }

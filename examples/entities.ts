@@ -1,12 +1,12 @@
-import { LowBaseEntity } from '../src/index.js'
+import { LowEntityBase, LowEntityName } from '../src/index.js'
 
 interface UserData {
   username: string
   posts?: Post[]
 }
 
-export class User extends LowBaseEntity {
-  readonly tableName = 'users'
+export class User extends LowEntityBase {
+  readonly [LowEntityName] = 'users'
 
   username: string
   posts: Post[]
@@ -26,8 +26,8 @@ interface PostData {
   title: string
 }
 
-export class Post extends LowBaseEntity {
-  readonly tableName = 'users'
+export class Post extends LowEntityBase {
+  readonly [LowEntityName] = 'posts'
 
   title: string
 

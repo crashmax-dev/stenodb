@@ -19,19 +19,15 @@ export class LowDatabase<T extends unknown> extends Low<T> {
     this.logger = logger.createLogger(name)
   }
 
-  set tempData(data: T | null) {
-    this.temporaryData = data
-  }
-
   setInitialData(initialData: T | undefined): void {
     this.initialData = initialData
   }
 
   async writeData(data?: T): Promise<void> {
-    const newData = this.tempData ?? data ?? this.data
+    const newData = this.temporaryData ?? data ?? this.data
     const diffData = getDiff(this.data!, newData!, true)
     this.data = newData
-    this.tempData = null
+    this.temporaryData = null
 
     const databasePath = this.directory.getDatabaseFile(this.name)
     this.logger.info(`Writing database: ${databasePath}`, diffData)

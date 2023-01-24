@@ -1,4 +1,3 @@
-import { LowBaseEntity } from './entities.js'
 import type { LowDirectoryProvider } from './directory.js'
 import type { LoggerProvider } from './logger.js'
 import type { JSONFile } from 'lowdb/node'
@@ -10,7 +9,7 @@ export interface LoggerOptions {
 export interface LowProviderOptions {
   path: string
   logger?: LoggerOptions
-  entities?: LowBaseEntity[]
+  entities?: unknown[]
 }
 
 export interface LowDatabaseOptions<T> {

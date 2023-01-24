@@ -2,19 +2,19 @@ import { LowBaseEntity } from '../src/index.js'
 
 interface UserData {
   username: string
-  posts: Post[]
+  posts?: Post[]
 }
 
 export class User extends LowBaseEntity {
-  readonly tableName: string
+  readonly tableName = 'users'
 
   username: string
-  posts: Post[] = []
+  posts: Post[]
 
   constructor({ username, posts }: UserData) {
-    super('users')
+    super()
     this.username = username
-    this.posts = posts
+    this.posts = posts ?? []
   }
 
   addPost(post: Post) {
@@ -27,10 +27,12 @@ interface PostData {
 }
 
 export class Post extends LowBaseEntity {
+  readonly tableName = 'users'
+
   title: string
 
   constructor({ title }: PostData) {
-    super('users')
+    super()
     this.title = title
   }
 }

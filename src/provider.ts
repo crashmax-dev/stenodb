@@ -2,7 +2,7 @@ import { sep } from 'node:path'
 import { JSONFile } from 'lowdb/node'
 import { LowDatabase } from './database.js'
 import { LowDirectoryProvider } from './directory.js'
-import { Entities } from './entities.js'
+import { Entities, LowBaseEntity } from './entities.js'
 import { LoggerProvider, WinstonLogger } from './logger.js'
 import type { LowDatabaseOptions, LowProviderOptions } from './types.js'
 
@@ -10,7 +10,7 @@ export class LowProvider {
   private readonly directoryProvider: LowDirectoryProvider
   private readonly loggerProvider: LoggerProvider
   private readonly databaseLogger: WinstonLogger
-  private readonly entities = new Entities()
+  private readonly entities: Entities
 
   constructor({ path, entities, logger }: LowProviderOptions) {
     this.directoryProvider = new LowDirectoryProvider(path)
@@ -19,10 +19,11 @@ export class LowProvider {
       options: logger
     })
 
+    this.entities = new Entities(this.loggerProvider)
+    this.entities.registerEntities((entities as LowBaseEntity[]) ?? [])
     const databaseFolder = path.split(sep).pop() ?? 'database'
     this.databaseLogger = this.loggerProvider.createLogger(databaseFolder)
     this.directoryProvider.setLogger(this.databaseLogger)
-    this.entities.registerEntities(entities ?? [])
   }
 
   async createDatabase<T extends unknown>({

@@ -5,7 +5,6 @@ import { Post, User } from './entities.js'
 const databaseProvider = new LowProvider({
   path: join(process.cwd(), 'database'),
   logger: { enabled: true },
-  // @ts-expect-error
   entities: [User, Post]
 })
 
@@ -15,7 +14,8 @@ const databaseUsers = await databaseProvider.createDatabase<User[]>({
 })
 
 const post = new Post({ title: 'Lorem ipsum' })
-const user = new User({ username: 'John Doe', posts: [post] })
+const user = new User({ username: 'John Doe' })
+user.addPost(post)
 
 if (await databaseUsers.exists()) {
   if (databaseUsers.data && databaseUsers.data.length >= 3) {

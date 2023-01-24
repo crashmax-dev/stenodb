@@ -4,7 +4,8 @@
     "moduleResolution": "NodeNext",
     "outDir": "dist",
     "strictNullChecks": true,
-    "noPropertyAccessFromIndexSignature": false
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitOverride": false
   },
   "include": [
     "src"

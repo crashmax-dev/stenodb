@@ -2,9 +2,8 @@ import { join } from 'node:path'
 import { LowProvider } from '../src/index.js'
 import { Post, User } from './entities.js'
 
-const databasePath = join(process.cwd(), 'database')
-
-const databaseProvider = new LowProvider(databasePath, {
+const databaseProvider = new LowProvider({
+  path: join(process.cwd(), 'database'),
   logger: { enabled: true },
   // @ts-expect-error
   entities: [User, Post]

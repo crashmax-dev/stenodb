@@ -12,17 +12,17 @@ export class LowProvider {
   private readonly databaseLogger: WinstonLogger
   private readonly entities = new Entities()
 
-  constructor(databasePath: string, options: LowProviderOptions = {}) {
-    this.directoryProvider = new LowDirectoryProvider(databasePath)
+  constructor({ path, entities, logger }: LowProviderOptions) {
+    this.directoryProvider = new LowDirectoryProvider(path)
     this.loggerProvider = new LoggerProvider({
-      path: databasePath,
-      options: options.logger
+      path,
+      options: logger
     })
 
-    const databaseFolder = databasePath.split(sep).pop() ?? 'database'
+    const databaseFolder = path.split(sep).pop() ?? 'database'
     this.databaseLogger = this.loggerProvider.createLogger(databaseFolder)
     this.directoryProvider.setLogger(this.databaseLogger)
-    this.entities.registerEntities(options.entities ?? [])
+    this.entities.registerEntities(entities ?? [])
   }
 
   async createDatabase<T extends unknown>({

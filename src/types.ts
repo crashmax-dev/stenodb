@@ -1,13 +1,14 @@
+import { LowBaseEntity } from './entities.js'
 import type { LowDirectoryProvider } from './directory.js'
 import type { LoggerProvider } from './logger.js'
 import type { JSONFile } from 'lowdb/node'
-import { LowBaseEntity } from './entities.js'
 
 export interface LoggerOptions {
   enabled: boolean
 }
 
 export interface LowProviderOptions {
+  path: string
   logger?: LoggerOptions
   entities?: LowBaseEntity[]
 }

@@ -1,20 +1,26 @@
+import { getDiff } from 'json-difference'
 import { Low } from 'lowdb'
 import { LowDirectoryProvider } from './directory.js'
-import { LoggerProvider, WinstonLogger } from './logger.js'
-import type { JSONFile } from 'lowdb/node'
+import { WinstonLogger } from './logger.js'
+import { LowDatabaseOptions } from './types.js'
 
 export class LowDatabase<T extends unknown> extends Low<T> {
+  private readonly name: string
   private readonly logger: WinstonLogger
-  private initialData: T | undefined
+  private readonly directory: LowDirectoryProvider
 
-  constructor(
-    adapter: JSONFile<T>,
-    logger: LoggerProvider,
-    private readonly filename: string,
-    private readonly directoryProvider: LowDirectoryProvider
-  ) {
+  private initialData: T | undefined
+  private temporaryData: T | null = null
+
+  constructor({ name, logger, adapter, directory }: LowDatabaseOptions<T>) {
     super(adapter)
-    this.logger = logger.createLogger(filename)
+    this.name = name
+    this.directory = directory
+    this.logger = logger.createLogger(name)
+  }
+
+  set tempData(data: T | null) {
+    this.temporaryData = data
   }
 
   setInitialData(initialData: T | undefined): void {
@@ -22,22 +28,21 @@ export class LowDatabase<T extends unknown> extends Low<T> {
   }
 
   async writeData(data?: T): Promise<void> {
-    this.data = data ?? this.data
-    this.logger.info(
-      `Writing database: ${this.directoryProvider.getDatabaseFile(
-        this.filename
-      )}`
-    )
+    const newData = this.tempData ?? data ?? this.data
+    const diffData = getDiff(this.data!, newData!, true)
+    this.data = newData
+    this.tempData = null
+
+    const databasePath = this.directory.getDatabaseFile(this.name)
+    this.logger.info(`Writing database: ${databasePath}`, diffData)
     await this.write()
   }
 
   async resetData(): Promise<void> {
     if (this.initialData) {
-      this.directoryProvider.createTemporaryFile(this.filename)
+      this.directory.createTemporaryFile(this.name)
       this.logger.info(
-        `Resetting database: ${this.directoryProvider.getDatabaseFile(
-          this.filename
-        )}`,
+        `Resetting database: ${this.directory.getDatabaseFile(this.name)}`,
         this.initialData
       )
       this.data = this.initialData

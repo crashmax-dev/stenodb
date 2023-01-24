@@ -1,11 +1,36 @@
-export class User {
-  posts: Post[]
+import { LowBaseEntity } from '../src/index.js'
 
-  constructor(public username: string, ...posts: Post[]) {
+interface UserData {
+  username: string
+  posts: Post[]
+}
+
+export class User extends LowBaseEntity {
+  readonly tableName: string
+
+  username: string
+  posts: Post[] = []
+
+  constructor({ username, posts }: UserData) {
+    super('users')
+    this.username = username
     this.posts = posts
+  }
+
+  addPost(post: Post) {
+    this.posts.push(post)
   }
 }
 
-export class Post {
-  constructor(public title: string) {}
+interface PostData {
+  title: string
+}
+
+export class Post extends LowBaseEntity {
+  title: string
+
+  constructor({ title }: PostData) {
+    super('users')
+    this.title = title
+  }
 }

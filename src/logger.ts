@@ -1,9 +1,12 @@
 import { join } from 'node:path'
 import chalk from 'chalk'
 import winston, { createLogger } from 'winston'
-import { LoggerOptions } from './types.js'
+import { LoggerOptions, LowLoggerOptions } from './types.js'
 
 export class LoggerProvider {
+  private readonly path: string
+  private readonly options: LoggerOptions
+
   private readonly timestampFormatter = winston.format.timestamp({
     format: 'YYYY/MM/DD HH:mm:ss'
   })
@@ -24,10 +27,10 @@ export class LoggerProvider {
     return `[${timestamp}] ${level.toUpperCase()} ${message}${args}`
   })
 
-  constructor(
-    private readonly databasePath: string,
-    private readonly options: LoggerOptions
-  ) {}
+  constructor({ path, options }: LowLoggerOptions) {
+    this.path = path
+    this.options = options ?? { enabled: false }
+  }
 
   private coloredTimestamp(timestamp: string): string {
     return chalk.gray(`[${timestamp}]`)
@@ -69,7 +72,7 @@ export class LoggerProvider {
           )
         }),
         new winston.transports.File({
-          dirname: join(this.databasePath, 'logs'),
+          dirname: join(this.path, 'logs'),
           filename: `${name}.log`,
           format: winston.format.combine(
             this.timestampFormatter,

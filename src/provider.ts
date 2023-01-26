@@ -2,9 +2,9 @@ import { sep } from 'node:path'
 import { JSONFile } from 'lowdb/node'
 import { LowDatabase } from './database.js'
 import { LowDirectoryProvider } from './directory.js'
-import { Entities, LowBaseEntity } from './entities.js'
+import { Entities, LowEntity } from './entities.js'
 import { LoggerProvider, WinstonLogger } from './logger.js'
-import type { LowDatabaseOptions, LowProviderOptions } from './types.js'
+import type { LowData, LowProviderOptions } from './types.js'
 
 export class LowProvider {
   private readonly directoryProvider: LowDirectoryProvider
@@ -20,38 +20,31 @@ export class LowProvider {
     })
 
     this.entities = new Entities(this.loggerProvider)
-    this.entities.registerEntities((entities as LowBaseEntity[]) ?? [])
+    this.entities.registerEntities((entities as LowEntity.Base[]) ?? [])
     const databaseFolder = path.split(sep).pop() ?? 'database'
     this.databaseLogger = this.loggerProvider.createLogger(databaseFolder)
     this.directoryProvider.setLogger(this.databaseLogger)
   }
 
-  async createDatabase<T extends unknown>({
-    name,
-    initialData
-  }: Omit<LowDatabaseOptions<T>, 'logger' | 'adapter' | 'directory'>): Promise<
-    LowDatabase<T>
-  > {
+  async createDatabase<K extends string, V extends unknown>(
+    name: K,
+    initialData: V
+  ): Promise<LowDatabase<K, V>> {
     const file = this.directoryProvider.getDatabaseFile(name)
-    const adapter = new JSONFile<T>(file)
+    const adapter = new JSONFile<LowData<K, V>>(file)
     this.directoryProvider.removeFile(file)
 
-    const db = new LowDatabase<T>({
-      name,
+    const db = new LowDatabase(name, {
       adapter,
       logger: this.loggerProvider,
       directory: this.directoryProvider
     })
 
-    db.setInitialData(initialData)
-
-    await db.read()
-
-    if (initialData && !db.data) {
-      this.databaseLogger.info(`Initializing database: ${file}`, initialData)
-      db.data ||= initialData
-      await db.write()
+    if (initialData) {
+      db.initialData = initialData
     }
+
+    await db.readData()
 
     return db
   }

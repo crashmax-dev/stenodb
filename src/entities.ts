@@ -1,38 +1,35 @@
 import { LoggerProvider, WinstonLogger } from './logger.js'
 
-export const LowEntityName = Symbol.for('lowdb.entityName')
+export namespace LowEntity {
+  export const Name = Symbol.for('lowdb.entityName')
 
-export abstract class LowEntityBase {
-  readonly [LowEntityName]: string = ''
+  export abstract class Base {
+    readonly [Name]: string = ''
+  }
 }
 
 export class Entities {
-  private readonly entities = new Map<string, LowEntityBase[]>()
+  private readonly entities = new Map<string, LowEntity.Base[]>()
   private readonly logger: WinstonLogger
 
   constructor(logger: LoggerProvider) {
     this.logger = logger.createLogger('entities')
   }
 
-  addEntity(entity: LowEntityBase): void {
-    const entities = this.entities.get(entity[LowEntityName]) ?? []
+  private addEntity(entity: LowEntity.Base): void {
+    const entities = this.entities.get(entity[LowEntity.Name]) ?? []
     entities.push(entity)
-    this.entities.set(entity[LowEntityName], entities)
+    this.entities.set(entity[LowEntity.Name], entities)
   }
 
-  getEntities(tableName: string): LowEntityBase[] {
+  getEntities(tableName: string): LowEntity.Base[] {
     return this.entities.get(tableName) ?? []
   }
 
-  registerEntities(entities: LowEntityBase[]): void {
+  registerEntities(entities: LowEntity.Base[]): void {
     for (const entity of entities) {
-      if (!entity?.[LowEntityName]) {
-        this.logger.error(
-          'LowEntityName property is not defined. Skipping entity.',
-          entity
-        )
-        continue
-      }
+      if (!entity?.[LowEntity.Name]) continue
+      this.logger.info('Registering entity:', entity[LowEntity.Name])
       this.addEntity(entity)
     }
   }

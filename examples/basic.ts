@@ -8,20 +8,15 @@ const databaseProvider = new LowProvider({
   entities: [User, Post]
 })
 
-const databaseUsers = await databaseProvider.createDatabase<User[]>({
-  name: 'users',
-  initialData: []
-})
+const databaseUsers = await databaseProvider.createDatabase<'users', User[]>(
+  'users',
+  []
+)
 
 const post = new Post({ title: 'Lorem ipsum' })
 const user = new User({ username: 'John Doe' })
 user.addPost(post)
 
-if (await databaseUsers.exists()) {
-  if (databaseUsers.data && databaseUsers.data.length >= 3) {
-    await databaseUsers.resetData()
-  }
-}
-
-databaseUsers.data?.push(user)
+databaseUsers.data!.push(user)
 await databaseUsers.writeData()
+// await databaseUsers.resetData()

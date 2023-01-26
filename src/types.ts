@@ -12,10 +12,9 @@ export interface LowProviderOptions {
   entities?: unknown[]
 }
 
-export interface LowDatabaseOptions<T> {
-  name: string
+export interface LowDatabaseOptions<K extends string, T extends unknown> {
   logger: LoggerProvider
-  adapter: JSONFile<T>
+  adapter: JSONFile<LowData<K, T>>
   directory: LowDirectoryProvider
   initialData?: T
 }
@@ -24,3 +23,9 @@ export interface LowLoggerOptions {
   path: string
   options?: LoggerOptions
 }
+
+export type LowData<K extends string, T> =
+  | {
+      [name in K]: T
+    }
+  | Record<string, unknown>

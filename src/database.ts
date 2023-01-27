@@ -1,8 +1,8 @@
 import { getDiff } from 'json-difference'
 import { Low } from 'lowdb'
-import { LowDirectoryProvider } from './directory.js'
-import { WinstonLogger } from './logger.js'
-import { LowData, LowDatabaseOptions } from './types.js'
+import type { LowDirectoryProvider } from './directory.js'
+import type { WinstonLogger } from './logger.js'
+import type { LowData, LowDatabaseOptions } from './types.js'
 import type { Delta } from 'json-difference/dist/models/jsondiffer.model.js'
 
 export class LowDatabase<K extends string, V extends any> {
@@ -40,7 +40,7 @@ export class LowDatabase<K extends string, V extends any> {
       await this.db.write()
     }
 
-    this.data = this.db.data![this.name] as V
+    this.data = structuredClone(this.db.data![this.name]) as V
     return this.data
   }
 

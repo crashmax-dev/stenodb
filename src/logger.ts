@@ -37,7 +37,7 @@ export class LoggerProvider {
   }
 
   private coloredMessage(message: string): string {
-    return chalk.underline(message)
+    return chalk.white(message)
   }
 
   private coloredLevel(level: string): string {

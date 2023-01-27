@@ -1,4 +1,5 @@
 import { LoggerProvider, WinstonLogger } from './logger.js'
+import { EntitiesMap } from './types.js'
 
 export namespace LowEntity {
   export const Name = Symbol.for('lowdb.entityName')
@@ -9,28 +10,32 @@ export namespace LowEntity {
 }
 
 export class Entities {
-  private readonly entities = new Map<string, LowEntity.Base[]>()
+  private readonly entities: EntitiesMap = new Map()
   private readonly logger: WinstonLogger
 
   constructor(logger: LoggerProvider) {
     this.logger = logger.createLogger('entities')
   }
 
-  private addEntity(entity: LowEntity.Base): void {
-    const entities = this.entities.get(entity[LowEntity.Name]) ?? []
-    entities.push(entity)
-    this.entities.set(entity[LowEntity.Name], entities)
+  private addEntity(tableName: string, entities: LowEntity.Base[]): void {
+    const tableEntities = this.getEntities(tableName)
+
+    for (const entity of entities) {
+      const entityName = entity[LowEntity.Name]
+      if (typeof entity === 'function' && !entityName) continue
+      tableEntities.push([entityName, entity])
+      this.logger.info(`Registering entity: ${entity[LowEntity.Name]}`)
+    }
+
+    this.entities.set(tableName, tableEntities)
   }
 
-  getEntities(tableName: string): LowEntity.Base[] {
+  private getEntities(tableName: string): [string, LowEntity.Base][] {
     return this.entities.get(tableName) ?? []
   }
 
-  registerEntities(entities: LowEntity.Base[]): void {
-    for (const entity of entities) {
-      if (!entity?.[LowEntity.Name]) continue
-      this.logger.info('Registering entity:', entity[LowEntity.Name])
-      this.addEntity(entity)
-    }
+  registerEntities(tableName: string, entities: LowEntity.Base[]): void {
+    if (!entities.length) return
+    this.addEntity(tableName, entities)
   }
 }

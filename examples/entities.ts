@@ -6,14 +6,16 @@ interface UserData {
 }
 
 export class User extends LowEntity.Base {
-  readonly [LowEntity.Name] = 'users'
+  static readonly [LowEntity.Name] = 'users'
 
   username: string
   posts: Post[]
+  status: string
 
   constructor({ username, posts }: UserData) {
     super()
     this.username = username
+    this.status = 'offline'
     this.posts = posts ?? []
   }
 
@@ -27,7 +29,7 @@ interface PostData {
 }
 
 export class Post extends LowEntity.Base {
-  readonly [LowEntity.Name] = 'posts'
+  static readonly [LowEntity.Name] = 'posts'
 
   title: string
 

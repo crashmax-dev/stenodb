@@ -12,7 +12,7 @@ export class LowProvider {
   private readonly databaseLogger: WinstonLogger
   private readonly entities: Entities
 
-  constructor({ path, entities, logger }: LowProviderOptions) {
+  constructor({ path, logger }: LowProviderOptions) {
     this.directoryProvider = new LowDirectoryProvider(path)
     this.loggerProvider = new LoggerProvider({
       path,
@@ -20,7 +20,6 @@ export class LowProvider {
     })
 
     this.entities = new Entities(this.loggerProvider)
-    this.entities.registerEntities((entities as LowEntity.Base[]) ?? [])
     const databaseFolder = path.split(sep).pop() ?? 'database'
     this.databaseLogger = this.loggerProvider.createLogger(databaseFolder)
     this.directoryProvider.setLogger(this.databaseLogger)
@@ -28,11 +27,14 @@ export class LowProvider {
 
   async createDatabase<K extends string, V extends unknown>(
     name: K,
-    initialData: V
+    initialData: V,
+    entities: LowEntity.Base[] = []
   ): Promise<LowDatabase<K, V>> {
     const file = this.directoryProvider.getDatabaseFile(name)
     const adapter = new JSONFile<LowData<K, V>>(file)
+
     this.directoryProvider.removeFile(file)
+    this.entities.registerEntities(name, entities)
 
     const db = new LowDatabase(name, {
       adapter,

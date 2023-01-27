@@ -1,4 +1,5 @@
 import type { LowDirectoryProvider } from './directory.js'
+import type { LowEntity } from './entities.js'
 import type { LoggerProvider } from './logger.js'
 import type { JSONFile } from 'lowdb/node'
 
@@ -9,7 +10,6 @@ export interface LoggerOptions {
 export interface LowProviderOptions {
   path: string
   logger?: LoggerOptions
-  entities?: unknown[]
 }
 
 export interface LowDatabaseOptions<K extends string, T extends unknown> {
@@ -29,3 +29,6 @@ export type LowData<K extends string, T> =
       [name in K]: T
     }
   | Record<string, unknown>
+
+export type EntityName = string
+export type EntitiesMap = Map<EntityName, [string, LowEntity.Base][]>

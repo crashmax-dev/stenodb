@@ -1,5 +1,5 @@
 import { join } from 'node:path'
-import chalk from 'chalk'
+import pico from 'picocolors'
 import winston, { createLogger } from 'winston'
 import { LoggerOptions, LowLoggerOptions } from './types.js'
 
@@ -33,29 +33,29 @@ export class LoggerProvider {
   }
 
   private coloredTimestamp(timestamp: string): string {
-    return chalk.gray(`[${timestamp}]`)
+    return pico.gray(`[${timestamp}]`)
   }
 
   private coloredMessage(message: string): string {
-    return chalk.white(message)
+    return pico.white(message)
   }
 
   private coloredLevel(level: string): string {
     level = level.toUpperCase()
     switch (level) {
       case 'INFO':
-        return chalk.green(level)
+        return pico.green(level)
       case 'WARN':
-        return chalk.yellow(level)
+        return pico.yellow(level)
       case 'ERROR':
-        return chalk.red(level)
+        return pico.red(level)
       default:
         return level
     }
   }
 
   private coloredJSON(json: any): string {
-    return `\n${chalk.cyanBright(JSON.stringify(json, null, 2))}`
+    return `\n${pico.cyan(JSON.stringify(json, null, 2))}`
   }
 
   createLogger(name: string) {

@@ -5,9 +5,12 @@
     "outDir": "dist",
     "strictNullChecks": true,
     "noPropertyAccessFromIndexSignature": false,
-    "noImplicitOverride": false
+    "noImplicitOverride": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "src"
+    "src",
+    "examples"
   ]
 }

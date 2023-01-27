@@ -1,3 +1,4 @@
+import 'class-transformer'
 import { LowEntity } from '../src/index.js'
 
 interface UserData {

@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { join } from 'node:path'
 import { LowProvider } from '../src/index.js'
 import { Post, User } from './entities.js'

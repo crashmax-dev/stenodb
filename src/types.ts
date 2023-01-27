@@ -1,6 +1,6 @@
 import type { LowDirectoryProvider } from './directory.js'
-import type { LowEntity } from './entities.js'
 import type { LoggerProvider } from './logger.js'
+import type { ClassConstructor } from 'class-transformer'
 import type { JSONFile } from 'lowdb/node'
 
 export interface LoggerOptions {
@@ -12,11 +12,18 @@ export interface LowProviderOptions {
   logger?: LoggerOptions
 }
 
-export interface LowDatabaseOptions<K extends string, T extends unknown> {
+export interface LowDatabaseOptions<T extends unknown> {
+  name: string
   logger: LoggerProvider
-  adapter: JSONFile<LowData<K, T>>
+  adapter: JSONFile<T>
   directory: LowDirectoryProvider
+  entity: LowEntity<T>
   initialData?: T
+}
+
+export interface LowDatabaseInstanceOptions<T>
+  extends Pick<LowDatabaseOptions<T>, 'name' | 'initialData'> {
+  entity: LowEntity<T>
 }
 
 export interface LowLoggerOptions {
@@ -24,11 +31,4 @@ export interface LowLoggerOptions {
   options?: LoggerOptions
 }
 
-export type LowData<K extends string, T> =
-  | {
-      [name in K]: T
-    }
-  | Record<string, unknown>
-
-export type EntityName = string
-export type EntitiesMap = Map<EntityName, [string, LowEntity.Base][]>
+export type LowEntity<T = any> = ClassConstructor<T>

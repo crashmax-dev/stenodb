@@ -1,25 +1,22 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
 import { LowProvider } from '../src/index.js'
-import { Post, User } from './entities.js'
+import { Post, User, Users } from './entities.js'
 
 const databaseProvider = new LowProvider({
   path: join(process.cwd(), 'database'),
   logger: { enabled: true }
 })
 
-const databaseUsers = await databaseProvider.createDatabase<'users', User[]>(
-  'users',
-  [],
-  [User, Post]
-)
+const databaseUsers = await databaseProvider.createDatabase({
+  name: 'users',
+  entity: Users,
+  initialData: {
+    users: [new User('John Doe')]
+  }
+})
 
-// databaseUsers.data![0].status = 'online'
-// await databaseUsers.writeData()
+databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 
-// const post = new Post({ title: 'Lorem ipsum' })
-// const user = new User({ username: 'John Doe' })
-// user.addPost(post)
-
-// databaseUsers.data!.push(user)
-// await databaseUsers.writeData()
+await databaseUsers.writeData()
+console.log(databaseUsers.data?.users)

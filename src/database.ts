@@ -1,46 +1,48 @@
+import { plainToClass } from 'class-transformer'
 import { getDiff } from 'json-difference'
 import { Low } from 'lowdb'
 import type { LowDirectoryProvider } from './directory.js'
 import type { WinstonLogger } from './logger.js'
-import type { LowData, LowDatabaseOptions } from './types.js'
+import type { LowDatabaseOptions, LowEntity } from './types.js'
 import type { Delta } from 'json-difference/dist/models/jsondiffer.model.js'
 
-export class LowDatabase<K extends string, V extends any> {
-  private readonly db: Low<LowData<K, V>>
-  private readonly name: K
+export class LowDatabase<T extends any> {
+  private readonly db: Low<T>
+  private readonly name: string
   private readonly logger: WinstonLogger
   private readonly directory: LowDirectoryProvider
+  private readonly entity: LowEntity<T>
 
-  data: V | null = null
-  initialData: V | null = null
+  data: T | null = null
+  initialData: T | null = null
 
-  constructor(
-    name: K,
-    { logger, adapter, directory }: LowDatabaseOptions<K, V>
-  ) {
+  constructor({
+    name,
+    logger,
+    adapter,
+    directory,
+    entity
+  }: LowDatabaseOptions<T>) {
     this.db = new Low(adapter)
     this.name = name
     this.directory = directory
+    this.entity = entity
     this.logger = logger.createLogger(name)
-  }
-
-  setData(data: V | null): void {
-    this.db.data![this.name] = data as LowData<K, V>[K]
   }
 
   async readData() {
     await this.db.read()
 
-    if (!this.db.data || !this.db.data[this.name]) {
+    if (!this.db.data || !this.db.data) {
       this.logger.info(
         `Initializing database: ${this.directory.getDatabaseFile(this.name)}`,
         this.initialData
       )
-      this.setData(this.initialData)
+      this.db.data = this.initialData
       await this.db.write()
     }
 
-    this.data = structuredClone(this.db.data![this.name]) as V
+    this.data = plainToClass(this.entity, this.db.data)
     return this.data
   }
 
@@ -51,7 +53,7 @@ export class LowDatabase<K extends string, V extends any> {
       `Writing database: ${databasePath}`,
       diffData ?? 'No changes'
     )
-    this.setData(this.data)
+    this.db.data = this.data
     await this.db.write()
   }
 
@@ -72,10 +74,9 @@ export class LowDatabase<K extends string, V extends any> {
   }
 
   private getDifferenceData(
-    data: LowData<K, V> | null,
-    newData: V | null
+    currentData: T | null,
+    newData: T | null
   ): Delta | null {
-    const currentData = data![this.name]
     if (!currentData || !newData) return null
     const differenceData = getDiff(currentData, newData, true)
     return differenceData

@@ -1,41 +1,26 @@
-import { LoggerProvider, WinstonLogger } from './logger.js'
-import { EntitiesMap } from './types.js'
-
-export namespace LowEntity {
-  export const Name = Symbol.for('lowdb.entityName')
-
-  export abstract class Base {
-    readonly [Name]: string = ''
-  }
-}
+import { LowEntity } from './types.js'
+import type { LoggerProvider, WinstonLogger } from './logger.js'
+import type { ClassConstructor } from 'class-transformer'
 
 export class Entities {
-  private readonly entities: EntitiesMap = new Map()
+  private readonly entities = new Map<string, ClassConstructor<any>>()
   private readonly logger: WinstonLogger
 
   constructor(logger: LoggerProvider) {
     this.logger = logger.createLogger('entities')
   }
 
-  private addEntity(tableName: string, entities: LowEntity.Base[]): void {
-    const tableEntities = this.getEntities(tableName)
+  addEntity(tableName: string, entity: LowEntity): void {
+    const existEntity = this.getEntity(tableName)
+    if (existEntity || typeof entity !== 'function') return
 
-    for (const entity of entities) {
-      const entityName = entity[LowEntity.Name]
-      if (typeof entity === 'function' && !entityName) continue
-      tableEntities.push([entityName, entity])
-      this.logger.info(`Registering entity: ${entity[LowEntity.Name]}`)
-    }
-
-    this.entities.set(tableName, tableEntities)
+    this.entities.set(tableName, entity)
+    this.logger.info(
+      `Registering entity: ${(entity as LowEntity).constructor.name}`
+    )
   }
 
-  private getEntities(tableName: string): [string, LowEntity.Base][] {
-    return this.entities.get(tableName) ?? []
-  }
-
-  registerEntities(tableName: string, entities: LowEntity.Base[]): void {
-    if (!entities.length) return
-    this.addEntity(tableName, entities)
+  getEntity(tableName: string): LowEntity | undefined {
+    return this.entities.get(tableName)
   }
 }

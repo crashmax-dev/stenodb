@@ -1,22 +1,17 @@
 import 'class-transformer'
-import { LowEntity } from '../src/index.js'
+import { Type } from 'class-transformer'
 
-interface UserData {
-  username: string
-  posts?: Post[]
+export class Users {
+  @Type(() => User)
+  users: User[]
 }
 
-export class User extends LowEntity.Base {
-  static readonly [LowEntity.Name] = 'users'
-
+export class User {
   username: string
   posts: Post[]
-  status: string
 
-  constructor({ username, posts }: UserData) {
-    super()
+  constructor(username: string, posts?: Post[]) {
     this.username = username
-    this.status = 'offline'
     this.posts = posts ?? []
   }
 
@@ -25,17 +20,10 @@ export class User extends LowEntity.Base {
   }
 }
 
-interface PostData {
-  title: string
-}
-
-export class Post extends LowEntity.Base {
-  static readonly [LowEntity.Name] = 'posts'
-
+export class Post {
   title: string
 
-  constructor({ title }: PostData) {
-    super()
+  constructor(title: string) {
     this.title = title
   }
 }

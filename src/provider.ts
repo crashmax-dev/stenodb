@@ -2,9 +2,9 @@ import { sep } from 'node:path'
 import { JSONFile } from 'lowdb/node'
 import { LowDatabase } from './database.js'
 import { LowDirectoryProvider } from './directory.js'
-import { Entities, LowEntity } from './entities.js'
+import { Entities } from './entities.js'
 import { LoggerProvider, WinstonLogger } from './logger.js'
-import type { LowData, LowProviderOptions } from './types.js'
+import type { LowDatabaseInstanceOptions, LowProviderOptions } from './types.js'
 
 export class LowProvider {
   private readonly directoryProvider: LowDirectoryProvider
@@ -25,21 +25,23 @@ export class LowProvider {
     this.directoryProvider.setLogger(this.databaseLogger)
   }
 
-  async createDatabase<K extends string, V extends unknown>(
-    name: K,
-    initialData: V,
-    entities: LowEntity.Base[] = []
-  ): Promise<LowDatabase<K, V>> {
+  async createDatabase<T extends unknown>({
+    name,
+    entity,
+    initialData
+  }: LowDatabaseInstanceOptions<T>): Promise<LowDatabase<T>> {
     const file = this.directoryProvider.getDatabaseFile(name)
-    const adapter = new JSONFile<LowData<K, V>>(file)
+    const adapter = new JSONFile<T>(file)
 
     this.directoryProvider.removeFile(file)
-    this.entities.registerEntities(name, entities)
+    this.entities.addEntity(name, entity)
 
-    const db = new LowDatabase(name, {
+    const db = new LowDatabase({
+      name,
       adapter,
       logger: this.loggerProvider,
-      directory: this.directoryProvider
+      directory: this.directoryProvider,
+      entity: this.entities.getEntity(name)!
     })
 
     if (initialData) {

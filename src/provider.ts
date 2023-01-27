@@ -2,50 +2,53 @@ import { sep } from 'node:path'
 import { JSONFile } from 'lowdb/node'
 import { LowDatabase } from './database.js'
 import { LowDirectoryProvider } from './directory.js'
+import { Entities } from './entities.js'
 import { LoggerProvider, WinstonLogger } from './logger.js'
-import type { ProviderOptions } from './types.js'
+import type { LowDatabaseInstanceOptions, LowProviderOptions } from './types.js'
 
 export class LowProvider {
   private readonly directoryProvider: LowDirectoryProvider
   private readonly loggerProvider: LoggerProvider
   private readonly databaseLogger: WinstonLogger
+  private readonly entities: Entities
 
-  constructor(databasePath: string, options: ProviderOptions = {}) {
-    this.directoryProvider = new LowDirectoryProvider(databasePath)
-    this.loggerProvider = new LoggerProvider(
-      databasePath,
-      options.logger ?? { enabled: false }
-    )
+  constructor({ path, logger }: LowProviderOptions) {
+    this.directoryProvider = new LowDirectoryProvider(path)
+    this.loggerProvider = new LoggerProvider({
+      path,
+      options: logger
+    })
 
-    const databaseFolder = databasePath.split(sep).pop() ?? 'database'
+    this.entities = new Entities(this.loggerProvider)
+    const databaseFolder = path.split(sep).pop() ?? 'database'
     this.databaseLogger = this.loggerProvider.createLogger(databaseFolder)
     this.directoryProvider.setLogger(this.databaseLogger)
   }
 
-  async createDatabase<T extends unknown>(
-    filename: string,
-    initialData?: T
-  ): Promise<LowDatabase<T>> {
-    const file = this.directoryProvider.getDatabaseFile(filename)
+  async createDatabase<T extends unknown>({
+    name,
+    entity,
+    initialData
+  }: LowDatabaseInstanceOptions<T>): Promise<LowDatabase<T>> {
+    const file = this.directoryProvider.getDatabaseFile(name)
     const adapter = new JSONFile<T>(file)
+
     this.directoryProvider.removeFile(file)
+    this.entities.addEntity(name, entity)
 
-    const db = new LowDatabase<T>(
+    const db = new LowDatabase({
+      name,
       adapter,
-      this.loggerProvider,
-      filename,
-      this.directoryProvider
-    )
+      logger: this.loggerProvider,
+      directory: this.directoryProvider,
+      entity: this.entities.getEntity(name)!
+    })
 
-    db.setInitialData(initialData)
-
-    await db.read()
-
-    if (initialData && !db.data) {
-      this.databaseLogger.info(`Initializing database: ${file}`, initialData)
-      db.data ||= initialData
-      await db.write()
+    if (initialData) {
+      db.initialData = initialData
     }
+
+    await db.readData()
 
     return db
   }

@@ -1,9 +1,12 @@
 import { join } from 'node:path'
-import chalk from 'chalk'
+import pico from 'picocolors'
 import winston, { createLogger } from 'winston'
-import { LoggerOptions } from './types.js'
+import { LoggerOptions, LowLoggerOptions } from './types.js'
 
 export class LoggerProvider {
+  private readonly path: string
+  private readonly options: LoggerOptions
+
   private readonly timestampFormatter = winston.format.timestamp({
     format: 'YYYY/MM/DD HH:mm:ss'
   })
@@ -24,35 +27,35 @@ export class LoggerProvider {
     return `[${timestamp}] ${level.toUpperCase()} ${message}${args}`
   })
 
-  constructor(
-    private readonly databasePath: string,
-    private readonly options: LoggerOptions
-  ) {}
+  constructor({ path, options }: LowLoggerOptions) {
+    this.path = path
+    this.options = options ?? { enabled: false }
+  }
 
   private coloredTimestamp(timestamp: string): string {
-    return chalk.gray(`[${timestamp}]`)
+    return pico.gray(`[${timestamp}]`)
   }
 
   private coloredMessage(message: string): string {
-    return chalk.underline(message)
+    return pico.white(message)
   }
 
   private coloredLevel(level: string): string {
     level = level.toUpperCase()
     switch (level) {
       case 'INFO':
-        return chalk.green(level)
+        return pico.green(level)
       case 'WARN':
-        return chalk.yellow(level)
+        return pico.yellow(level)
       case 'ERROR':
-        return chalk.red(level)
+        return pico.red(level)
       default:
         return level
     }
   }
 
   private coloredJSON(json: any): string {
-    return `\n${chalk.cyanBright(JSON.stringify(json, null, 2))}`
+    return `\n${pico.cyan(JSON.stringify(json, null, 2))}`
   }
 
   createLogger(name: string) {
@@ -69,7 +72,7 @@ export class LoggerProvider {
           )
         }),
         new winston.transports.File({
-          dirname: join(this.databasePath, 'logs'),
+          dirname: join(this.path, 'logs'),
           filename: `${name}.log`,
           format: winston.format.combine(
             this.timestampFormatter,

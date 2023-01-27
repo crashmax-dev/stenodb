@@ -1,52 +1,84 @@
+import { plainToClass } from 'class-transformer'
+import { getDiff } from 'json-difference'
 import { Low } from 'lowdb'
-import { LowDirectoryProvider } from './directory.js'
-import { LoggerProvider, WinstonLogger } from './logger.js'
-import type { JSONFile } from 'lowdb/node'
+import type { LowDirectoryProvider } from './directory.js'
+import type { WinstonLogger } from './logger.js'
+import type { LowDatabaseOptions, LowEntity } from './types.js'
+import type { Delta } from 'json-difference/dist/models/jsondiffer.model.js'
 
-export class LowDatabase<T extends unknown> extends Low<T> {
+export class LowDatabase<T extends any> {
+  private readonly db: Low<T>
+  private readonly name: string
   private readonly logger: WinstonLogger
-  private initialData: T | undefined
+  private readonly directory: LowDirectoryProvider
+  private readonly entity: LowEntity<T>
 
-  constructor(
-    adapter: JSONFile<T>,
-    logger: LoggerProvider,
-    private readonly filename: string,
-    private readonly directoryProvider: LowDirectoryProvider
-  ) {
-    super(adapter)
-    this.logger = logger.createLogger(filename)
+  data: T | null = null
+  initialData: T | null = null
+
+  constructor({
+    name,
+    logger,
+    adapter,
+    directory,
+    entity
+  }: LowDatabaseOptions<T>) {
+    this.db = new Low(adapter)
+    this.name = name
+    this.directory = directory
+    this.entity = entity
+    this.logger = logger.createLogger(name)
   }
 
-  setInitialData(initialData: T | undefined): void {
-    this.initialData = initialData
+  async readData() {
+    await this.db.read()
+
+    if (!this.db.data || !this.db.data) {
+      this.logger.info(
+        `Initializing database: ${this.directory.getDatabaseFile(this.name)}`,
+        this.initialData
+      )
+      this.db.data = this.initialData
+      await this.db.write()
+    }
+
+    this.data = plainToClass(this.entity, this.db.data)
+    return this.data
   }
 
-  async writeData(data?: T): Promise<void> {
-    this.data = data ?? this.data
+  async writeData(): Promise<void> {
+    const diffData = this.getDifferenceData(this.db.data, this.data)
+    const databasePath = this.directory.getDatabaseFile(this.name)
     this.logger.info(
-      `Writing database: ${this.directoryProvider.getDatabaseFile(
-        this.filename
-      )}`
+      `Writing database: ${databasePath}`,
+      diffData ?? 'No changes'
     )
-    await this.write()
+    this.db.data = this.data
+    await this.db.write()
   }
 
   async resetData(): Promise<void> {
     if (this.initialData) {
-      this.directoryProvider.createTemporaryFile(this.filename)
+      this.directory.createTemporaryFile(this.name)
       this.logger.info(
-        `Resetting database: ${this.directoryProvider.getDatabaseFile(
-          this.filename
-        )}`,
+        `Resetting database: ${this.directory.getDatabaseFile(this.name)}`,
         this.initialData
       )
       this.data = this.initialData
-      await this.write()
+      await this.writeData()
     }
   }
 
   async exists(): Promise<boolean> {
-    await this.read()
-    return this.data !== null
+    return (await this.readData()) !== null
+  }
+
+  private getDifferenceData(
+    currentData: T | null,
+    newData: T | null
+  ): Delta | null {
+    if (!currentData || !newData) return null
+    const differenceData = getDiff(currentData, newData, true)
+    return differenceData
   }
 }

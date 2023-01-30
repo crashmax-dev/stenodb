@@ -1,7 +1,7 @@
 {
-  "name": "@crashmax/lowdb",
-  "version": "2.0.0",
-  "description": "@crashmax/lowdb",
+  "name": "stenodb",
+  "version": "0.0.0",
+  "description": "stenodb",
   "type": "module",
   "files": [
     "dist"

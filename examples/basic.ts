@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
-import { LowProvider } from '../src/index.js'
+import { DatabaseProvider } from '../src/index.js'
 import { Post, User, Users } from './entities.js'
 
-const databaseProvider = new LowProvider({
+const databaseProvider = new DatabaseProvider({
   path: join(process.cwd(), 'database'),
   logger: { enabled: true }
 })
@@ -16,7 +16,9 @@ const databaseUsers = await databaseProvider.createDatabase({
   }
 })
 
+// databaseUsers.reset()
+
 databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 
-await databaseUsers.writeData()
+await databaseUsers.write()
 console.log(databaseUsers.data?.users)

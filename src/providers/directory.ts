@@ -1,11 +1,11 @@
 import { mkdir, readFile, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { nanoid } from './helpers.js'
-import { WinstonLogger } from './logger.js'
+import { nanoid } from '../helpers.js'
+import { Logger } from './logger.js'
 
-export class LowDirectoryProvider {
+export class DirectoryProvider {
   private readonly temporaryDirectory: string
-  private logger: WinstonLogger
+  private logger: Logger
 
   constructor(private readonly databasePath: string) {
     this.temporaryDirectory = join(this.databasePath, 'temp')
@@ -15,7 +15,7 @@ export class LowDirectoryProvider {
     })
   }
 
-  setLogger(logger: WinstonLogger): void {
+  setLogger(logger: Logger): void {
     this.logger = logger
   }
 

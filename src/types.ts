@@ -1,34 +1,45 @@
-import type { LowDirectoryProvider } from './directory.js'
-import type { LoggerProvider } from './logger.js'
+import type { DirectoryProvider } from './providers/directory.js'
+import type { LoggerProvider } from './providers/logger.js'
 import type { ClassConstructor } from 'class-transformer'
-import type { JSONFile } from 'lowdb/node'
+import type { Low, LowSync } from 'lowdb'
 
-export interface LoggerOptions {
-  enabled: boolean
+export declare namespace Lowdb {
+  export interface AdapterOptions<T> {
+    name: string
+    entity: Entity<T> | undefined
+    logger: LoggerProvider
+    directory: DirectoryProvider
+  }
+
+  export interface DatabaseProviderOptions {
+    path: string
+    logger?: LoggerProviderOptions
+  }
+
+  export interface DatabaseOptions<T> {
+    name: string
+    entity: Entity<T>
+    initialData?: T
+  }
+
+  export interface LoggerProviderOptions {
+    enabled: boolean
+  }
+
+  export interface SyncAdapter<T> {
+    read(): T
+    write(): void
+    reset(): void
+    exists(): boolean
+  }
+
+  export interface AsyncAdapter<T> {
+    read(): Promise<T>
+    write(): Promise<void>
+    reset(): Promise<void>
+    exists(): Promise<boolean>
+  }
+
+  export type Entity<T = any> = ClassConstructor<T>
+  export type Adapter<T> = Low<T> | LowSync<T>
 }
-
-export interface LowProviderOptions {
-  path: string
-  logger?: LoggerOptions
-}
-
-export interface LowDatabaseOptions<T extends unknown> {
-  name: string
-  logger: LoggerProvider
-  adapter: JSONFile<T>
-  directory: LowDirectoryProvider
-  entity: LowEntity<T>
-  initialData?: T
-}
-
-export interface LowDatabaseInstanceOptions<T>
-  extends Pick<LowDatabaseOptions<T>, 'name' | 'initialData'> {
-  entity: LowEntity<T>
-}
-
-export interface LowLoggerOptions {
-  path: string
-  options?: LoggerOptions
-}
-
-export type LowEntity<T = any> = ClassConstructor<T>

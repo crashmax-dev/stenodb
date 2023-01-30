@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
-import { NodeDatabaseProvider } from '../src/node.js'
+import { NodeDatabaseProvider } from 'stenodb/node'
 import { Post, User, Users } from './entities.js'
 
 const databaseProvider = new NodeDatabaseProvider({
@@ -16,9 +16,5 @@ const databaseUsers = await databaseProvider.createDatabase({
   }
 })
 
-// databaseUsers.reset()
-
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-
+databaseUsers.data!.users[0]!.addPost(new Post('Lorem ipsum'))
 await databaseUsers.write()
-console.log(databaseUsers.data?.users)

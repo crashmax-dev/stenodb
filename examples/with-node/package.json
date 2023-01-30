@@ -1,0 +1,15 @@
+{
+  "name": "with-node",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "pnpm build && node dist/index.js",
+    "dev": "nodemon",
+    "build": "del-cli dist && tsc"
+  },
+  "dependencies": {
+    "class-transformer": "0.5.1",
+    "reflect-metadata": "0.1.13",
+    "stenodb": "workspace:*"
+  }
+}

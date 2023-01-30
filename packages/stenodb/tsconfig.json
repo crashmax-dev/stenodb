@@ -10,7 +10,6 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "src",
-    "examples"
+    "src"
   ]
 }

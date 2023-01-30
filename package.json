@@ -7,14 +7,14 @@
     "dist"
   ],
   "exports": {
-    ".": {
-      "import": "./dist/index.js"
-    }
+    ".": "./dist/index.js",
+    "./node": "./dist/node.js",
+    "./browser": "./dist/browser.js"
   },
   "scripts": {
     "start": "pnpm build && node dist/index.js",
     "dev": "nodemon",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "del-cli dist && tsc -p tsconfig.build.json",
     "format": "prettier --write --ignore-unknown **",
     "prepublishOnly": "pnpm build"
   },
@@ -38,9 +38,7 @@
     "picocolors": "1.0.0",
     "winston": "3.8.2"
   },
-  "packageManager": "pnpm@7.5.0",
   "engines": {
-    "npm": "^7.0.0",
-    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+    "node": ">=16"
   }
 }

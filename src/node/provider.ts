@@ -1,11 +1,12 @@
 import { sep } from 'node:path'
-import { NodeAdapter } from '../adapters/node.js'
-import { DirectoryProvider } from './directory.js'
-import { EntityProvider } from './entity.js'
-import { Logger, LoggerProvider } from './logger.js'
+import { DirectoryProvider } from '../providers/directory.js'
+import { EntityProvider } from '../providers/entity.js'
+import { LoggerProvider } from '../providers/logger.js'
+import { NodeAdapter } from './adapter.js'
+import type { Logger } from '../providers/logger.js'
 import type { Lowdb } from '../types.js'
 
-export class DatabaseProvider {
+export class NodeDatabaseProvider {
   private readonly directoryProvider: DirectoryProvider
   private readonly loggerProvider: LoggerProvider
   private readonly databaseLogger: Logger

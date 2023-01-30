@@ -1,9 +1,9 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
-import { DatabaseProvider } from '../src/index.js'
+import { NodeDatabaseProvider } from '../src/node.js'
 import { Post, User, Users } from './entities.js'
 
-const databaseProvider = new DatabaseProvider({
+const databaseProvider = new NodeDatabaseProvider({
   path: join(process.cwd(), 'database'),
   logger: { enabled: true }
 })

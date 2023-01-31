@@ -5,7 +5,7 @@ import { parseData } from '../helpers.js'
 import type { DirectoryProvider } from '../directory.js'
 import type { Steno } from '../types.js'
 
-export class StenoWriterSync<T> implements Steno.SyncWriter<T> {
+export class SyncWriter<T> implements Steno.SyncAdapter<T> {
   #filename: string
   #path: string
   #directory: DirectoryProvider
@@ -53,7 +53,7 @@ export class StenoWriterSync<T> implements Steno.SyncWriter<T> {
   }
 }
 
-export class StenoWriter<T> implements Steno.AsyncWriter<T> {
+export class AsyncWriter<T> implements Steno.AsyncAdapter<T> {
   #filename: string
   #path: string
   #directory: DirectoryProvider

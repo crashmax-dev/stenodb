@@ -2,7 +2,7 @@ import { sep } from 'node:path'
 import { DirectoryProvider } from '../directory.js'
 import { EntityProvider } from '../entity.js'
 import { LoggerProvider } from '../logger.js'
-import { StenoWriterSync } from './adapter.js'
+import { SyncWriter } from './adapter.js'
 import { NodeAdapter } from './database.js'
 import type { Logger } from '../logger.js'
 import type { Steno } from '../types.js'
@@ -30,10 +30,11 @@ export class NodeProvider {
   }: Steno.DatabaseOptions<T>): NodeAdapter<T> {
     this.#entity.addEntity(name, entity)
 
-    const writer = new StenoWriterSync<T>(name, this.#directoryProvider)
+    // TOOD: Add support for AsyncWriter
+    const adapter = new SyncWriter<T>(name, this.#directoryProvider)
     const db = new NodeAdapter<T>({
       name,
-      writer,
+      adapter,
       entity: this.#entity.getEntity(name),
       directory: this.#directoryProvider,
       logger: this.#loggerProvider

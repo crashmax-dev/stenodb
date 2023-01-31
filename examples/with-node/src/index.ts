@@ -1,16 +1,20 @@
 import 'reflect-metadata'
 import { join } from 'node:path'
-import { NodeDatabaseProvider } from 'stenodb/node'
+import { NodeProvider } from 'stenodb/node'
 import { Post, User, Users } from './entities.js'
 
-const databaseProvider = new NodeDatabaseProvider({
+const databaseProvider = new NodeProvider({
   path: join(process.cwd(), 'database'),
   logger: { enabled: true }
 })
 
-const databaseUsers = databaseProvider.create({
+const databaseUsers = databaseProvider.createDatabase({
   name: 'users',
-  entity: Users
+  entity: Users,
+  initialData: {
+    users: [new User('John Doe')]
+  }
 })
 
-databaseUsers.reset()
+databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+databaseUsers.write()

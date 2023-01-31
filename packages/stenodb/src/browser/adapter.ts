@@ -1,7 +1,7 @@
 import { parseData } from '../helpers.js'
 import type { Steno } from '../types.js'
 
-export class BrowserStorage<T> implements Steno.SyncWriter<T> {
+export class BrowserStorage<T> implements Steno.SyncAdapter<T> {
   #name: string
   #storage: Storage
   #data: T | null = null

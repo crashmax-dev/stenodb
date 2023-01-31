@@ -9,6 +9,9 @@
   "types": "dist",
   "typesVersions": {
     "*": {
+      "node": [
+        "./dist/node.d.ts"
+      ],
       "browser": [
         "./dist/browser.d.ts"
       ]

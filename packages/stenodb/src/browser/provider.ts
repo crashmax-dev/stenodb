@@ -1,5 +1,5 @@
-import { Steno } from '../types.js'
 import { BrowserDatabase } from './database.js'
+import type { Steno } from '../types.js'
 
 export class BrowserProvider<T extends unknown> extends BrowserDatabase<T> {
   constructor({

@@ -1,7 +1,8 @@
 import { BrowserProvider, LocalStorage } from 'stenodb/browser'
-import { User, Users } from './entity.js'
+import { User, Users } from './entities.js'
 
 const adapter = new LocalStorage<Users>('users')
+
 export const storage = new BrowserProvider({
   adapter,
   entity: Users,

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { el } from '@zero-dependency/dom'
-import { User } from './entity.js'
+import { User } from './entities.js'
 import { storage } from './storage.js'
 
 const app = document.querySelector('#app')!
@@ -8,7 +8,7 @@ const app = document.querySelector('#app')!
 const userIdInput = el('input', {
   type: 'number',
   name: 'id',
-  value: storage.data!.getLastUser().id.toString(),
+  value: storage.data!.getLastUserId().toString(),
   disabled: true,
   placeholder: 'UserId'
 })
@@ -49,8 +49,9 @@ const form = el(
       )!
       if (!username) return
 
-      const lastUser = storage.data!.getLastUser()
-      storage.data!.users.push(new User(lastUser.id + 1, username))
+      storage.data!.users.push(
+        new User(storage.data!.getLastUserId() + 1, username)
+      )
       storage.write()
       formReset()
     }
@@ -74,8 +75,7 @@ function serializeForm(elements: HTMLFormControlsCollection) {
 }
 
 function formReset() {
-  const { id } = storage.data!.getLastUser()
   form.reset()
-  userIdInput.value = id.toString()
+  userIdInput.value = storage.data!.getLastUserId().toString()
   usernameInput.focus()
 }

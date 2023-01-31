@@ -1,7 +1,7 @@
-import { LocalStorage, SessionStorage } from './browser/adapter.js'
-import { StenoWriter, StenoWriterSync } from './node/core.js'
+import type { LocalStorage, SessionStorage } from './browser/adapter.js'
 import type { DirectoryProvider } from './directory.js'
 import type { LoggerProvider } from './logger.js'
+import type { StenoWriter, StenoWriterSync } from './node/adapter.js'
 import type { ClassConstructor } from 'class-transformer'
 
 export declare namespace Steno {

@@ -1,5 +1,5 @@
 import { plainToClass } from 'class-transformer'
-import { Steno } from '../types.js'
+import type { Steno } from '../types.js'
 
 export class BrowserDatabase<T> {
   #adapter: Steno.BrowserAdapter<T>

@@ -12,8 +12,8 @@ export class Users {
     this.users.push(user)
   }
 
-  getLastUser(): User {
-    return this.users!.at(-1)!
+  getLastUserId(): number {
+    return this.users!.at(-1)!.id
   }
 }
 

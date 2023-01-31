@@ -4,14 +4,14 @@ import winston, { createLogger } from 'winston'
 import type { Steno } from './types.js'
 
 export class LoggerProvider {
-  private readonly path: string
-  private readonly options: Steno.LoggerProviderOptions
+  #path: string
+  #options: Steno.LoggerProviderOptions
 
-  private readonly timestampFormatter = winston.format.timestamp({
+  #timestampFormatter = winston.format.timestamp({
     format: 'YYYY/MM/DD HH:mm:ss'
   })
 
-  private readonly consoleFormatter = winston.format.printf((info) => {
+  #consoleFormatter = winston.format.printf((info) => {
     const timestamp = this.coloredTimestamp(info.timestamp)
     const level = this.coloredLevel(info.level)
     const message = this.coloredMessage(info.message)
@@ -19,7 +19,7 @@ export class LoggerProvider {
     return `${timestamp} ${level} ${message}${args}`
   })
 
-  private readonly fileFormatter = winston.format.printf((info) => {
+  #fileFormatter = winston.format.printf((info) => {
     const { timestamp, level, message } = info
     const args = info.args[0]
       ? `\n${JSON.stringify(info.args[0], null, 2)}`
@@ -28,8 +28,8 @@ export class LoggerProvider {
   })
 
   constructor(path: string, options?: Steno.LoggerProviderOptions) {
-    this.path = path
-    this.options = options ?? { enabled: false }
+    this.#path = path
+    this.#options = options ?? { enabled: false }
   }
 
   private coloredTimestamp(timestamp: string): string {
@@ -61,22 +61,22 @@ export class LoggerProvider {
   createLogger(name: string) {
     const logger = createLogger({
       level: 'silly',
-      silent: !this.options.enabled,
+      silent: !this.#options.enabled,
       format: winston.format.json(),
       transports: [
         new winston.transports.Console({
           level: 'verbose',
           format: winston.format.combine(
-            this.timestampFormatter,
-            this.consoleFormatter
+            this.#timestampFormatter,
+            this.#consoleFormatter
           )
         }),
         new winston.transports.File({
-          dirname: join(this.path, 'logs'),
+          dirname: join(this.#path, 'logs'),
           filename: `${name}.log`,
           format: winston.format.combine(
-            this.timestampFormatter,
-            this.fileFormatter
+            this.#timestampFormatter,
+            this.#fileFormatter
           )
         })
       ]
@@ -87,17 +87,21 @@ export class LoggerProvider {
 }
 
 export class Logger {
-  constructor(private readonly logger: winston.Logger) {}
+  #logger: winston.Logger
+
+  constructor(logger: winston.Logger) {
+    this.#logger = logger
+  }
 
   info(message: string, ...args: any[]): void {
-    this.logger.info(message, { args })
+    this.#logger.info(message, { args })
   }
 
   warn(message: string, ...args: any[]): void {
-    this.logger.warn(message, { args })
+    this.#logger.warn(message, { args })
   }
 
   error(message: string, ...args: any[]): void {
-    this.logger.error(message, { args })
+    this.#logger.error(message, { args })
   }
 }

@@ -11,9 +11,9 @@ export class User {
   @Type(() => Post)
   posts: Post[]
 
-  constructor(username: string, posts?: Post[]) {
+  constructor(username: string, ...posts: Post[]) {
     this.username = username
-    this.posts = posts ?? []
+    this.posts = posts
   }
 
   addPost(post: Post) {

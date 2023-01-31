@@ -41,7 +41,6 @@ export class NodeProvider {
     })
 
     db.initialData ||= initialData
-
     db.read()
 
     return db

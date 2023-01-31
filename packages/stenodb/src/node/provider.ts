@@ -26,7 +26,7 @@ export class NodeProvider {
   createDatabase<T extends unknown>({
     name,
     entity,
-    initialData
+    initialData = null
   }: Steno.DatabaseOptions<T>): NodeAdapter<T> {
     this.#entity.addEntity(name, entity)
 
@@ -40,9 +40,7 @@ export class NodeProvider {
       logger: this.#loggerProvider
     })
 
-    if (initialData) {
-      db.initialData = initialData
-    }
+    db.initialData ||= initialData
 
     db.read()
 

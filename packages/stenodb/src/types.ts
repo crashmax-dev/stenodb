@@ -23,7 +23,7 @@ export declare namespace Steno {
     name: string
     entity: Entity<T>
     // adapter: NodeAdapter<T>
-    initialData?: T
+    initialData?: T | null
   }
 
   export interface BrowserDatabaseOptions<T> extends DatabaseOptions<T> {

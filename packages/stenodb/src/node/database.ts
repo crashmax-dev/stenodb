@@ -15,7 +15,7 @@ export class NodeAdapter<T extends unknown> {
   #logger: Logger
 
   data: T | null = null
-  initialData: T | null = null
+  initialData: T | null
 
   constructor({
     name,

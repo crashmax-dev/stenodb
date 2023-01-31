@@ -6,7 +6,7 @@ export class BrowserDatabase<T> {
   #entity: Steno.Entity<T>
 
   data: T | null = null
-  initialData: T | null = null
+  initialData: T | null
 
   constructor(adapter: Steno.BrowserAdapter<T>, entity: Steno.Entity<T>) {
     this.#adapter = adapter

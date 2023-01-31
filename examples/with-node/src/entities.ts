@@ -1,4 +1,3 @@
-import 'class-transformer'
 import { Type } from 'class-transformer'
 
 export class Users {

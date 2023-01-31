@@ -1,79 +1,81 @@
 import { plainToClass } from 'class-transformer'
-import { Low } from 'lowdb'
-import { JSONFile } from 'lowdb/node'
+import { StenoWriterSync } from '../core.js'
 import { getDifferenceData } from '../helpers.js'
-import { DirectoryProvider } from '../providers/directory.js'
-import { EntityError } from '../providers/entity.js'
-import { Logger } from '../providers/logger.js'
-import { Lowdb } from '../types.js'
+import { DirectoryProvider } from '../directory.js'
+import { EntityError } from '../entity.js'
+import { Logger } from '../logger.js'
+import { Steno } from '../types.js'
 
-export class NodeAdapter<T extends unknown> implements Lowdb.AsyncAdapter<T> {
+export class NodeAdapter<T extends unknown> {
+  private readonly writer: StenoWriterSync<T>
   private readonly name: string
-  private readonly db: Lowdb.Adapter<T>
   private readonly directory: DirectoryProvider
-  private readonly entity: Lowdb.Entity<T>
+  private readonly entity: Steno.Entity<T>
   private readonly logger: Logger
 
   data: T | null = null
   initialData: T | null = null
 
-  constructor({ name, directory, entity, logger }: Lowdb.AdapterOptions<T>) {
+  constructor({
+    name,
+    directory,
+    entity,
+    logger,
+    writer
+  }: Steno.SyncAdapterOptions<T>) {
     if (!entity) {
       throw new EntityError(`Entity is not defined for '${name}' table.`)
     }
 
-    const file = directory.getDatabaseFile(name)
+    const file = directory.databaseFilePath(name)
     directory.removeFile(file)
 
     this.name = name
     this.directory = directory
+    this.writer = writer
     this.entity = entity
     this.logger = logger.createLogger(name)
-
-    const adapter = new JSONFile<T>(file)
-    this.db = new Low(adapter)
   }
 
-  async read(): Promise<T> {
-    await this.db.read()
+  read(): T {
+    this.data = this.writer.read()
 
-    if (!this.db.data && this.initialData) {
+    if (!this.data && this.initialData) {
       this.logger.info(
-        `Initializing database: ${this.directory.getDatabaseFile(this.name)}`,
+        `Initializing database: ${this.directory.databaseFilePath(this.name)}`,
         this.initialData
       )
-      this.db.data = this.initialData
-      await this.db.write()
+      this.data = this.initialData
+      this.writer.write(this.data)
     }
 
-    this.data = plainToClass(this.entity, this.db.data)
+    this.data = plainToClass(this.entity, this.data)
     return this.data
   }
 
-  async write(): Promise<void> {
-    const diffData = getDifferenceData(this.db.data, this.data)
-    const databasePath = this.directory.getDatabaseFile(this.name)
+  write(): void {
+    const diffData = getDifferenceData(this.data, this.writer.read())
+    const databasePath = this.directory.databaseFilePath(this.name)
     this.logger.info(
       `Writing database: ${databasePath}`,
       diffData ?? 'No changes'
     )
-    this.db.data = this.data
-    await this.db.write()
+    this.writer.write(this.data)
   }
 
-  async reset(): Promise<void> {
+  reset(): void {
     if (this.initialData) {
-      this.directory.createTemporaryFile(this.name)
+      this.writer.reset(this.initialData)
       this.logger.info(
-        `Resetting database: ${this.directory.getDatabaseFile(this.name)}`,
+        `Resetting database: ${this.directory.databaseFilePath(this.name)}`,
         this.initialData
       )
       this.data = this.initialData
-      await this.write()
+      this.write()
     }
   }
 
-  async exists(): Promise<boolean> {
-    return (await this.read()) !== null
+  exists(): boolean {
+    return this.writer.exists()
   }
 }

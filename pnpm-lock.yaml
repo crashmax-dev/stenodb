@@ -52,15 +52,15 @@ importers:
       class-transformer: 0.5.1
       class-validator: 0.14.0
       json-difference: 1.9.1
-      lowdb: 5.0.5
       picocolors: 1.0.0
+      steno: 3.0.0
       winston: 3.8.2
     dependencies:
       class-transformer: 0.5.1
       class-validator: 0.14.0
       json-difference: 1.9.1
-      lowdb: 5.0.5
       picocolors: 1.0.0
+      steno: 3.0.0
       winston: 3.8.2
 
 packages:
@@ -1508,13 +1508,6 @@ packages:
       ms: 2.1.3
       safe-stable-stringify: 2.4.2
       triple-beam: 1.3.0
-    dev: false
-
-  /lowdb/5.0.5:
-    resolution: {integrity: sha512-7EWKmIMhNKA8TXFhL8t0p6N2LC53l3ZqsWQGSksGhhjrcms9rbKlyrAh2PzSGK5v0KPJ2W5VItBnC3NDRzOnzQ==}
-    engines: {node: '>=14.16'}
-    dependencies:
-      steno: 3.0.0
     dev: false
 
   /lru-cache/5.1.1:

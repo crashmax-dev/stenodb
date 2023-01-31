@@ -1,6 +1,7 @@
-import { mkdir, readFile, rmSync, writeFileSync } from 'node:fs'
+import { mkdir, readFile, rmSync } from 'node:fs'
 import { join } from 'node:path'
-import { nanoid } from '../helpers.js'
+import { Writer } from 'steno'
+import { nanoid, parseData } from './helpers.js'
 import { Logger } from './logger.js'
 
 export class DirectoryProvider {
@@ -30,25 +31,20 @@ export class DirectoryProvider {
     })
   }
 
-  createTemporaryFile(filename: string): void {
-    const file = this.getDatabaseFile(filename)
-    readFile(file, (err, buffer) => {
-      if (err) throw err
-
-      const tempFile = this.getDatabaseTemporaryFile(filename)
-      writeFileSync(tempFile, buffer)
-      this.logger.info(`Created temporary database: ${tempFile}`)
-    })
-  }
-
-  getDatabaseFile(filename: string): string {
+  databaseFilePath(filename: string): string {
     return join(this.databasePath, `${filename}.json`)
   }
 
-  getDatabaseTemporaryFile(filename: string): string {
+  temporaryFilePath(filename: string): string {
     return join(
       this.temporaryDirectory,
       `${filename}-${Date.now()}-${nanoid()}.json`
     )
+  }
+
+  createTempFile<T>(filename: string, data: T) {
+    const tempFile = this.temporaryFilePath(filename)
+    const tempFileWriter = new Writer(tempFile)
+    tempFileWriter.write(parseData(data).toString())
   }
 }

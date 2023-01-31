@@ -8,7 +8,7 @@ const databaseProvider = new NodeDatabaseProvider({
   logger: { enabled: true }
 })
 
-const databaseUsers = await databaseProvider.createDatabase({
+const databaseUsers = databaseProvider.create({
   name: 'users',
   entity: Users,
   initialData: {
@@ -16,5 +16,4 @@ const databaseUsers = await databaseProvider.createDatabase({
   }
 })
 
-databaseUsers.data!.users[0]!.addPost(new Post('Lorem ipsum'))
-await databaseUsers.write()
+databaseUsers.reset()

@@ -1,11 +1,11 @@
 import { join } from 'node:path'
 import pico from 'picocolors'
 import winston, { createLogger } from 'winston'
-import type { Lowdb } from '../types.js'
+import type { Steno } from './types.js'
 
 export class LoggerProvider {
   private readonly path: string
-  private readonly options: Lowdb.LoggerProviderOptions
+  private readonly options: Steno.LoggerProviderOptions
 
   private readonly timestampFormatter = winston.format.timestamp({
     format: 'YYYY/MM/DD HH:mm:ss'
@@ -27,7 +27,7 @@ export class LoggerProvider {
     return `[${timestamp}] ${level.toUpperCase()} ${message}${args}`
   })
 
-  constructor(path: string, options?: Lowdb.LoggerProviderOptions) {
+  constructor(path: string, options?: Steno.LoggerProviderOptions) {
     this.path = path
     this.options = options ?? { enabled: false }
   }

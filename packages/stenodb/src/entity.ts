@@ -1,24 +1,24 @@
-import type { Lowdb } from '../types.js'
+import type { Steno } from './types.js'
 import type { Logger, LoggerProvider } from './logger.js'
 
 export class EntityProvider {
-  private readonly entities = new Map<string, Lowdb.Entity>()
+  private readonly entities = new Map<string, Steno.Entity>()
   private readonly logger: Logger
 
   constructor(logger: LoggerProvider) {
     this.logger = logger.createLogger('entity')
   }
 
-  addEntity(name: string, entity: Lowdb.Entity): void {
+  addEntity(name: string, entity: Steno.Entity): void {
     const existEntity = this.getEntity(name)
     if (existEntity || typeof entity !== 'function') return
 
     this.entities.set(name, entity)
-    const entityName = (entity as Lowdb.Entity).constructor.name
+    const entityName = (entity as Steno.Entity).constructor.name
     this.logger.info(`Lowdb.Entity '${entityName}' added to '${name}' table.`)
   }
 
-  getEntity<T>(name: string): Lowdb.Entity<T> | undefined {
+  getEntity<T>(name: string): Steno.Entity<T> | undefined {
     return this.entities.get(name)
   }
 }

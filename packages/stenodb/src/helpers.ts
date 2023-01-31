@@ -13,3 +13,10 @@ export function getDifferenceData<T extends unknown>(
   const differenceData = getDiff(currentData, newData, true)
   return differenceData
 }
+
+export function parseData<T>(data: any) {
+  return {
+    toJSON: () => JSON.parse(data.toString()) as T,
+    toString: () => JSON.stringify(data, null, 2)
+  }
+}

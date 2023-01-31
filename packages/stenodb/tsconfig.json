@@ -3,6 +3,7 @@
   "compilerOptions": {
     "moduleResolution": "NodeNext",
     "outDir": "dist",
+    "declarationDir": "dist",
     "strictNullChecks": true,
     "noPropertyAccessFromIndexSignature": false,
     "noImplicitOverride": false,

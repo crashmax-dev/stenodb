@@ -1,13 +1,11 @@
 import { getDiff } from 'json-difference'
-import type { Delta } from 'json-difference/dist/models/jsondiffer.model.js'
 
-export function getDifferenceData<T extends unknown>(
+export function getDifferenceData<T>(
   currentData: T | null,
   newData: T | null
-): Delta | null {
+) {
   if (!currentData || !newData) return null
-  const differenceData = getDiff(currentData, newData, true)
-  return differenceData
+  return getDiff(currentData, newData, true)
 }
 
 export function parseData<T>(data: any) {

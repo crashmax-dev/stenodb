@@ -1,42 +1,30 @@
 {
-  "name": "stenodb",
+  "name": "@stenodb/workspace",
   "version": "0.0.0",
-  "description": "stenodb",
-  "type": "module",
-  "files": [
-    "dist"
+  "private": true,
+  "workspaces": [
+    "examples/*",
+    "packages/*"
   ],
-  "exports": {
-    ".": "./dist/index.js",
-    "./node": "./dist/node.js",
-    "./browser": "./dist/browser.js"
-  },
   "scripts": {
-    "start": "pnpm build && node dist/index.js",
-    "dev": "nodemon",
-    "build": "del-cli dist && tsc -p tsconfig.build.json",
+    "dev": "turbo run dev --filter=./packages/*",
+    "dev:examples": "turbo run dev --filter=./examples/*",
+    "build": "turbo run build --filter=./packages/*",
+    "build:examples": "turbo run build --filter=./examples/*",
     "format": "prettier --write --ignore-unknown **",
-    "prepublishOnly": "pnpm build"
+    "prepare": "pnpm build"
   },
   "devDependencies": {
-    "@crashmax/prettier-config": "^2.2.1",
-    "@crashmax/tsconfig": "^1.0.2",
-    "@types/node": "^18.11.18",
-    "cross-env": "^7.0.3",
-    "del-cli": "^5.0.0",
-    "nodemon": "^2.0.20",
-    "reflect-metadata": "^0.1.13",
-    "ts-node": "^10.9.1",
-    "tsx": "^3.12.2",
-    "typescript": "^4.9.4"
-  },
-  "dependencies": {
-    "class-transformer": "0.5.1",
-    "class-validator": "0.14.0",
-    "json-difference": "1.9.1",
-    "lowdb": "5.0.5",
-    "picocolors": "1.0.0",
-    "winston": "3.8.2"
+    "@crashmax/prettier-config": "2.2.1",
+    "@crashmax/tsconfig": "1.0.2",
+    "@types/node": "18.11.18",
+    "cross-env": "7.0.3",
+    "del-cli": "5.0.0",
+    "nodemon": "2.0.20",
+    "ts-node": "10.9.1",
+    "tsx": "3.12.2",
+    "turbo": "^1.7.0",
+    "typescript": "4.9.4"
   },
   "engines": {
     "node": ">=16"

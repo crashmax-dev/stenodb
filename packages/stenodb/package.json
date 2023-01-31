@@ -7,9 +7,17 @@
     "dist"
   ],
   "types": "dist",
+  "typesVersions": {
+    "*": {
+      "browser": [
+        "./dist/browser.d.ts"
+      ]
+    }
+  },
   "exports": {
     ".": "./dist/index.js",
-    "./node": "./dist/node.js"
+    "./node": "./dist/node.js",
+    "./browser": "./dist/browser.js"
   },
   "scripts": {
     "dev": "nodemon",

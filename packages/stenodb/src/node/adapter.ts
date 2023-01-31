@@ -1,10 +1,10 @@
 import { plainToClass } from 'class-transformer'
-import { StenoWriterSync } from '../core.js'
-import { getDifferenceData } from '../helpers.js'
 import { DirectoryProvider } from '../directory.js'
 import { EntityError } from '../entity.js'
+import { getDifferenceData } from '../helpers.js'
 import { Logger } from '../logger.js'
 import { Steno } from '../types.js'
+import { StenoWriterSync } from './core.js'
 
 export class NodeAdapter<T extends unknown> {
   private readonly writer: StenoWriterSync<T>

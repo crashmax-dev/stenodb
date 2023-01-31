@@ -1,9 +1,9 @@
 import { sep } from 'node:path'
-import { StenoWriterSync } from '../core.js'
 import { DirectoryProvider } from '../directory.js'
 import { EntityProvider } from '../entity.js'
 import { LoggerProvider } from '../logger.js'
 import { NodeAdapter } from './adapter.js'
+import { StenoWriterSync } from './core.js'
 import type { Logger } from '../logger.js'
 import type { Steno } from '../types.js'
 

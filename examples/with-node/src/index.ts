@@ -10,10 +10,7 @@ const databaseProvider = new NodeDatabaseProvider({
 
 const databaseUsers = databaseProvider.create({
   name: 'users',
-  entity: Users,
-  initialData: {
-    users: [new User('John Doe')]
-  }
+  entity: Users
 })
 
 databaseUsers.reset()

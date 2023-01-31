@@ -1,9 +1,9 @@
 import { readFile, readFileSync } from 'node:fs'
 import { readFile as readFileAsync } from 'node:fs/promises'
 import { Writer } from 'steno'
-import { parseData } from './helpers.js'
-import type { DirectoryProvider } from './directory.js'
-import type { Steno } from './types.js'
+import { parseData } from '../helpers.js'
+import type { DirectoryProvider } from '../directory.js'
+import type { Steno } from '../types.js'
 
 export class StenoWriterSync<T> implements Steno.SyncWriter<T> {
   #filename: string

@@ -10,7 +10,6 @@ npm install stenodb
 
 ```typescript
 // entities.ts
-import 'class-transformer'
 import { Type } from 'class-transformer'
 
 export class Users {

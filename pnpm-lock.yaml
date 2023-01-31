@@ -26,11 +26,15 @@ importers:
 
   examples/with-browser:
     specifiers:
+      '@zero-dependency/dom': ^0.12.0
+      class-transformer: 0.5.1
       reflect-metadata: 0.1.13
       stenodb: workspace:*
       typescript: 4.9.4
       vite: 4.0.4
     dependencies:
+      '@zero-dependency/dom': 0.12.0
+      class-transformer: 0.5.1
       reflect-metadata: 0.1.13
       stenodb: link:../../packages/stenodb
     devDependencies:
@@ -665,6 +669,16 @@ packages:
 
   /@types/validator/13.7.11:
     resolution: {integrity: sha512-WqTos+CnAKN64YwyBMhgUYhb5VsTNKwUY6AuzG5qu9/pFZJar/RJFMZBXwX7VS+uzYi+lIAr3WkvuWqEI9F2eg==}
+    dev: false
+
+  /@zero-dependency/dom/0.12.0:
+    resolution: {integrity: sha512-afswu8W+/+ELG+YHii6M475Cbkn4bmsWrdHZcU+8EibOzQSx8xk6nWco0vV2F0iTcEFsaa1QBn9NTS4K6i4Y1g==}
+    dependencies:
+      '@zero-dependency/emitter': 1.1.1
+    dev: false
+
+  /@zero-dependency/emitter/1.1.1:
+    resolution: {integrity: sha512-bPF9QeEQdOhe1Bfpm+mqOS4JrajPiHTj5vMvOSMvZp5jZzzgd8lC87JL93xWGgL8Qb3E98JZkmnYJX3JdmrEIA==}
     dev: false
 
   /abbrev/1.1.1:

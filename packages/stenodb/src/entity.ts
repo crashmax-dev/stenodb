@@ -1,5 +1,5 @@
-import type { Steno } from './types.js'
 import type { Logger, LoggerProvider } from './logger.js'
+import type { Steno } from './types.js'
 
 export class EntityProvider {
   private readonly entities = new Map<string, Steno.Entity>()

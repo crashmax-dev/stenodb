@@ -3,12 +3,8 @@
   "compilerOptions": {
     "moduleResolution": "NodeNext",
     "outDir": "dist",
-    "declarationDir": "dist",
     "strictNullChecks": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noImplicitOverride": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "noPropertyAccessFromIndexSignature": false
   },
   "include": [
     "src"

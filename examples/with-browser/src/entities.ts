@@ -19,10 +19,14 @@ export class Users {
 
 export class User {
   id: number
-  name: string
+  username: string
 
-  constructor(id: number, name: string) {
+  constructor(id: number, username: string) {
     this.id = id
-    this.name = name
+    this.username = username
+  }
+
+  changeUsername(username: string): void {
+    this.username = username
   }
 }

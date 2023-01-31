@@ -67,15 +67,13 @@ export class NodeAdapter<T extends unknown> {
   }
 
   reset(): void {
-    if (this.initialData) {
-      this.#adapter.reset(this.initialData)
-      this.#logger.info(
-        `Resetting database: ${this.#directory.databaseFilePath(this.#name)}`,
-        this.initialData
-      )
-      this.data = this.initialData
-      this.write()
-    }
+    if (!this.initialData) return
+    this.#adapter.reset(plainToClass(this.#entity, this.initialData))
+    this.read()
+    this.#logger.info(
+      `Resetting database: ${this.#directory.databaseFilePath(this.#name)}`,
+      this.data
+    )
   }
 
   exists(): boolean {

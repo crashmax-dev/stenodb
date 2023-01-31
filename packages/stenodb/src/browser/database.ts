@@ -29,10 +29,10 @@ export class BrowserDatabase<T> {
     this.#adapter.write(this.data)
   }
 
-  reset(): T | null {
-    if (!this.initialData) return null
+  reset(): void {
+    if (!this.initialData) return
     this.#adapter.reset(plainToClass(this.#entity, this.initialData))
-    return this.read()
+    this.read()
   }
 
   exists(): boolean {

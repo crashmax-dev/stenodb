@@ -7,6 +7,8 @@ export class Users {
 
 export class User {
   username: string
+
+  @Type(() => Post)
   posts: Post[]
 
   constructor(username: string, posts?: Post[]) {
@@ -23,6 +25,10 @@ export class Post {
   title: string
 
   constructor(title: string) {
+    this.title = title
+  }
+
+  changeTitle(title: string) {
     this.title = title
   }
 }

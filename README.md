@@ -1,12 +1,26 @@
-# stenodb
+# stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
 
-## Installation
+> 🪶 Easy to use local JSON database. Ready to use with [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage), [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage) and Node.js.
+
+## Install
 
 ```sh
 npm install stenodb
 ```
 
+```sh
+yarn add stenodb
+```
+
+```sh
+pnpm add stenodb
+```
+
 ## Usage
+
+> **Warning**\
+> stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
+
 
 ### Entity
 ```typescript
@@ -88,3 +102,14 @@ const databaseUsers = new BrowserProvider({
 databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 databaseUsers.write()
 ```
+
+## Related
+
+- [steno](https://github.com/typicode/steno) - Specialized fast async file writer.
+- [class-transforme](https://github.com/typestack/class-transformer) - Decorator-based transformation, serialization, and deserialization between objects and classes.
+- [class-validator](https://github.com/typestack/class-validator) - Decorator-based property validation for classes.
+- [json-difference](https://github.com/andreyvit/json-diff) - Structural diff for JSON files.
+
+## License
+
+MIT - [crashmax](https://github.com/crashmax-dev)

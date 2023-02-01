@@ -106,9 +106,9 @@ databaseUsers.write()
 ## Related
 
 - [steno](https://github.com/typicode/steno) - Specialized fast async file writer.
-- [class-transforme](https://github.com/typestack/class-transformer) - Decorator-based transformation, serialization, and deserialization between objects and classes.
+- [class-transformer](https://github.com/typestack/class-transformer) - Decorator-based transformation, serialization, and deserialization between objects and classes.
 - [class-validator](https://github.com/typestack/class-validator) - Decorator-based property validation for classes.
-- [json-difference](https://github.com/andreyvit/json-diff) - Structural diff for JSON files.
+- [json-difference](https://github.com/lukascivil/json-difference) - Structural diff for JSON files.
 
 ## License
 

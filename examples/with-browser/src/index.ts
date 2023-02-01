@@ -8,9 +8,7 @@ const app = document.querySelector('#app')!
 const userIdInput = el('input', {
   type: 'number',
   name: 'id',
-  value: storage.data!.getLastUserId().toString(),
-  disabled: true,
-  placeholder: 'UserId'
+  disabled: true
 })
 
 const usernameInput = el('input', {
@@ -32,7 +30,7 @@ const resetButton = el(
   {
     onclick: () => {
       storage.reset()
-      formReset()
+      render()
     }
   },
   'Reset'
@@ -43,39 +41,33 @@ const form = el(
   {
     onsubmit: (event: Event) => {
       event.preventDefault()
-      const data = serializeForm(form.elements)
-      const { value: username } = data.find(
-        (element) => element.name === 'username'
-      )!
-      if (!username) return
-
-      storage.data!.users.push(
+      const formData = new FormData(form)
+      const username = formData.get('username')?.toString()
+      if (!username) {
+        usernameInput.focus()
+        return
+      }
+      storage.data!.addUser(
         new User(storage.data!.getLastUserId() + 1, username)
       )
       storage.write()
-      formReset()
+      render()
     }
   },
   userIdInput,
   usernameInput,
-  submitButton
+  submitButton,
+  resetButton
 )
 
-app.append(form, resetButton)
+const storagePreview = el('pre')
 
-function serializeForm(elements: HTMLFormControlsCollection) {
-  const formData = Array.from(elements)
-    .filter((element) => !!(element as HTMLInputElement).name)
-    .map((element) => {
-      const { name, value } = element as HTMLInputElement
-      return { name, value }
-    })
-
-  return formData
-}
-
-function formReset() {
+function render() {
   form.reset()
-  userIdInput.value = storage.data!.getLastUserId().toString()
   usernameInput.focus()
+  userIdInput.value = storage.data!.getLastUserId().toString()
+  storagePreview.textContent = JSON.stringify(storage.data, null, 2)
 }
+
+render()
+app.append(form, storagePreview)

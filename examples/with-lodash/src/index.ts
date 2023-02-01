@@ -8,9 +8,7 @@ const app = document.querySelector('#app')!
 const userIdInput = el('input', {
   type: 'number',
   name: 'id',
-  value: storage.getLastUserId().toString(),
-  disabled: true,
-  placeholder: 'UserId'
+  disabled: true
 })
 
 const usernameInput = el('input', {

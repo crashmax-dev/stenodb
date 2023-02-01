@@ -14,8 +14,7 @@ export class EntityProvider {
     if (existEntity || typeof entity !== 'function') return
 
     this.#entities.set(name, entity)
-    const entityName = (entity as Steno.Entity).constructor.name
-    this.#logger.info(`Lowdb.Entity '${entityName}' added to '${name}' table.`)
+    this.#logger.info(`Entity "${entity.name}" register for "${name}" table.`)
   }
 
   getEntity<T>(name: string): Steno.Entity<T> | undefined {
@@ -24,8 +23,8 @@ export class EntityProvider {
 }
 
 export class EntityError extends Error {
-  constructor() {
+  constructor(name: string) {
     super()
-    this.message = 'EntityError: Entity not found.'
+    this.message = `EntityError: Entity not registered for ${name} table.`
   }
 }

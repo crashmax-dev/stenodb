@@ -10,6 +10,8 @@ export class BrowserDatabase<T> {
 
   constructor(adapter: Steno.BrowserAdapter<T>, entity: Steno.Entity<T>) {
     this.#adapter = adapter
+
+    // TODO: validate entity
     this.#entity = entity
   }
 

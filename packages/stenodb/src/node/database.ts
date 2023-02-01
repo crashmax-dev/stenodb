@@ -25,7 +25,7 @@ export class NodeAdapter<T extends unknown> {
     adapter
   }: Steno.NodeAdapterOptions<T>) {
     if (!entity) {
-      throw new EntityError()
+      throw new EntityError(name)
     }
 
     const file = directory.databaseFilePath(name)

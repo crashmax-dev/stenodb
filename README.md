@@ -79,12 +79,12 @@ import { Users, User, Post } from './entities.js'
 
 const adapter = new LocalStorage<Users>('users')
 
-const usersStorage = new BrowserProvider({
+const databaseUsers = new BrowserProvider({
   adapter,
   entity: Users,
-  initialData: new Users(new User(1, 'John'))
+  initialData: new Users(new User('John Doe'))
 })
 
-usersStorage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-usersStorage.write()
+databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+databaseUsers.write()
 ```

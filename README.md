@@ -15,6 +15,10 @@ import { Type } from 'class-transformer'
 export class Users {
   @Type(() => User)
   users: User[]
+
+  constructor(...users: User[]) {
+    this.users = users
+  }
 }
 
 export class User {
@@ -36,7 +40,7 @@ export class User {
 export class Post {
   title: string
 
-  constructor(title: string) {
+  constructor(text: string) {
     this.title = title
   }
 }
@@ -50,22 +54,21 @@ import { join } from 'node:path'
 import { NodeProvider } from 'stenodb/node'
 import { Users, User, Post } from './entities.js'
 
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+
 const databaseProvider = new NodeProvider({
-  path: join(process.cwd(), 'database'),
+  path,
   logger: { enabled: true }
 })
 
 const databaseUsers = databaseProvider.createDatabase({
   name: 'users',
   entity: Users,
-  initialData: {
-    users: [new User('John Doe')]
-  }
+  initialData: new Users(new User('John Doe'))
 })
 
 databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 databaseUsers.write()
-
 ```
 
 ### Browser
@@ -76,12 +79,12 @@ import { Users, User, Post } from './entities.js'
 
 const adapter = new LocalStorage<Users>('users')
 
-export const storage = new BrowserProvider({
+const usersStorage = new BrowserProvider({
   adapter,
   entity: Users,
   initialData: new Users(new User(1, 'John'))
 })
 
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-databaseUsers.write()
+usersStorage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+usersStorage.write()
 ```

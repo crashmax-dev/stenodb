@@ -1,9 +1,6 @@
 import { getDiff } from 'json-difference'
 
-export function getDifferenceData<T>(
-  currentData: T | null,
-  newData: T | null
-) {
+export function getDifferenceData<T>(currentData: T | null, newData: T | null) {
   if (!currentData || !newData) return null
   return getDiff(currentData, newData, true)
 }

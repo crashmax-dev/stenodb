@@ -1,10 +1,13 @@
 import 'reflect-metadata'
-import { join } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { NodeProvider } from 'stenodb/node'
 import { Post, User, Users } from './entities.js'
 
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+
 const databaseProvider = new NodeProvider({
-  path: join(process.cwd(), 'database'),
+  path,
   logger: { enabled: true }
 })
 

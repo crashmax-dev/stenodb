@@ -47,10 +47,8 @@ const form = el(
         usernameInput.focus()
         return
       }
-      storage.data!.addUser(
-        new User(storage.data!.getLastUserId() + 1, username)
-      )
-      storage.write()
+
+      storage.addUser(new User(storage.getLastUserId() + 1, username))
       render()
     }
   },
@@ -65,7 +63,7 @@ const storagePreview = el('pre')
 function render() {
   form.reset()
   usernameInput.focus()
-  userIdInput.value = storage.data!.getLastUserId().toString()
+  userIdInput.value = storage.getLastUserId().toString()
   storagePreview.textContent = JSON.stringify(storage.data, null, 2)
 }
 

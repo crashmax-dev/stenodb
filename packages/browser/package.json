@@ -1,0 +1,25 @@
+{
+  "name": "@stenodb/browser",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@stenodb/utils": "workspace:0.0.0",
+    "class-transformer": "0.5.1",
+    "steno": "3.0.0"
+  },
+  "peerDependencies": {
+    "class-transformer": ">=0.5.0"
+  }
+}

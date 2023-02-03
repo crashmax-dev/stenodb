@@ -1,0 +1,20 @@
+{
+  "name": "@stenodb/utils",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "json-difference": "1.9.1"
+  }
+}

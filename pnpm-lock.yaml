@@ -74,6 +74,16 @@ importers:
       reflect-metadata: 0.1.13
       stenodb: link:../../packages/stenodb
 
+  packages/browser:
+    specifiers:
+      '@stenodb/utils': workspace:0.0.0
+      class-transformer: 0.5.1
+      steno: 3.0.0
+    dependencies:
+      '@stenodb/utils': link:../utils
+      class-transformer: 0.5.1
+      steno: 3.0.0
+
   packages/stenodb:
     specifiers:
       class-transformer: 0.5.1
@@ -87,6 +97,12 @@ importers:
       picocolors: 1.0.0
       steno: 3.0.0
       winston: 3.8.2
+
+  packages/utils:
+    specifiers:
+      json-difference: 1.9.1
+    dependencies:
+      json-difference: 1.9.1
 
 packages:
 

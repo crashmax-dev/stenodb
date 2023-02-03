@@ -10,14 +10,16 @@ interface SyncAdapter<T> {
 export class BrowserStorage<T> implements SyncAdapter<T> {
   #name: string
   #storage: Storage
-
-  entity: Entity<T>
+  #entity: Entity<T>
 
   constructor(name: string, storage: Storage, entity: Entity<T>) {
     this.#name = name
     this.#storage = storage
+    this.#entity = entity
+  }
 
-    this.entity = entity
+  get entity(): Entity<T> {
+    return this.#entity
   }
 
   read(): T | null {

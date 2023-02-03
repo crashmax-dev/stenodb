@@ -6,12 +6,8 @@ export class BaseProvider<T> {
   #data: T | null = null
   #initialData: T | null = null
 
-  constructor(adapter: NodeAdapter<T>, initialData?: T) {
+  constructor(adapter: NodeAdapter<T>) {
     this.#adapter = adapter
-
-    if (initialData) {
-      this.setInitialData(initialData)
-    }
   }
 
   get data(): T | null {
@@ -22,7 +18,12 @@ export class BaseProvider<T> {
     this.#data = data
   }
 
-  setInitialData(data: T | null) {
+  get initialData(): T | null {
+    return this.#initialData
+  }
+
+  set initialData(data: T | undefined | null) {
+    if (!data) return
     this.#initialData = data
   }
 }

@@ -1,9 +1,9 @@
 import { BrowserProvider } from './BrowserProvider.js'
-import type { BrowserDatabaseOptions } from './types.js'
+import type { BrowserAdapter } from './types.js'
 
 export class BrowserDatabase<T extends unknown> extends BrowserProvider<T> {
-  constructor({ adapter, initialData }: BrowserDatabaseOptions<T>) {
+  constructor(adapter: BrowserAdapter<T>, initialData?: T) {
     super(adapter)
-    this.setInitialData(initialData)
+    this.initialData = initialData
   }
 }

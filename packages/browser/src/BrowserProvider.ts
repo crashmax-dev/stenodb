@@ -10,6 +10,14 @@ export class BrowserProvider<T> {
     this.#adapter = adapter
   }
 
+  get data(): T | null {
+    return this.#data
+  }
+
+  set data(data: T | null) {
+    this.#data = data
+  }
+
   setInitialData(data?: T): void {
     if (!data) return
     this.#initialData = data

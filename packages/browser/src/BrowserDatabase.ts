@@ -1,4 +1,4 @@
-import { BrowserProvider } from './provider.js'
+import { BrowserProvider } from './BrowserProvider.js'
 import type { BrowserDatabaseOptions } from './types.js'
 
 export class BrowserDatabase<T extends unknown> extends BrowserProvider<T> {

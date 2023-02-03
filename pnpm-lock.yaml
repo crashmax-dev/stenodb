@@ -78,6 +78,14 @@ importers:
     specifiers:
       '@stenodb/utils': workspace:0.0.0
       class-transformer: 0.5.1
+    dependencies:
+      '@stenodb/utils': link:../utils
+      class-transformer: 0.5.1
+
+  packages/node:
+    specifiers:
+      '@stenodb/utils': workspace:0.0.0
+      class-transformer: 0.5.1
       steno: 3.0.0
     dependencies:
       '@stenodb/utils': link:../utils

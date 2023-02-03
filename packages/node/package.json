@@ -1,5 +1,5 @@
 {
-  "name": "@stenodb/browser",
+  "name": "@stenodb/node",
   "version": "0.0.0",
   "type": "module",
   "files": [
@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "@stenodb/utils": "workspace:0.0.0",
-    "class-transformer": "0.5.1"
+    "class-transformer": "0.5.1",
+    "steno": "3.0.0"
   },
   "peerDependencies": {
     "class-transformer": ">=0.5.0"

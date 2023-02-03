@@ -1,5 +1,5 @@
 import { parseData } from '@stenodb/utils'
-import { Entity } from '../types.js'
+import type { Entity } from '../types.js'
 
 interface SyncAdapter<T> {
   read(): T | null

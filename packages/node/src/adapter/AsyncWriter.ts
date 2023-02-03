@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import { parseData } from '@stenodb/utils'
-import { Entity } from '../types.js'
 import { BaseWriter } from './BaseWriter.js'
+import type { Entity } from '../types.js'
 
 interface AsyncAdapter<T> {
   read(): Promise<T | null>

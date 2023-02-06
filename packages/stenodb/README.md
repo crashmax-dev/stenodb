@@ -1,6 +1,6 @@
 # stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
 
-> ✍ Easy to use local JSON database. Ready to use with [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage), [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage) and [Node.js](https://nodejs.org).
+> ✍ Easy to use local JSON database. Ready to use with [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage), [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage) and Node.js.
 
 ## Install
 
@@ -16,20 +16,20 @@ yarn add stenodb
 pnpm add stenodb
 ```
 
-| Package | Version | Platform |
+| Package | Version | Description |
 | ------- | ------ | ----------- |
-| [stenodb](./packages/stenodb) | [![](https://img.shields.io/npm/v/stenodb)](https://npm.im/stenodb) | Reexports packages |
-| [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser |
+| [stenodb](./packages/stenodb) | [![](https://img.shields.io/npm/v/stenodb)](https://npm.im/stenodb) | Meta package |
+| [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | ... |
+| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | ... |
 
 ## Usage
 
 > **Warning**\
 > stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
+
 ### Database entities
 ```typescript
-// entities.ts
 import { Type } from 'class-transformer'
 
 export class Users {
@@ -70,8 +70,7 @@ export class Post {
 
 ```typescript
 import 'reflect-metadata'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 import { AsyncWriter, NodeDatabase } from '@stenodb/node'
 import { Users, User, Post } from './entities.js'
 
@@ -101,13 +100,12 @@ databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 databaseUsers.write()
 ```
 
-## Credits
+## Related
 
 - [steno](https://github.com/typicode/steno) - Specialized fast async file writer.
 - [class-transformer](https://github.com/typestack/class-transformer) - Decorator-based transformation, serialization, and deserialization between objects and classes.
 - [class-validator](https://github.com/typestack/class-validator) - Decorator-based property validation for classes.
 - [json-difference](https://github.com/lukascivil/json-difference) - A simple way to find the difference between two objects or json diff.
-- [tslog](https://github.com/fullstack-build/tslog) - Universal Logger for TypeScript and JavaScript.
 
 ## License
 

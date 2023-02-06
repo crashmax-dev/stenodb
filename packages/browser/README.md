@@ -1,33 +1,26 @@
-# stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
+# @stenodb/browser [![](https://img.shields.io/npm/v/@stenodb/browser)](https://www.npmjs.org/package/@stenodb/browser)
 
-> ✍ Easy to use local JSON database. Ready to use with [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage), [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage) and [Node.js](https://nodejs.org).
+> ✍ Easy to use local JSON database for [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage) and [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage).
 
 ## Install
 
 ```sh
-npm install stenodb
+npm install @stenodb/browser
 ```
 
 ```sh
-yarn add stenodb
+yarn add @stenodb/browser
 ```
 
 ```sh
-pnpm add stenodb
+pnpm add @stenodb/browser
 ```
-
-| Package | Version | Platform |
-| ------- | ------ | ----------- |
-| [stenodb](./packages/stenodb) | [![](https://img.shields.io/npm/v/stenodb)](https://npm.im/stenodb) | Reexports packages |
-| [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser |
 
 ## Usage
 
 > **Warning**\
 > stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
-### Database entities
 ```typescript
 // entities.ts
 import { Type } from 'class-transformer'
@@ -66,28 +59,8 @@ export class Post {
 }
 ```
 
-### `@stenodb/node`
-
 ```typescript
-import 'reflect-metadata'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { AsyncWriter, NodeDatabase } from '@stenodb/node'
-import { Users, User, Post } from './entities.js'
-
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
-const adapter = new AsyncWriter('users', Users)
-const initialData = new Users(new User('John Doe'))
-const database = new NodeDatabase(path)
-const databaseUsers = database.create(adapter, initialData)
-
-await databaseUsers.read()
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-await databaseUsers.write()
-```
-
-### `@stenodb/browser`
-```typescript
+// index.ts
 import 'reflect-metadata'
 import { LocalStorage, BrowserDatabase } from '@stenodb/browser'
 import { Users, User, Post } from './entities.js'

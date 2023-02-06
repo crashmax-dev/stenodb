@@ -1,0 +1,47 @@
+{
+  "name": "stenodb",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "typesVersions": {
+    "*": {
+      "node": [
+        "./dist/node.d.ts"
+      ],
+      "node/types": [
+        "./dist/node-types.d.ts"
+      ],
+      "browser": [
+        "./dist/browser.d.ts"
+      ],
+      "browser/types": [
+        "./dist/browser-types.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./node": "./dist/node.js",
+    "./node/types": "./dist/node-types.js",
+    "./browser": "./dist/browser.js",
+    "./browser/types": "./dist/browser-types.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@stenodb/browser": "workspace:0.0.0",
+    "@stenodb/node": "workspace:0.0.0"
+  },
+  "peerDependencies": {
+    "class-transformer": ">=0.5.0"
+  },
+  "engines": {
+    "node": ">=14.16"
+  }
+}

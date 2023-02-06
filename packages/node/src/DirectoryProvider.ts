@@ -8,9 +8,9 @@ export class DirectoryProvider {
   temporaryPath: string
 
   constructor(path: string) {
-    if (!lstatSync(path).isDirectory()) {
-      throw new Error('Path must be a directory')
-    }
+    // if (!lstatSync(path).isDirectory()) {
+    //   throw new Error('Path must be a directory')
+    // }
 
     this.databasePath = path
     this.temporaryPath = join(this.databasePath, 'temp')

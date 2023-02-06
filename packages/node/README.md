@@ -1,6 +1,6 @@
 # @stenodb/node [![](https://img.shields.io/npm/v/@stenodb/node)](https://www.npmjs.org/package/@stenodb/node)
 
-> ✍ Easy to use local JSON database for [Node.js](https://nodejs.org).
+> ✍ Easy to use local JSON database.
 
 ## Install
 

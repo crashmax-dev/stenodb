@@ -1,6 +1,6 @@
 # stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
 
-> ✍ Easy to use local JSON database. Ready to use with [LocalStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/localStorage), [SessionStorage](https://developer.mozilla.org/ru/docs/Web/API/Window/sessionStorage) and [Node.js](https://nodejs.org).
+> ✍ Easy to use local JSON database. Ready to use in browser (localStorage, sessionStorage) and Node.js.
 
 ## Install
 

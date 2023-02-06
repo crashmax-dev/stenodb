@@ -35,7 +35,7 @@ export class SyncWriter<T> extends BaseWriter<T> implements SyncAdapter<T> {
   reset(initialData: T): void {
     try {
       const data = this.read()
-      this.directory.createTemporaryFile(this.name, data).write()
+      this.directory.createTemporaryFile(this.name, data)?.write()
       this.write(initialData)
     } catch (err) {
       throw err

@@ -41,7 +41,9 @@ export class DirectoryProvider {
     return join(this.temporaryPath, `${filename}-${Date.now()}.json`)
   }
 
-  createTemporaryFile<T>(filename: string, data: T) {
+  createTemporaryFile<T>(filename: string, data: T | null) {
+    if (!data) return
+
     const file = this.temporaryFilePath(filename)
     const writer = new Writer(file)
     const parsedData =

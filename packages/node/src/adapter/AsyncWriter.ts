@@ -35,7 +35,7 @@ export class AsyncWriter<T> extends BaseWriter<T> implements AsyncAdapter<T> {
   async reset(initialData: T): Promise<void> {
     try {
       const data = await this.read()
-      await this.directory.createTemporaryFile(this.name, data).writeAsync()
+      await this.directory.createTemporaryFile(this.name, data)?.writeAsync()
       await this.write(initialData)
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code === 'ENOENT') {

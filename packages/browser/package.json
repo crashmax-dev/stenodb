@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/browser",
   "description": "✍ Easy to use local JSON database",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "files": [
     "dist"
@@ -49,7 +49,7 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@stenodb/utils": "workspace:0.0.0",
+    "@stenodb/utils": "workspace:2.0.0",
     "class-transformer": "0.5.1"
   },
   "peerDependencies": {

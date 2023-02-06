@@ -2,8 +2,7 @@
   "extends": "@crashmax/tsconfig",
   "compilerOptions": {
     "moduleResolution": "NodeNext",
-    "outDir": "dist",
-    "noPropertyAccessFromIndexSignature": false
+    "outDir": "dist"
   },
   "include": [
     "src"

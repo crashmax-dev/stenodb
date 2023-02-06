@@ -6,7 +6,6 @@ importers:
     specifiers:
       '@crashmax/prettier-config': 2.2.1
       '@crashmax/tsconfig': 1.0.2
-      '@types/node': 18.11.18
       cross-env: 7.0.3
       del-cli: 5.0.0
       nodemon: 2.0.20
@@ -17,11 +16,10 @@ importers:
     devDependencies:
       '@crashmax/prettier-config': 2.2.1_za6dmrbiogn3z6m2plsv3qsi6m
       '@crashmax/tsconfig': 1.0.2
-      '@types/node': 18.11.18
       cross-env: 7.0.3
       del-cli: 5.0.0
       nodemon: 2.0.20
-      ts-node: 10.9.1_bdgp3l2zgaopogaavxusmetvge
+      ts-node: 10.9.1_qqdszkrtcshgbphghj7vnvrrby
       tsx: 3.12.2
       turbo: 1.7.2
       typescript: 4.9.5
@@ -67,12 +65,32 @@ importers:
   examples/with-node:
     specifiers:
       '@stenodb/node': workspace:*
+      '@types/node': 18.11.19
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
     dependencies:
       '@stenodb/node': link:../../packages/node
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
+    devDependencies:
+      '@types/node': 18.11.19
+
+  examples/with-node-lodash:
+    specifiers:
+      '@stenodb/node': workspace:*
+      '@types/lodash': 4.14.191
+      '@types/node': 18.11.19
+      class-transformer: 0.5.1
+      lodash: 4.17.21
+      reflect-metadata: 0.1.13
+    dependencies:
+      '@stenodb/node': link:../../packages/node
+      class-transformer: 0.5.1
+      lodash: 4.17.21
+      reflect-metadata: 0.1.13
+    devDependencies:
+      '@types/lodash': 4.14.191
+      '@types/node': 18.11.19
 
   packages/browser:
     specifiers:
@@ -85,12 +103,15 @@ importers:
   packages/node:
     specifiers:
       '@stenodb/utils': workspace:0.0.0
+      '@types/node': 18.11.19
       class-transformer: 0.5.1
       steno: 3.0.0
     dependencies:
       '@stenodb/utils': link:../utils
       class-transformer: 0.5.1
       steno: 3.0.0
+    devDependencies:
+      '@types/node': 18.11.19
 
   packages/stenodb:
     specifiers:
@@ -108,9 +129,12 @@ importers:
 
   packages/utils:
     specifiers:
+      '@types/node': 18.11.19
       json-difference: 1.9.1
     dependencies:
       json-difference: 1.9.1
+    devDependencies:
+      '@types/node': 18.11.19
 
 packages:
 
@@ -708,8 +732,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node/18.11.18:
-    resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+  /@types/node/18.11.19:
+    resolution: {integrity: sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -2061,7 +2085,7 @@ packages:
     resolution: {integrity: sha512-XrHUvV5HpdLmIj4uVMxHggLbFSZYIn7HEWsqePZcI50pco+MPqJ50wMGY794X7AOOhxOBAjbkqfAbEe/QMp2Lw==}
     dev: false
 
-  /ts-node/10.9.1_bdgp3l2zgaopogaavxusmetvge:
+  /ts-node/10.9.1_qqdszkrtcshgbphghj7vnvrrby:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -2080,7 +2104,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.11.18
+      '@types/node': 18.11.19
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3

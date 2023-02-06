@@ -6,8 +6,16 @@
     "dist"
   ],
   "types": "dist",
+  "typesVersions": {
+    "*": {
+      "types": [
+        "./dist/types.d.ts"
+      ]
+    }
+  },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./types": "./dist/types.js"
   },
   "scripts": {
     "dev": "tsc --watch",

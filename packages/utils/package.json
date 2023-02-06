@@ -17,6 +17,9 @@
   "dependencies": {
     "json-difference": "1.9.1"
   },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  },
   "engines": {
     "node": ">=14.16"
   }

@@ -47,9 +47,8 @@ const form = el(
         usernameInput.focus()
         return
       }
-      storage.data!.addUser(
-        new User(storage.data!.getLastUserId() + 1, username)
-      )
+      const user = new User(storage.data!.getLastUserId() + 1, username)
+      storage.data!.addUser(user)
       storage.write()
       render()
     }

@@ -1,5 +1,5 @@
 {
-  "name": "stenodb",
+  "name": "@stenodb/node",
   "description": "✍ Easy to use local JSON database",
   "version": "2.0.0",
   "type": "module",
@@ -9,26 +9,14 @@
   "types": "dist",
   "typesVersions": {
     "*": {
-      "node": [
-        "./dist/node.d.ts"
-      ],
-      "node/types": [
-        "./dist/node-types.d.ts"
-      ],
-      "browser": [
-        "./dist/browser.d.ts"
-      ],
-      "browser/types": [
-        "./dist/browser-types.d.ts"
+      "types": [
+        "./dist/types.d.ts"
       ]
     }
   },
   "exports": {
     ".": "./dist/index.js",
-    "./node": "./dist/node.js",
-    "./node/types": "./dist/node-types.js",
-    "./browser": "./dist/browser.js",
-    "./browser/types": "./dist/browser-types.js"
+    "./types": "./dist/types.js"
   },
   "author": {
     "name": "Vitalij Ryndin",
@@ -36,7 +24,7 @@
     "url": "https://crashmax.ru"
   },
   "license": "MIT",
-  "homepage": "https://github.com/crashmax-dev/stenodb#readme",
+  "homepage": "https://github.com/crashmax-dev/stenodb/packages/node#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/crashmax-dev/stenodb.git"
@@ -47,10 +35,7 @@
   "keywords": [
     "db",
     "database",
-    "browser",
     "local",
-    "localStorage",
-    "sessionStorage",
     "class-transformer",
     "JSON",
     "ESM"
@@ -61,8 +46,12 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@stenodb/browser": "workspace:2.0.0",
-    "@stenodb/node": "workspace:2.0.0"
+    "@stenodb/utils": "workspace:2.0.0",
+    "class-transformer": "0.5.1",
+    "steno": "3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19"
   },
   "peerDependencies": {
     "class-transformer": ">=0.5.0"

@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { el } from '@zero-dependency/dom'
 import { User } from './entities.js'
-import { storage } from './storage.js'
+import { addUser, getLastUserId, storage } from './storage.js'
 
 const app = document.querySelector('#app')!
 
@@ -48,7 +48,7 @@ const form = el(
         return
       }
 
-      storage.addUser(new User(storage.getLastUserId() + 1, username))
+      addUser(new User(getLastUserId() + 1, username))
       render()
     }
   },
@@ -63,7 +63,7 @@ const storagePreview = el('pre')
 function render() {
   form.reset()
   usernameInput.focus()
-  userIdInput.value = storage.getLastUserId().toString()
+  userIdInput.value = getLastUserId().toString()
   storagePreview.textContent = JSON.stringify(storage.data, null, 2)
 }
 

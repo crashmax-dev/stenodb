@@ -1,33 +1,26 @@
-# stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
+# @stenodb/node [![](https://img.shields.io/npm/v/@stenodb/node)](https://www.npmjs.org/package/@stenodb/node)
 
-> ✍ Easy to use local JSON database. Ready to use in browser (localStorage, sessionStorage) and Node.js.
+> ✍ Easy to use local JSON database.
 
 ## Install
 
 ```sh
-npm install stenodb
+npm install @stenodb/node
 ```
 
 ```sh
-yarn add stenodb
+yarn add @stenodb/node
 ```
 
 ```sh
-pnpm add stenodb
+pnpm add @stenodb/node
 ```
-
-| Package | Version | Platform |
-| ------- | ------ | ----------- |
-| [stenodb](./packages/stenodb) | [![](https://img.shields.io/npm/v/stenodb)](https://npm.im/stenodb) | Reexports packages |
-| [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser |
 
 ## Usage
 
 > **Warning**\
 > stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
-### Database entities
 ```typescript
 // entities.ts
 import { Type } from 'class-transformer'
@@ -66,9 +59,8 @@ export class Post {
 }
 ```
 
-### `@stenodb/node`
-
 ```typescript
+// index.ts
 import 'reflect-metadata'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -84,21 +76,6 @@ const databaseUsers = database.create(adapter, initialData)
 await databaseUsers.read()
 databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 await databaseUsers.write()
-```
-
-### `@stenodb/browser`
-```typescript
-import 'reflect-metadata'
-import { LocalStorage, BrowserDatabase } from '@stenodb/browser'
-import { Users, User, Post } from './entities.js'
-
-const adapter = new LocalStorage('users', Users)
-const initialData = new Users(new User('John Doe'))
-const databaseUsers = new BrowserDatabase(adapter, initialData)
-
-databaseUsers.read()
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-databaseUsers.write()
 ```
 
 ## Credits

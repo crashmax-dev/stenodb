@@ -6,9 +6,10 @@ import { Post, User, Users } from './entities.js'
 
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const adapter = new AsyncWriter('users', Users)
+const initialData = new Users(new User('John Doe'))
 const database = new NodeDatabase(path)
 
-const usersDatabase = database.create(adapter, new Users(new User('John Doe')))
+const usersDatabase = database.create(adapter, initialData)
 await usersDatabase.read()
 
 const post = new Post('Hello world')

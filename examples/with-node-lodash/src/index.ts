@@ -6,15 +6,10 @@ import lodash from 'lodash'
 import { User, Users } from './entities.js'
 import type { NodeProvider } from '@stenodb/node/types'
 
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
-const adapter = new AsyncWriter('users', Users)
-
-class NodeWithLodash<T> {
-  provider: NodeProvider<T>
+export class NodeWithLodash<T> {
   chain: lodash.ExpChain<T>
 
-  constructor(provider: NodeProvider<T>) {
-    this.provider = provider
+  constructor(private readonly provider: NodeProvider<T>) {
     this.chain = lodash.chain(provider).get('data')
   }
 
@@ -31,11 +26,16 @@ class NodeWithLodash<T> {
   }
 }
 
-const db = new NodeDatabase(path)
-const usersDatabase = new NodeWithLodash(
-  db.create(adapter, new Users(new User(1, 'John Doe')))
-)
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+const adapter = new AsyncWriter('users', Users)
+const initialData = new Users(new User(1, 'John Doe'))
+const database = new NodeDatabase(path)
 
+const usersDatabase = new NodeWithLodash(database.create(adapter, initialData))
 await usersDatabase.read()
-const user = usersDatabase.chain.get('users').find({ id: 1 }).value()
-console.log(user)
+
+function findUserById(id: number) {
+  return usersDatabase.chain.get('users').find({ id }).value()
+}
+
+console.log(findUserById(1))

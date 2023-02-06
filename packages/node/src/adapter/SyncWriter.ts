@@ -11,13 +11,13 @@ interface SyncAdapter<T> {
 }
 
 export class SyncWriter<T> extends BaseWriter<T> implements SyncAdapter<T> {
-  constructor(path: string, entity: Entity<T>) {
-    super(path, entity)
+  constructor(name: string, entity: Entity<T>) {
+    super(name, entity)
   }
 
   read(): T | null {
     try {
-      const data = readFileSync(this.path, 'utf-8')
+      const data = readFileSync(this.file, 'utf-8')
       return parseData<T>(data).toJSON()
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
@@ -35,7 +35,7 @@ export class SyncWriter<T> extends BaseWriter<T> implements SyncAdapter<T> {
   reset(initialData: T): void {
     try {
       const data = this.read()
-      this.directory.createTempFile(data).write()
+      this.directory.createTemporaryFile(this.name, data).write()
       this.write(initialData)
     } catch (err) {
       throw err

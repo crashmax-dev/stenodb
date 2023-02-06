@@ -66,13 +66,13 @@ importers:
 
   examples/with-node:
     specifiers:
+      '@stenodb/node': workspace:*
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
-      stenodb: workspace:*
     dependencies:
+      '@stenodb/node': link:../../packages/node
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
-      stenodb: link:../../packages/stenodb
 
   packages/browser:
     specifiers:

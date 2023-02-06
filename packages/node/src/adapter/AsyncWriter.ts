@@ -17,7 +17,7 @@ export class AsyncWriter<T> extends BaseWriter<T> implements AsyncAdapter<T> {
 
   async read(): Promise<T | null> {
     try {
-      const data = await readFile(this.path, 'utf-8')
+      const data = await readFile(this.file, 'utf-8')
       return parseData<T>(data).toJSON()
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code === 'ENOENT') {
@@ -34,8 +34,8 @@ export class AsyncWriter<T> extends BaseWriter<T> implements AsyncAdapter<T> {
 
   async reset(initialData: T): Promise<void> {
     try {
-      const data = await readFile(this.path, 'utf-8')
-      await this.directory.createTempFile(data).writeAsync()
+      const data = await this.read()
+      await this.directory.createTemporaryFile(this.name, data).writeAsync()
       await this.write(initialData)
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code === 'ENOENT') {

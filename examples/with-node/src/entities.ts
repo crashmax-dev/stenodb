@@ -3,6 +3,10 @@ import { Type } from 'class-transformer'
 export class Users {
   @Type(() => User)
   users: User[]
+
+  constructor(...users: User[]) {
+    this.users = users
+  }
 }
 
 export class User {

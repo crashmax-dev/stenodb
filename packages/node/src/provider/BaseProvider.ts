@@ -1,14 +1,6 @@
-import type { NodeAdapter } from '../types.js'
-
 export class BaseProvider<T> {
-  #adapter: NodeAdapter<T>
-
   #data: T | null = null
   #initialData: T | null = null
-
-  constructor(adapter: NodeAdapter<T>) {
-    this.#adapter = adapter
-  }
 
   get data(): T | null {
     return this.#data

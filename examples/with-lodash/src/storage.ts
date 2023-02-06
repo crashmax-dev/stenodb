@@ -1,16 +1,15 @@
+import { BrowserDatabase, LocalStorage } from '@stenodb/browser'
 import lodash from 'lodash'
-import { BrowserProvider, LocalStorage } from 'stenodb/browser'
 import { User, Users } from './entities.js'
 
-class StorageWithLodash extends BrowserProvider<Users> {
+const adapter = new LocalStorage('users', Users)
+const initialData = new Users(new User(1, 'John'))
+
+class StorageWithLodash extends BrowserDatabase<Users> {
   chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data')
 
   constructor() {
-    super({
-      entity: Users,
-      adapter: new LocalStorage<Users>('users'),
-      initialData: new Users(new User(1, 'John'))
-    })
+    super(adapter, initialData)
   }
 
   addUser(user: User): void {
@@ -24,3 +23,4 @@ class StorageWithLodash extends BrowserProvider<Users> {
 }
 
 export const storage = new StorageWithLodash()
+storage.read()

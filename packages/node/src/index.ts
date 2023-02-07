@@ -1,3 +1,3 @@
-export * from './adapter/AsyncWriter.js'
-export * from './adapter/SyncWriter.js'
-export * from './NodeDatabase.js'
+export * from './adapter/AsyncAdapter.js'
+export * from './adapter/SyncAdapter.js'
+export * from './provider/NodeProvider.js'

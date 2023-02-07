@@ -1,37 +1,32 @@
-import { plainToClass } from 'class-transformer'
-import { SyncWriter } from '../index.js'
+import { SyncAdapter } from '../index.js'
 import { BaseProvider } from './BaseProvider.js'
 
 export class SyncProvider<T> extends BaseProvider<T> {
-  #adapter: SyncWriter<T>
+  #adapter: SyncAdapter<T>
 
-  constructor(adapter: SyncWriter<T>, initialData?: T) {
-    super()
-
+  constructor(adapter: SyncAdapter<T>) {
+    super(adapter)
     this.#adapter = adapter
-    this.initialData = initialData
   }
 
   read(): T | null {
-    this.data = this.#adapter.read()
+    this.#adapter.read()
 
     if (!this.data) {
       this.reset()
     } else {
-      this.data = plainToClass(this.#adapter.entity, this.data)
+      this.data = this.#adapter.plainData()
     }
 
     return this.data
   }
 
   write(): void {
-    this.#adapter.write(this.data)
+    this.#adapter.write()
   }
 
   reset(): void {
-    if (!this.initialData) return
-    this.data = plainToClass(this.#adapter.entity, this.initialData)
-    this.#adapter.reset(this.data)
+    this.#adapter.reset()
   }
 
   exists(): boolean {

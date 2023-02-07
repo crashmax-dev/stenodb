@@ -1,4 +1,4 @@
-import { lstatSync, mkdir, readFile, rmSync } from 'node:fs'
+import { mkdir, readFile, rmSync } from 'node:fs'
 import { join } from 'node:path'
 import { parseData } from '@stenodb/utils'
 import { Writer } from 'steno'
@@ -8,10 +8,6 @@ export class DirectoryProvider {
   temporaryPath: string
 
   constructor(path: string) {
-    // if (!lstatSync(path).isDirectory()) {
-    //   throw new Error('Path must be a directory')
-    // }
-
     this.databasePath = path
     this.temporaryPath = join(this.databasePath, 'temp')
     this.createDatabaseDir()
@@ -41,7 +37,7 @@ export class DirectoryProvider {
     return join(this.temporaryPath, `${filename}-${Date.now()}.json`)
   }
 
-  createTemporaryFile<T>(filename: string, data: T | null) {
+  createTemporaryFile<T>(filename: string, data: T | string | null) {
     if (!data) return
 
     const file = this.temporaryFilePath(filename)

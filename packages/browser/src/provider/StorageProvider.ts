@@ -1,10 +1,10 @@
-import { SyncAdapter } from '../index.js'
 import { BaseProvider } from './BaseProvider.js'
+import type { Steno } from '../types.js'
 
-export class SyncProvider<T> extends BaseProvider<T> {
-  #adapter: SyncAdapter<T>
+export class StorageProvider<T> extends BaseProvider<T> {
+  #adapter: Steno.BrowserAdapter<T>
 
-  constructor(adapter: SyncAdapter<T>) {
+  constructor(adapter: Steno.BrowserAdapter<T>) {
     super(adapter)
     this.#adapter = adapter
   }

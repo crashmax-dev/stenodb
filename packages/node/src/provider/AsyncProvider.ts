@@ -1,36 +1,32 @@
-import { plainToClass } from 'class-transformer'
-import { AsyncWriter } from '../index.js'
+import { AsyncAdapter } from '../index.js'
 import { BaseProvider } from './BaseProvider.js'
 
 export class AsyncProvider<T> extends BaseProvider<T> {
-  #adapter: AsyncWriter<T>
+  #adapter: AsyncAdapter<T>
 
-  constructor(adapter: AsyncWriter<T>, initialData?: T) {
-    super()
+  constructor(adapter: AsyncAdapter<T>) {
+    super(adapter)
     this.#adapter = adapter
-    this.initialData = initialData
   }
 
   async read(): Promise<T | null> {
-    this.data = await this.#adapter.read()
+    await this.#adapter.read()
 
     if (!this.data) {
       await this.reset()
     } else {
-      this.data = plainToClass(this.#adapter.entity, this.data)
+      this.data = this.#adapter.plainData()
     }
 
     return this.data
   }
 
   async write(): Promise<void> {
-    await this.#adapter.write(this.data)
+    await this.#adapter.write()
   }
 
   async reset(): Promise<void> {
-    if (!this.initialData) return
-    this.data = plainToClass(this.#adapter.entity, this.initialData)
-    await this.#adapter.reset(this.data)
+    await this.#adapter.reset()
   }
 
   async exists(): Promise<boolean> {

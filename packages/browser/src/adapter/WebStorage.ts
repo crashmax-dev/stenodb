@@ -1,34 +1,52 @@
 import { parseData } from '@stenodb/utils'
-import type { Entity } from '../types.js'
+import { plainToClass } from 'class-transformer'
+import type { Steno } from '../types.js'
 
-interface SyncAdapter<T> {
-  read(): T | null
-  write(data: T | null): void
-  exists(): boolean
-}
+export class BrowserStorage<T> {
+  name: string
+  storage: Storage
+  entity: Steno.Entity<T>
 
-export class BrowserStorage<T> implements SyncAdapter<T> {
-  #name: string
-  #storage: Storage
-  #entity: Entity<T>
+  data: T | null = null
+  initialData: T | null = null
 
-  constructor(name: string, storage: Storage, entity: Entity<T>) {
-    this.#name = name
-    this.#storage = storage
-    this.#entity = entity
+  constructor(
+    name: string,
+    storage: Storage,
+    entity: Steno.Entity<T>,
+    initialData?: T
+  ) {
+    this.name = name
+    this.storage = storage
+    this.entity = entity
+
+    if (initialData) {
+      this.initialData = initialData
+    }
   }
 
-  get entity(): Entity<T> {
-    return this.#entity
+  plainData(data: T | string | null = this.data): T | null {
+    if (!data) return null
+
+    const parsedData =
+      typeof data === 'string' ? parseData<T>(data).toJSON() : data
+
+    return plainToClass(this.entity, parsedData)
   }
 
-  read(): T | null {
-    const data = this.#storage.getItem(this.#name)
-    return data ? parseData<T>(data).toJSON() : null
+  read(): void {
+    const data = this.storage.getItem(this.name)
+    this.data = data ? this.plainData(data) : null
   }
 
-  write(data: T | null): void {
-    this.#storage.setItem(this.#name, parseData(data).toString())
+  write(): void {
+    this.storage.setItem(this.name, parseData(this.data).toString())
+  }
+
+  reset(): void {
+    if (!this.initialData) return
+    this.data = plainToClass(this.entity, this.initialData)
+    this.write()
   }
 
   exists(): boolean {

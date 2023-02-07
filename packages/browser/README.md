@@ -62,16 +62,17 @@ export class Post {
 ```typescript
 // index.ts
 import 'reflect-metadata'
-import { LocalStorage, BrowserDatabase } from '@stenodb/browser'
+import { LocalStorage, BrowserProvider } from '@stenodb/browser'
 import { Users, User, Post } from './entities.js'
 
-const adapter = new LocalStorage('users', Users)
 const initialData = new Users(new User('John Doe'))
-const databaseUsers = new BrowserDatabase(adapter, initialData)
+const adapter = new LocalStorage('users', Users, initialData)
+const provider = new BrowserProvider()
+const storage = provider.create(adapter)
 
-databaseUsers.read()
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-databaseUsers.write()
+storage.read()
+storage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+storage.write()
 ```
 
 ## Credits

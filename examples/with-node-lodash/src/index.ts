@@ -17,12 +17,16 @@ export class NodeWithLodash<T> {
     return this.provider.data
   }
 
-  async read(): Promise<void> {
-    await this.provider.read()
+  async read(): Promise<T | null> {
+    return await this.provider.read()
   }
 
   async write(): Promise<void> {
     await this.provider.write()
+  }
+
+  async reset(): Promise<void> {
+    await this.provider.reset()
   }
 }
 

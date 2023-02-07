@@ -1,20 +1,37 @@
-import { BrowserDatabase, LocalStorage } from '@stenodb/browser'
+import { BrowserProvider, LocalStorage } from '@stenodb/browser'
+import { Steno } from '@stenodb/browser/types'
 import lodash from 'lodash'
 import { User, Users } from './entities.js'
-import type { BrowserAdapter } from '@stenodb/browser/types'
 
-class StorageWithLodash<T> extends BrowserDatabase<T> {
-  chain: lodash.ExpChain<this['data']> = lodash.chain(this).get('data')
+export class BrowserWithLodash<T> {
+  chain: lodash.ExpChain<T>
 
-  constructor(adapter: BrowserAdapter<T>, initialData: T) {
-    super(adapter, initialData)
+  constructor(private readonly provider: Steno.BrowserProvider<T>) {
+    this.chain = lodash.chain(provider).get('data')
+  }
+
+  get data(): T | null {
+    return this.provider.data
+  }
+
+  read(): T | null {
+    return this.provider.read()
+  }
+
+  write(): void {
+    this.provider.write()
+  }
+
+  reset(): void {
+    this.provider.reset()
   }
 }
 
-const adapter = new LocalStorage('users', Users)
 const initialData = new Users(new User(1, 'John'))
+const adapter = new LocalStorage('users', Users, initialData)
+const provider = new BrowserProvider()
 
-export const storage = new StorageWithLodash(adapter, initialData)
+export const storage = new BrowserWithLodash(provider.create(adapter))
 storage.read()
 
 export function addUser(user: User): void {

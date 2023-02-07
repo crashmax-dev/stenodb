@@ -1,9 +1,9 @@
 import type { Steno } from '../types.js'
 
 export class BaseProvider<T> {
-  #adapter: Steno.NodeAdapter<T>
+  #adapter: Steno.BrowserAdapter<T>
 
-  constructor(adapter: Steno.NodeAdapter<T>) {
+  constructor(adapter: Steno.BrowserAdapter<T>) {
     this.#adapter = adapter
   }
 

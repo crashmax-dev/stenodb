@@ -72,33 +72,34 @@ export class Post {
 import 'reflect-metadata'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { AsyncWriter, NodeDatabase } from '@stenodb/node'
+import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import { Users, User, Post } from './entities.js'
 
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
-const adapter = new AsyncWriter('users', Users)
 const initialData = new Users(new User('John Doe'))
-const database = new NodeDatabase(path)
-const databaseUsers = database.create(adapter, initialData)
+const adapter = new AsyncAdapter('users', Users, initialData)
+const provider = new NodeProvider(path)
+const database = provider.createAsync(adapter)
 
-await databaseUsers.read()
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-await databaseUsers.write()
+await database.read()
+database.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+await database.write()
 ```
 
 ### `@stenodb/browser`
 ```typescript
 import 'reflect-metadata'
-import { LocalStorage, BrowserDatabase } from '@stenodb/browser'
+import { LocalStorage, BrowserProvider } from '@stenodb/browser'
 import { Users, User, Post } from './entities.js'
 
-const adapter = new LocalStorage('users', Users)
 const initialData = new Users(new User('John Doe'))
-const databaseUsers = new BrowserDatabase(adapter, initialData)
+const adapter = new LocalStorage('users', Users, initialData)
+const provider = new BrowserProvider()
+const storage = provider.create(adapter)
 
-databaseUsers.read()
-databaseUsers.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-databaseUsers.write()
+storage.read()
+storage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+storage.write()
 ```
 
 ## Credits

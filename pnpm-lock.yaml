@@ -94,7 +94,7 @@ importers:
 
   packages/browser:
     specifiers:
-      '@stenodb/utils': workspace:2.0.0
+      '@stenodb/utils': workspace:3.0.0
       class-transformer: 0.5.1
     dependencies:
       '@stenodb/utils': link:../utils
@@ -102,7 +102,7 @@ importers:
 
   packages/node:
     specifiers:
-      '@stenodb/utils': workspace:2.0.0
+      '@stenodb/utils': workspace:3.0.0
       '@types/node': 18.11.19
       class-transformer: 0.5.1
       steno: 3.0.0
@@ -115,8 +115,8 @@ importers:
 
   packages/stenodb:
     specifiers:
-      '@stenodb/browser': workspace:2.0.0
-      '@stenodb/node': workspace:2.0.0
+      '@stenodb/browser': workspace:3.0.0
+      '@stenodb/node': workspace:3.0.0
       class-transformer: '>=0.5.0'
     dependencies:
       '@stenodb/browser': link:../browser

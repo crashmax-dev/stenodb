@@ -18,7 +18,6 @@ pnpm add stenodb
 
 | Package | Version | Platform |
 | ------- | ------ | ----------- |
-| [stenodb](./packages/stenodb) | [![](https://img.shields.io/npm/v/stenodb)](https://npm.im/stenodb) | Reexports packages |
 | [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
 | [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser |
 

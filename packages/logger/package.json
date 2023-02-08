@@ -6,8 +6,16 @@
     "dist"
   ],
   "types": "dist",
+  "typesVersions": {
+    "*": {
+      "rotation": [
+        "./dist/rotation.d.ts"
+      ]
+    }
+  },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./rotation": "./dist/rotation.js"
   },
   "scripts": {
     "dev": "tsc --watch",

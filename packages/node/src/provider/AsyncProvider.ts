@@ -14,8 +14,6 @@ export class AsyncProvider<T> extends BaseProvider<T> {
 
     if (!this.data) {
       await this.reset()
-    } else {
-      this.data = this.#adapter.plainData()
     }
 
     return this.data

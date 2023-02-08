@@ -1,5 +1,4 @@
 import { readFileSync } from 'node:fs'
-import { parseData } from '@stenodb/utils'
 import { BaseAdapter } from './BaseAdapter.js'
 import type { Steno } from '../types.js'
 
@@ -11,25 +10,43 @@ export class SyncAdapter<T> extends BaseAdapter<T> {
   read(): void {
     try {
       const file = readFileSync(this.filePath, 'utf-8')
-      this.data = this.plainData(file)
+      this.data = this.dataTransformer.toJSON(file)
+      this.logger?.info('Read data from file', this.data)
     } catch (err) {
-      console.log(err)
+      if (!this.data) {
+        this.reset()
+      }
+
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+        this.logger?.error('Failed to read data from file', err)
+      }
     }
   }
 
   write(): void {
-    this.writer.write(parseData(this.data).toString())
+    this.writer.write(this.dataTransformer.toString(this.data))
+    this.logger?.info('Write data to file', this.data)
   }
 
   reset(): void {
-    if (!this.initialData) return
+    if (!this.initialData) {
+      this.logger?.warn('No initial data to reset to')
+      return
+    }
 
     try {
-      this.directory.createTemporaryFile(this.fileName, this.data)?.write()
-      this.data = this.initialData
+      this.directory
+        .createTemporaryFile(
+          this.fileName,
+          this.dataTransformer.toString(this.data)
+        )
+        ?.write()
+      this.data = this.dataTransformer.toJSON(this.initialData)
       this.write()
     } catch (err) {
-      throw err
+      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
+        this.logger?.error('Failed to read data from file', err)
+      }
     }
   }
 

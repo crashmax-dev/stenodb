@@ -1,15 +1,19 @@
-import { parseData } from '@stenodb/utils'
-import { plainToClass } from 'class-transformer'
+import { BaseLogger } from '@stenodb/logger'
+import { dataTransformer, entityTransformer } from '@stenodb/utils'
 import { Writer } from 'steno'
 import type { DirectoryProvider } from '../provider/DirectoryProvider.js'
 import type { Steno } from '../types.js'
+import type { DataTransformer, EntityTransformer } from '@stenodb/utils'
 
 export class BaseAdapter<T> {
   fileName: string
-  entity: Steno.Entity<T>
+  filePath: string
+
+  entityTransformer: EntityTransformer<T>
+  dataTransformer: DataTransformer<T>
 
   directory: DirectoryProvider
-  filePath: string
+  logger: BaseLogger | undefined
   writer: Writer
 
   data: T | null = null
@@ -17,20 +21,16 @@ export class BaseAdapter<T> {
 
   constructor(fileName: string, entity: Steno.Entity<T>, initialData?: T) {
     this.fileName = fileName
-    this.entity = entity
+    this.entityTransformer = entityTransformer(entity)
+    this.dataTransformer = dataTransformer(this.entityTransformer)
 
     if (initialData) {
       this.initialData = initialData
     }
   }
 
-  plainData(data: T | string | null = this.data): T | null {
-    if (!data) return null
-
-    const parsedData =
-      typeof data === 'string' ? parseData<T>(data).toJSON() : data
-
-    return plainToClass(this.entity, parsedData)
+  registerLogger(logger: BaseLogger): void {
+    this.logger = logger
   }
 
   registerDirectory(directory: DirectoryProvider): void {

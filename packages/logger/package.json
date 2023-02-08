@@ -1,27 +1,35 @@
 {
-  "name": "@stenodb/utils",
+  "name": "@stenodb/logger",
   "version": "3.0.0",
   "type": "module",
   "files": [
     "dist"
   ],
   "types": "dist",
+  "typesVersions": {
+    "*": {
+      "rotation": [
+        "./dist/rotation.d.ts"
+      ]
+    }
+  },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./dist/index.js",
+    "./rotation": "./dist/rotation.js"
   },
   "scripts": {
     "dev": "tsc --watch",
     "build": "del-cli dist && tsc",
     "prepublishOnly": "pnpm build"
   },
-  "dependencies": {
-    "class-transformer": "0.5.1",
-    "json-difference": "1.9.1"
-  },
   "devDependencies": {
     "@types/node": "18.11.19"
   },
   "engines": {
     "node": ">=14.16"
+  },
+  "dependencies": {
+    "rotating-file-stream": "3.0.4",
+    "tslog": "4.7.2"
   }
 }

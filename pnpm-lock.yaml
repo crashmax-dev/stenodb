@@ -11,7 +11,7 @@ importers:
       nodemon: 2.0.20
       ts-node: 10.9.1
       tsx: 3.12.3
-      turbo: 1.7.3
+      turbo: 1.7.4
       typescript: 4.9.5
     devDependencies:
       '@crashmax/prettier-config': 2.2.1_za6dmrbiogn3z6m2plsv3qsi6m
@@ -19,9 +19,9 @@ importers:
       cross-env: 7.0.3
       del-cli: 5.0.0
       nodemon: 2.0.20
-      ts-node: 10.9.1_qqdszkrtcshgbphghj7vnvrrby
+      ts-node: 10.9.1_4bewfcp2iebiwuold25d6rgcsy
       tsx: 3.12.3
-      turbo: 1.7.3
+      turbo: 1.7.4
       typescript: 4.9.5
 
   examples/with-browser:
@@ -62,13 +62,34 @@ importers:
       typescript: 4.9.5
       vite: 4.1.1
 
+  examples/with-logger:
+    specifiers:
+      '@stenodb/browser': workspace:*
+      '@stenodb/logger': workspace:*
+      '@zero-dependency/dom': 0.12.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.1.13
+      typescript: 4.9.5
+      vite: 4.1.1
+    dependencies:
+      '@stenodb/browser': link:../../packages/browser
+      '@stenodb/logger': link:../../packages/logger
+      '@zero-dependency/dom': 0.12.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.1.13
+    devDependencies:
+      typescript: 4.9.5
+      vite: 4.1.1
+
   examples/with-node:
     specifiers:
+      '@stenodb/logger': workspace:*
       '@stenodb/node': workspace:*
       '@types/node': 18.11.19
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
     dependencies:
+      '@stenodb/logger': link:../../packages/logger
       '@stenodb/node': link:../../packages/node
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
@@ -94,19 +115,34 @@ importers:
 
   packages/browser:
     specifiers:
+      '@stenodb/logger': workspace:3.0.0
       '@stenodb/utils': workspace:3.0.0
-      class-transformer: 0.5.1
+      class-transformer: '>=0.5.0'
     dependencies:
+      '@stenodb/logger': link:../logger
       '@stenodb/utils': link:../utils
       class-transformer: 0.5.1
 
+  packages/logger:
+    specifiers:
+      '@types/node': 18.11.19
+      rotating-file-stream: 3.0.4
+      tslog: 4.7.2
+    dependencies:
+      rotating-file-stream: 3.0.4
+      tslog: 4.7.2
+    devDependencies:
+      '@types/node': 18.11.19
+
   packages/node:
     specifiers:
+      '@stenodb/logger': workspace:3.0.0
       '@stenodb/utils': workspace:3.0.0
       '@types/node': 18.11.19
-      class-transformer: 0.5.1
+      class-transformer: '>=0.5.0'
       steno: 3.0.0
     dependencies:
+      '@stenodb/logger': link:../logger
       '@stenodb/utils': link:../utils
       class-transformer: 0.5.1
       steno: 3.0.0
@@ -126,8 +162,10 @@ importers:
   packages/utils:
     specifiers:
       '@types/node': 18.11.19
+      class-transformer: 0.5.1
       json-difference: 1.9.1
     dependencies:
+      class-transformer: 0.5.1
       json-difference: 1.9.1
     devDependencies:
       '@types/node': 18.11.19
@@ -145,7 +183,7 @@ packages:
   /@augment-vir/common/6.4.0:
     resolution: {integrity: sha512-UA66AC3eFv5B43MvO0iz9BheW/rjzZNK+g1eodiIl9W5tfBuQ7J/XsGRh08GJu3iDUyRu8aae/iqLHorrweacg==}
     dependencies:
-      type-fest: 3.5.5
+      type-fest: 3.5.6
     dev: true
 
   /@babel/code-frame/7.18.6:
@@ -719,6 +757,10 @@ packages:
     resolution: {integrity: sha512-YUgMWAQBWLObABqrvx8qKO1enAvBUdjZOAWQ5grBAkp5LQv45jBvYKZ3oFS9iKRCQyFjqw6iuEa1vmFqtxYLZw==}
     dev: true
 
+  /@types/node/18.13.0:
+    resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
+    dev: true
+
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
     dev: true
@@ -808,8 +850,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001450
-      electron-to-chromium: 1.4.286
+      caniuse-lite: 1.0.30001451
+      electron-to-chromium: 1.4.289
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10_browserslist@4.21.5
     dev: true
@@ -833,8 +875,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001450:
-    resolution: {integrity: sha512-qMBmvmQmFXaSxexkjjfMvD5rnDL0+m+dUMZKoDYsGG8iZN29RuYh9eRoMvKsT6uMAWlyUUGDEQGJJYjzCIO9ew==}
+  /caniuse-lite/1.0.30001451:
+    resolution: {integrity: sha512-XY7UbUpGRatZzoRft//5xOa69/1iGJRBlrieH6QYrkKLIFn3m7OVEJ81dSrKoy2BnKsdbX5cLrOispZNYo9v2w==}
     dev: true
 
   /chalk/2.4.2:
@@ -988,8 +1030,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /electron-to-chromium/1.4.286:
-    resolution: {integrity: sha512-Vp3CVhmYpgf4iXNKAucoQUDcCrBQX3XLBtwgFqP9BUXuucgvAV9zWp1kYU7LL9j4++s9O+12cb3wMtN4SJy6UQ==}
+  /electron-to-chromium/1.4.289:
+    resolution: {integrity: sha512-relLdMfPBxqGCxy7Gyfm1HcbRPcFUJdlgnCPVgQ23sr1TvUrRJz0/QPoGP0+x41wOVSTN/Wi3w6YDgHiHJGOzg==}
     dev: true
 
   /error-ex/1.3.2:
@@ -1813,6 +1855,11 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /rotating-file-stream/3.0.4:
+    resolution: {integrity: sha512-Zd+IA5soqBUKtCa7KfMRnF7GKEaRav/dJFU7UHc+r1FMd8VvMLUFE0q1HX5s6XJO1cZ6jAqtTa/ZFnjc7IqlJA==}
+    engines: {node: '>=14.0'}
+    dev: false
+
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -1953,7 +2000,7 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /ts-node/10.9.1_qqdszkrtcshgbphghj7vnvrrby:
+  /ts-node/10.9.1_4bewfcp2iebiwuold25d6rgcsy:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -1972,7 +2019,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.11.19
+      '@types/node': 18.13.0
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
@@ -1983,6 +2030,11 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
+
+  /tslog/4.7.2:
+    resolution: {integrity: sha512-NZCunFmbQK25tt+Egv28MLcmbo8M1HgUy6X2hdVbgrAlcR7zRGvPmM8SnpoljXZ48zHRRYWp9vYIHFHKWsR4HA==}
+    engines: {node: '>=16'}
+    dev: false
 
   /tsx/3.12.3:
     resolution: {integrity: sha512-Wc5BFH1xccYTXaQob+lEcimkcb/Pq+0en2s+ruiX0VEIC80nV7/0s7XRahx8NnsoCnpCVUPz8wrqVSPi760LkA==}
@@ -1995,65 +2047,65 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /turbo-darwin-64/1.7.3:
-    resolution: {integrity: sha512-7j9+j1CVztmdevnClT3rG/GRhULf3ukwmv+l48l8uwsXNI53zLso+UYMql6RsjZDbD6sESwh0CHeKNwGmOylFA==}
+  /turbo-darwin-64/1.7.4:
+    resolution: {integrity: sha512-ZyYrQlUl8K/mYN1e6R7bEhPPYjMakz0DYMaexkyD7TAijQtWmTSd4a+I7VknOYNEssnUZ/v41GU3gPV1JAzxxQ==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64/1.7.3:
-    resolution: {integrity: sha512-puS9+pqpiy4MrIvWRBTg3qfO2+JPXR7reQcXQ7qUreuyAJnSw9H9/TIHjeK6FFxUfQbmruylPtH6dNpfcML9CA==}
+  /turbo-darwin-arm64/1.7.4:
+    resolution: {integrity: sha512-CKIXg9uqp1a+Yeq/c4U0alPOqvwLUq5SBZf1PGYhGqJsfG0fRBtJfkUjHuBsuJIOGXg8rCmcGSWGIsIF6fqYuw==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64/1.7.3:
-    resolution: {integrity: sha512-BnbpgcK8Wag6fhnff7tMaecswmFHN/T56VIDnjcwcJnK9H3jdwpjwZlmcDtkoslzjPj3VuqHyqLDMvSb3ejXSg==}
+  /turbo-linux-64/1.7.4:
+    resolution: {integrity: sha512-RIUl4RUFFyzD2T024vL7509Ygwcw+SEa8NOwPfaN6TtJHK7RZV/SBP3fLNVOptG9WRLnOWX3OvsLMbiOqDLLyA==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64/1.7.3:
-    resolution: {integrity: sha512-+epY+0dfjmAJNZHfj7rID2hENRaeM3D0Ijqkhh/M53o46fQMwPNqI5ff9erh+f9r8sWuTpVnRlZeu7TE1P/Okw==}
+  /turbo-linux-arm64/1.7.4:
+    resolution: {integrity: sha512-Bg65F0AjYYYxqE6RPf2H5TIGuA/EyWMeGOATHVSZOWAbYcnG3Ly03GZii8AHnUi7ntWBdjwvXf/QbOS1ayNB6A==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64/1.7.3:
-    resolution: {integrity: sha512-/2Z8WB4fASlq/diO6nhmHYuDCRPm3dkdUE6yhwQarXPOm936m4zj3xGQA2eSWMpvfst4xjVxxU7P7HOIOyWChA==}
+  /turbo-windows-64/1.7.4:
+    resolution: {integrity: sha512-rTaV50XZ2BRxRHOHqt1UsWfeDmYLbn8UKE6g2D2ED+uW+kmnTvR9s01nmlGWd2sAuWcRYQyQ2V+O09VfKPKcQw==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64/1.7.3:
-    resolution: {integrity: sha512-UD9Uhop42xj1l1ba5LRdwqRq1Of+RgqQuv+QMd1xOAZ2FXn/91uhkfLv+H4Pkiw7XdUohOxpj/FcOvjCiiUxGw==}
+  /turbo-windows-arm64/1.7.4:
+    resolution: {integrity: sha512-h8sxdKPvHTnWUPtwnYszFMmSO0P/iUUwmYY9n7iYThA71zSao28UeZ0H0Gw75cY3MPjvkjn2C4EBAUGPjuZJLw==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo/1.7.3:
-    resolution: {integrity: sha512-mrqo72vPQO6ykmARThaNP/KXPDuBDSqDXfkUxD8hX1ET3YSFbOWJixlHU32tPtiFIhScIKbEGShEVWBrLeM0wg==}
+  /turbo/1.7.4:
+    resolution: {integrity: sha512-8RLedDoUL0kkVKWEZ/RMM70BvKLyDFen06QuKKhYC2XNOfNKqFDqzIdcY/vGick869bNIWalChoy4O07k0HLsA==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.7.3
-      turbo-darwin-arm64: 1.7.3
-      turbo-linux-64: 1.7.3
-      turbo-linux-arm64: 1.7.3
-      turbo-windows-64: 1.7.3
-      turbo-windows-arm64: 1.7.3
+      turbo-darwin-64: 1.7.4
+      turbo-darwin-arm64: 1.7.4
+      turbo-linux-64: 1.7.4
+      turbo-linux-arm64: 1.7.4
+      turbo-windows-64: 1.7.4
+      turbo-windows-arm64: 1.7.4
     dev: true
 
   /type-fest/1.4.0:
@@ -2061,8 +2113,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /type-fest/3.5.5:
-    resolution: {integrity: sha512-Nudle2CLcCaf9/1bVQunwzX1/ZH4Z6mvP8hkWWZCbKrxtnN52QwD5Xn/mo68aofQhGU4be1GlEC6LQCTKGXkRw==}
+  /type-fest/3.5.6:
+    resolution: {integrity: sha512-6bd2bflx8ed7c99tc6zSTIzHr1/QG29bQoK4Qh8MYGnlPbODUzGxklLShjwc/xWQQFHgIci+y5Arv7Rbb0LjXw==}
     engines: {node: '>=14.16'}
     dev: true
 

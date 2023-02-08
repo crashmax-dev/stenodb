@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/node",
   "description": "✍ Easy to use local JSON database",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "type": "module",
   "files": [
     "dist"
@@ -46,8 +46,8 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:3.0.0",
-    "@stenodb/utils": "workspace:3.0.0",
+    "@stenodb/logger": "workspace:3.1.0",
+    "@stenodb/utils": "workspace:3.1.0",
     "steno": "3.0.0"
   },
   "devDependencies": {

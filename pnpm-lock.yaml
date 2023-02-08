@@ -115,8 +115,8 @@ importers:
 
   packages/browser:
     specifiers:
-      '@stenodb/logger': workspace:3.0.0
-      '@stenodb/utils': workspace:3.0.0
+      '@stenodb/logger': workspace:3.1.0
+      '@stenodb/utils': workspace:3.1.0
       class-transformer: '>=0.5.0'
     dependencies:
       '@stenodb/logger': link:../logger
@@ -136,8 +136,8 @@ importers:
 
   packages/node:
     specifiers:
-      '@stenodb/logger': workspace:3.0.0
-      '@stenodb/utils': workspace:3.0.0
+      '@stenodb/logger': workspace:3.1.0
+      '@stenodb/utils': workspace:3.1.0
       '@types/node': 18.11.19
       class-transformer: '>=0.5.0'
       steno: 3.0.0
@@ -151,8 +151,8 @@ importers:
 
   packages/stenodb:
     specifiers:
-      '@stenodb/browser': workspace:3.0.0
-      '@stenodb/node': workspace:3.0.0
+      '@stenodb/browser': workspace:3.1.0
+      '@stenodb/node': workspace:3.1.0
       class-transformer: '>=0.5.0'
     dependencies:
       '@stenodb/browser': link:../browser

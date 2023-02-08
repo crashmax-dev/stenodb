@@ -1,0 +1,27 @@
+{
+  "name": "@stenodb/logger",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
+  "dependencies": {
+    "rotating-file-stream": "3.0.4",
+    "tslog": "4.7.2"
+  }
+}

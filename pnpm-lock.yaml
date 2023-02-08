@@ -62,13 +62,34 @@ importers:
       typescript: 4.9.5
       vite: 4.1.1
 
+  examples/with-logger:
+    specifiers:
+      '@stenodb/browser': workspace:*
+      '@stenodb/logger': workspace:*
+      '@zero-dependency/dom': 0.12.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.1.13
+      typescript: 4.9.5
+      vite: 4.1.1
+    dependencies:
+      '@stenodb/browser': link:../../packages/browser
+      '@stenodb/logger': link:../../packages/logger
+      '@zero-dependency/dom': 0.12.0
+      class-transformer: 0.5.1
+      reflect-metadata: 0.1.13
+    devDependencies:
+      typescript: 4.9.5
+      vite: 4.1.1
+
   examples/with-node:
     specifiers:
+      '@stenodb/logger': workspace:^0.0.0
       '@stenodb/node': workspace:*
       '@types/node': 18.11.19
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
     dependencies:
+      '@stenodb/logger': link:../../packages/logger
       '@stenodb/node': link:../../packages/node
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
@@ -94,19 +115,34 @@ importers:
 
   packages/browser:
     specifiers:
+      '@stenodb/logger': workspace:^0.0.0
       '@stenodb/utils': workspace:3.0.0
       class-transformer: 0.5.1
     dependencies:
+      '@stenodb/logger': link:../logger
       '@stenodb/utils': link:../utils
       class-transformer: 0.5.1
 
+  packages/logger:
+    specifiers:
+      '@types/node': 18.11.19
+      rotating-file-stream: 3.0.4
+      tslog: 4.7.2
+    dependencies:
+      rotating-file-stream: 3.0.4
+      tslog: 4.7.2
+    devDependencies:
+      '@types/node': 18.11.19
+
   packages/node:
     specifiers:
+      '@stenodb/logger': workspace:^0.0.0
       '@stenodb/utils': workspace:3.0.0
       '@types/node': 18.11.19
       class-transformer: 0.5.1
       steno: 3.0.0
     dependencies:
+      '@stenodb/logger': link:../logger
       '@stenodb/utils': link:../utils
       class-transformer: 0.5.1
       steno: 3.0.0
@@ -126,8 +162,10 @@ importers:
   packages/utils:
     specifiers:
       '@types/node': 18.11.19
+      class-transformer: 0.5.1
       json-difference: 1.9.1
     dependencies:
+      class-transformer: 0.5.1
       json-difference: 1.9.1
     devDependencies:
       '@types/node': 18.11.19
@@ -1813,6 +1851,11 @@ packages:
       fsevents: 2.3.2
     dev: true
 
+  /rotating-file-stream/3.0.4:
+    resolution: {integrity: sha512-Zd+IA5soqBUKtCa7KfMRnF7GKEaRav/dJFU7UHc+r1FMd8VvMLUFE0q1HX5s6XJO1cZ6jAqtTa/ZFnjc7IqlJA==}
+    engines: {node: '>=14.0'}
+    dev: false
+
   /run-parallel/1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
     dependencies:
@@ -1983,6 +2026,11 @@ packages:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     dev: true
+
+  /tslog/4.7.2:
+    resolution: {integrity: sha512-NZCunFmbQK25tt+Egv28MLcmbo8M1HgUy6X2hdVbgrAlcR7zRGvPmM8SnpoljXZ48zHRRYWp9vYIHFHKWsR4HA==}
+    engines: {node: '>=16'}
+    dev: false
 
   /tsx/3.12.3:
     resolution: {integrity: sha512-Wc5BFH1xccYTXaQob+lEcimkcb/Pq+0en2s+ruiX0VEIC80nV7/0s7XRahx8NnsoCnpCVUPz8wrqVSPi760LkA==}

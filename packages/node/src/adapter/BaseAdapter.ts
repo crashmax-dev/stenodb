@@ -13,7 +13,7 @@ export class BaseAdapter<T> {
   dataTransformer: DataTransformer<T>
 
   directory: DirectoryProvider
-  logger: BaseLogger
+  logger: BaseLogger | undefined
   writer: Writer
 
   data: T | null = null

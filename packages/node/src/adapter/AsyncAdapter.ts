@@ -11,26 +11,26 @@ export class AsyncAdapter<T> extends BaseAdapter<T> {
     try {
       const file = await readFile(this.filePath, 'utf-8')
       this.data = this.dataTransformer.toJSON(file)
-      this.logger.info('Read data from file', this.data)
+      this.logger?.info('Read data from file', this.data)
     } catch (err) {
       if (!this.data) {
         await this.reset()
       }
 
       if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-        this.logger.error('Failed to read data from file', err)
+        this.logger?.error('Failed to read data from file', err)
       }
     }
   }
 
   async write(): Promise<void> {
     await this.writer.write(this.dataTransformer.toString(this.data))
-    this.logger.info('Write data to file', this.data)
+    this.logger?.info('Write data to file', this.data)
   }
 
   async reset(): Promise<void> {
     if (!this.initialData) {
-      this.logger.warn('No initial data to reset to')
+      this.logger?.warn('No initial data to reset to')
       return
     }
 
@@ -45,7 +45,7 @@ export class AsyncAdapter<T> extends BaseAdapter<T> {
       await this.write()
     } catch (err) {
       if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-        this.logger.error('Failed to read data from file', err)
+        this.logger?.error('Failed to read data from file', err)
       }
     }
   }

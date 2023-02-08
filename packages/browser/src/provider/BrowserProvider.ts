@@ -3,12 +3,12 @@ import type { Steno } from '../types.js'
 import type { CreateLogger } from '@stenodb/logger'
 
 export class BrowserProvider {
-  #options: Steno.BrowserProviderOptions
+  #options: Steno.BrowserProviderOptions | undefined
   #logger: CreateLogger
 
-  constructor(options: Steno.BrowserProviderOptions) {
+  constructor(options?: Steno.BrowserProviderOptions) {
     this.#options = options
-    this.#logger = options.logger
+    this.#logger = options?.logger
   }
 
   private registerAdapterModules<T>(adapter: Steno.BrowserAdapter<T>) {

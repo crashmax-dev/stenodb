@@ -6,7 +6,7 @@ import type { DataTransformer, EntityTransformer } from '@stenodb/utils'
 export class BrowserStorage<T> {
   name: string
   storage: Storage
-  logger: BaseLogger
+  logger: BaseLogger | undefined
 
   entityTransformer: EntityTransformer<T>
   dataTransformer: DataTransformer<T>
@@ -37,12 +37,12 @@ export class BrowserStorage<T> {
   read(): void {
     const data = this.storage.getItem(this.name)
     this.data = this.dataTransformer.toJSON(data)
-    this.logger.info('Read data:', this.data)
+    this.logger?.info('Read data:', this.data)
   }
 
   write(): void {
     this.storage.setItem(this.name, this.dataTransformer.toString(this.data))
-    this.logger.info('Write data:', this.data)
+    this.logger?.info('Write data:', this.data)
   }
 
   reset(): void {

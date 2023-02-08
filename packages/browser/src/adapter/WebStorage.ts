@@ -1,11 +1,15 @@
-import { parseData } from '@stenodb/utils'
-import { plainToClass } from 'class-transformer'
+import { dataTransformer, entityTransformer } from '@stenodb/utils'
 import type { Steno } from '../types.js'
+import type { BaseLogger } from '@stenodb/logger'
+import type { DataTransformer, EntityTransformer } from '@stenodb/utils'
 
 export class BrowserStorage<T> {
   name: string
   storage: Storage
-  entity: Steno.Entity<T>
+  logger: BaseLogger
+
+  entityTransformer: EntityTransformer<T>
+  dataTransformer: DataTransformer<T>
 
   data: T | null = null
   initialData: T | null = null
@@ -18,34 +22,32 @@ export class BrowserStorage<T> {
   ) {
     this.name = name
     this.storage = storage
-    this.entity = entity
+    this.entityTransformer = entityTransformer(entity)
+    this.dataTransformer = dataTransformer(this.entityTransformer)
 
     if (initialData) {
       this.initialData = initialData
     }
   }
 
-  plainData(data: T | string | null = this.data): T | null {
-    if (!data) return null
-
-    const parsedData =
-      typeof data === 'string' ? parseData<T>(data).toJSON() : data
-
-    return plainToClass(this.entity, parsedData)
+  registerLogger(logger: BaseLogger): void {
+    this.logger = logger
   }
 
   read(): void {
     const data = this.storage.getItem(this.name)
-    this.data = data ? this.plainData(data) : null
+    this.data = this.dataTransformer.toJSON(data)
+    this.logger.info('Read data:', this.data)
   }
 
   write(): void {
-    this.storage.setItem(this.name, parseData(this.data).toString())
+    this.storage.setItem(this.name, this.dataTransformer.toString(this.data))
+    this.logger.info('Write data:', this.data)
   }
 
   reset(): void {
     if (!this.initialData) return
-    this.data = plainToClass(this.entity, this.initialData)
+    this.data = this.entityTransformer(this.initialData)
     this.write()
   }
 

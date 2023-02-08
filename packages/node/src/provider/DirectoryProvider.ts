@@ -1,6 +1,5 @@
 import { mkdir, readFile, rmSync } from 'node:fs'
 import { join } from 'node:path'
-import { parseData } from '@stenodb/utils'
 import { Writer } from 'steno'
 
 export class DirectoryProvider {
@@ -37,17 +36,15 @@ export class DirectoryProvider {
     return join(this.temporaryPath, `${filename}-${Date.now()}.json`)
   }
 
-  createTemporaryFile<T>(filename: string, data: T | string | null) {
+  createTemporaryFile<T>(filename: string, data: string) {
     if (!data) return
 
     const file = this.temporaryFilePath(filename)
     const writer = new Writer(file)
-    const parsedData =
-      typeof data === 'string' ? data : parseData(data).toString()
 
     return {
-      write: () => writer.write(parsedData),
-      writeAsync: async () => await writer.write(parsedData)
+      write: () => writer.write(data),
+      writeAsync: async () => await writer.write(data)
     }
   }
 }

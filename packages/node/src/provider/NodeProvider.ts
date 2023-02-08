@@ -7,13 +7,20 @@ import type { Steno } from '../types.js'
 
 export class NodeProvider {
   #directory: DirectoryProvider
+  #options: Steno.NodeProviderOptions | undefined
 
-  constructor(path: string) {
+  constructor(path: string, options?: Steno.NodeProviderOptions) {
     this.#directory = new DirectoryProvider(path)
+    this.#options = options
   }
 
-  private registerDirectory<T>(adapter: Steno.NodeAdapter<T>) {
+  private registerAdapterModules<T>(adapter: Steno.NodeAdapter<T>): void {
     adapter.registerDirectory(this.#directory)
+
+    if (this.#options?.logger) {
+      const logger = this.#options.logger(adapter.fileName)
+      adapter.registerLogger(logger)
+    }
   }
 
   create<T>(adapter: SyncAdapter<T>): SyncProvider<T>
@@ -31,12 +38,12 @@ export class NodeProvider {
   }
 
   createSync<T>(adapter: SyncAdapter<T>): SyncProvider<T> {
-    this.registerDirectory(adapter)
+    this.registerAdapterModules(adapter)
     return new SyncProvider(adapter)
   }
 
   createAsync<T>(adapter: AsyncAdapter<T>): AsyncProvider<T> {
-    this.registerDirectory(adapter)
+    this.registerAdapterModules(adapter)
     return new AsyncProvider(adapter)
   }
 }

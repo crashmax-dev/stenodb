@@ -14,8 +14,6 @@ export class StorageProvider<T> extends BaseProvider<T> {
 
     if (!this.data) {
       this.reset()
-    } else {
-      this.data = this.#adapter.plainData()
     }
 
     return this.data

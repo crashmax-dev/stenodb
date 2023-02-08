@@ -49,9 +49,8 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:^0.0.0",
-    "@stenodb/utils": "workspace:3.0.0",
-    "class-transformer": "0.5.1"
+    "@stenodb/logger": "workspace:3.0.0",
+    "@stenodb/utils": "workspace:3.0.0"
   },
   "peerDependencies": {
     "class-transformer": ">=0.5.0"

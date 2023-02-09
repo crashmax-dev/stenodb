@@ -1,0 +1,4 @@
+[submodule "packages/writer"]
+	path = packages/writer
+	url = https://github.com/yoloforks/steno
+	branch = main

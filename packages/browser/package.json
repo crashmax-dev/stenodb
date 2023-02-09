@@ -3,10 +3,7 @@
   "description": "✍ Easy to use local JSON database",
   "version": "3.1.0",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "types": "dist",
+  "source": "src/index.ts",
   "typesVersions": {
     "*": {
       "types": [
@@ -15,9 +12,12 @@
     }
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./types": "./dist/types.js"
+    ".": "./dist/index.modern.js",
+    "./types": "./dist/types.modern.ts"
   },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
   "author": {
     "name": "Vitalij Ryndin",
     "email": "sys@crashmax.ru",
@@ -44,8 +44,8 @@
     "ESM"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "del-cli dist && tsc",
+    "dev": "microbundle watch",
+    "build": "del-cli dist && microbundle --format esm,cjs --target web",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {

@@ -3,21 +3,19 @@
   "description": "✍ Easy to use local JSON database",
   "version": "3.1.0",
   "type": "module",
-  "files": [
-    "dist"
-  ],
-  "types": "dist",
-  "typesVersions": {
-    "*": {
-      "types": [
-        "./dist/types.d.ts"
-      ]
+  "source": "src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "module": "./dist/index.modern.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts"
     }
   },
-  "exports": {
-    ".": "./dist/index.js",
-    "./types": "./dist/types.js"
-  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
   "author": {
     "name": "Vitalij Ryndin",
     "email": "sys@crashmax.ru",
@@ -41,14 +39,14 @@
     "ESM"
   ],
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "del-cli dist && tsc",
+    "dev": "microbundle watch",
+    "build": "del-cli dist && microbundle --format esm,cjs --target node",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@stenodb/logger": "workspace:3.1.0",
     "@stenodb/utils": "workspace:3.1.0",
-    "steno": "3.0.0"
+    "@stenodb/writer": "workspace:3.1.0"
   },
   "devDependencies": {
     "@types/node": "18.11.19"

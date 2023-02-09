@@ -2,27 +2,27 @@
   "name": "@stenodb/nest",
   "version": "0.0.0",
   "type": "module",
-  "source": "src/index.ts",
+  "source": "./src/index.ts",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.modern.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
+    }
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format esm,cjs --target node",
+    "build": "del-cli dist && microbundle --format cjs --target node",
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",
-    "@stenodb/node": "workspace:3.1.0"
+    "@stenodb/node": "workspace:3.1.0",
+    "tslib": "^2.5.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.19",
-    "tslib": "^2.5.0"
+    "@types/node": "18.11.19"
   },
   "peerDependencies": {
     "@nestjs/common": "^9.0.0"

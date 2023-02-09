@@ -3,21 +3,17 @@
   "description": "✍ Easy to use local JSON database",
   "version": "3.1.0",
   "type": "module",
-  "source": "src/index.ts",
-  "typesVersions": {
-    "*": {
-      "types": [
-        "./dist/types.d.ts"
-      ]
-    }
-  },
+  "source": "./src/index.ts",
   "exports": {
-    ".": "./dist/index.modern.js",
-    "./types": "./dist/types.modern.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.esm.js"
+    }
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
+  "module": "./dist/index.esm.js",
   "author": {
     "name": "Vitalij Ryndin",
     "email": "sys@crashmax.ru",
@@ -53,6 +49,7 @@
     "@stenodb/utils": "workspace:3.1.0"
   },
   "peerDependencies": {
+    "@stenodb/logger": "workspace:3.1.0",
     "class-transformer": ">=0.5.0"
   },
   "engines": {

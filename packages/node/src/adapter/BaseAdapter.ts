@@ -1,6 +1,6 @@
 import { BaseLogger } from '@stenodb/logger'
 import { dataTransformer, entityTransformer } from '@stenodb/utils'
-import { Writer } from 'steno'
+import { Writer } from '@stenodb/writer'
 import type { DirectoryProvider } from '../provider/DirectoryProvider.js'
 import type { Steno } from '../types.js'
 import type { DataTransformer, EntityTransformer } from '@stenodb/utils'

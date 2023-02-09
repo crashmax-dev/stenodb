@@ -1,6 +1,6 @@
 import { mkdir, readFile, rmSync } from 'node:fs'
 import { join } from 'node:path'
-import { Writer } from 'steno'
+import { Writer } from '@stenodb/writer'
 
 export class DirectoryProvider {
   databasePath: string

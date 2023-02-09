@@ -1,10 +1,12 @@
 {
-  "extends": "@crashmax/tsconfig",
   "compilerOptions": {
-    "moduleResolution": "NodeNext",
-    "outDir": "dist",
+    "module": "commonjs",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "target": "es6",
+    "sourceMap": false,
+    "outDir": "dist"
   },
   "include": [
     "src"

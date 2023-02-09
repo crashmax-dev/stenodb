@@ -2,21 +2,21 @@
   "name": "@stenodb/logger",
   "version": "3.1.0",
   "type": "module",
-  "typesVersions": {
-    "*": {
-      "rotation": [
-        "./dist/rotation.d.ts"
-      ]
-    }
-  },
-  "source": "src/index.ts",
   "exports": {
-    ".": "./dist/index.modern.js",
-    "./rotation": "./dist/rotation.modern.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.esm.js"
+    },
+    "./rotation": {
+      "types": "./dist/rotation.d.ts",
+      "require": "./dist/rotation.cjs",
+      "import": "./dist/rotation.esm.js"
+    }
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
+  "module": "./dist/index.esm.js",
   "scripts": {
     "dev": "microbundle watch",
     "build": "del-cli dist && microbundle -i src/index.ts -i src/rotation.ts",

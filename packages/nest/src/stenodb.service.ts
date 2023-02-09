@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { AsyncAdapter, NodeProvider, SyncAdapter } from '@stenodb/node'
 import { MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } from './config.js'
-import type { Steno } from '@stenodb/node/types'
+import type { Steno } from '@stenodb/node'
 
 @Injectable()
 export class StenoService {

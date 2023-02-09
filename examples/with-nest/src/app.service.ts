@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { Steno, StenoService } from '@stenodb/nest'
 import { initialUsersData } from './constants'
-import { User, Users } from './entities/users'
+import { CreateUserDto, Users } from './dto/users.dto'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -17,7 +17,30 @@ export class UsersService implements OnModuleInit {
     )
   }
 
-  getUsers(): User[] {
+  get users(): CreateUserDto[] {
     return this.usersProvider.data.users
+  }
+
+  set users(users: CreateUserDto[]) {
+    this.usersProvider.data.users = users
+  }
+
+  async reset(): Promise<void> {
+    await this.usersProvider.reset()
+  }
+
+  findById(id: number): CreateUserDto {
+    return this.users.find((user) => user.id === id)
+  }
+
+  async add(user: CreateUserDto): Promise<void> {
+    user.id = this.users.at(-1).id + 1
+    this.users.push(user)
+    await this.usersProvider.write()
+  }
+
+  async remove(id: number): Promise<void> {
+    this.users = this.users.filter((user) => user.id !== id)
+    await this.usersProvider.write()
   }
 }

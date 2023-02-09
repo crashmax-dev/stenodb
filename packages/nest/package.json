@@ -1,0 +1,30 @@
+{
+  "name": "@stenodb/nest",
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@nestjs/common": "^9.3.7",
+    "@stenodb/node": "workspace:^3.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=14.16"
+  }
+}

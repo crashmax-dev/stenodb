@@ -14,7 +14,10 @@ export class NodeProvider {
     this.#options = options
   }
 
-  private registerAdapterModules<T>(adapter: Steno.NodeAdapter<T>): void {
+  private async registerAdapterModules<T>(
+    adapter: Steno.NodeAdapter<T>
+  ): Promise<void> {
+    await this.#directory.createDatabaseDir()
     adapter.registerDirectory(this.#directory)
 
     if (this.#options?.logger) {
@@ -23,27 +26,13 @@ export class NodeProvider {
     }
   }
 
-  create<T>(adapter: SyncAdapter<T>): SyncProvider<T>
-  create<T>(adapter: AsyncAdapter<T>): AsyncProvider<T>
-  create<T>(adapter: Steno.NodeAdapter<T>): Steno.NodeProvider<T> {
-    if (adapter instanceof SyncAdapter) {
-      return this.createSync(adapter)
-    }
-
-    if (adapter instanceof AsyncAdapter) {
-      return this.createAsync(adapter)
-    }
-
-    throw new Error('Invalid adapter')
-  }
-
-  createSync<T>(adapter: SyncAdapter<T>): SyncProvider<T> {
-    this.registerAdapterModules(adapter)
+  async create<T>(adapter: SyncAdapter<T>): Promise<SyncProvider<T>> {
+    await this.registerAdapterModules(adapter)
     return new SyncProvider(adapter)
   }
 
-  createAsync<T>(adapter: AsyncAdapter<T>): AsyncProvider<T> {
-    this.registerAdapterModules(adapter)
+  async createAsync<T>(adapter: AsyncAdapter<T>): Promise<AsyncProvider<T>> {
+    await this.registerAdapterModules(adapter)
     return new AsyncProvider(adapter)
   }
 }

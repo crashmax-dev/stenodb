@@ -13,10 +13,6 @@ export class AsyncAdapter<T> extends BaseAdapter<T> {
       this.data = this.dataTransformer.toJSON(file)
       this.logger?.info('Read data from file', this.data)
     } catch (err) {
-      if (!this.data) {
-        await this.reset()
-      }
-
       if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
         this.logger?.error('Failed to read data from file', err)
       }
@@ -34,20 +30,14 @@ export class AsyncAdapter<T> extends BaseAdapter<T> {
       return
     }
 
-    try {
+    if (this.data) {
       await this.directory
-        .createTemporaryFile(
-          this.fileName,
-          this.dataTransformer.toString(this.data)
-        )
-        ?.writeAsync()
-      this.data = this.dataTransformer.toJSON(this.initialData)
-      await this.write()
-    } catch (err) {
-      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-        this.logger?.error('Failed to read data from file', err)
-      }
+        .writerTemporaryFile(this.fileName)
+        .write(this.dataTransformer.toString(this.data))
     }
+
+    this.data = this.dataTransformer.toJSON(this.initialData)
+    await this.write()
   }
 
   async exists(): Promise<boolean> {

@@ -13,13 +13,13 @@ export class StenoService {
     this.provider = new NodeProvider(options.path)
   }
 
-  create<T>(
+  async create<T>(
     name: string,
     entity: Steno.Entity<T>,
     initialData?: T
-  ): Steno.NodeProvider<T> {
+  ): Promise<Steno.NodeProvider<T>> {
     const adapter = new SyncAdapter(name, entity, initialData)
-    const db = this.provider.createSync(adapter)
+    const db = await this.provider.create(adapter)
     db.read()
     return db
   }
@@ -30,7 +30,7 @@ export class StenoService {
     initialData?: T
   ): Promise<Steno.NodeProvider<T>> {
     const adapter = new AsyncAdapter(name, entity, initialData)
-    const db = this.provider.createAsync(adapter)
+    const db = await this.provider.createAsync(adapter)
     await db.read()
     return db
   }

@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/browser",
   "description": "✍ Easy to use local JSON database",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "type": "module",
   "source": "./src/index.ts",
   "exports": {
@@ -45,11 +45,11 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:3.1.0",
-    "@stenodb/utils": "workspace:3.1.0"
+    "@stenodb/logger": "workspace:3.2.0",
+    "@stenodb/utils": "workspace:3.2.0"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:3.1.0",
+    "@stenodb/logger": "workspace:3.2.0",
     "class-transformer": ">=0.5.0"
   },
   "engines": {

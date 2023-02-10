@@ -17,9 +17,8 @@ jobs:
         with:
           node-version: 18.x
           cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile && pnpm build
       - run: |
           echo "//registry.npmjs.org/:_authToken="${{secrets.NPM_TOKEN}}"" > ~/.npmrc
         shell: sh
-      - run: pnpm build
       - run: pnpm -r --filter='./packages/*' publish --access public

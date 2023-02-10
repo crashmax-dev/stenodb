@@ -67,7 +67,7 @@ import { Users, User, Post } from './entities.js'
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
-const provider = new NodeProvider(path)
+const provider = new NodeProvider({ path })
 const database = provider.createAsync(adapter)
 
 await database.read()

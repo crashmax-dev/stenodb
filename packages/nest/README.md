@@ -76,7 +76,7 @@ export class UsersService implements OnModuleInit {
   constructor(private readonly stenoService: StenoService) {}
 
   async onModuleInit(): Promise<void> {
-    this.usersProvider = await this.stenoService.createAsync(
+    this.usersProvider = await this.stenoService.create(
       'users',
       Users,
       new Users(

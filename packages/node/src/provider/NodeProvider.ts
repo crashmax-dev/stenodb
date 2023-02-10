@@ -7,11 +7,11 @@ import type { Steno } from '../types.js'
 
 export class NodeProvider {
   #directory: DirectoryProvider
-  #options: Steno.NodeProviderOptions | undefined
+  #options: Steno.NodeProviderOptions
 
-  constructor(path: string, options?: Steno.NodeProviderOptions) {
-    this.#directory = new DirectoryProvider(path)
+  constructor(options: Steno.NodeProviderOptions) {
     this.#options = options
+    this.#directory = new DirectoryProvider(options.path)
   }
 
   private async registerAdapterModules<T>(
@@ -26,13 +26,17 @@ export class NodeProvider {
     }
   }
 
-  async create<T>(adapter: SyncAdapter<T>): Promise<SyncProvider<T>> {
+  async create<T>(
+    adapter: Steno.NodeAdapter<T>
+  ): Promise<Steno.NodeProvider<T>> {
     await this.registerAdapterModules(adapter)
-    return new SyncProvider(adapter)
-  }
 
-  async createAsync<T>(adapter: AsyncAdapter<T>): Promise<AsyncProvider<T>> {
-    await this.registerAdapterModules(adapter)
-    return new AsyncProvider(adapter)
+    if (adapter instanceof AsyncAdapter) {
+      return new AsyncProvider(adapter)
+    } else if (adapter instanceof SyncAdapter) {
+      return new SyncProvider(adapter)
+    }
+
+    throw new Error('Invalid adapter')
   }
 }

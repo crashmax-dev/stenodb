@@ -11,6 +11,7 @@ export namespace Steno {
   export type NodeProvider<T> = AsyncProvider<T> | SyncProvider<T>
 
   export interface NodeProviderOptions {
+    path: string
     logger?: CreateLogger
   }
 }

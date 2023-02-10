@@ -18,9 +18,9 @@ const logger = createLogger({
 
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
-const provider = new NodeProvider(path, { logger })
+const provider = new NodeProvider({ path, logger })
 
-const database = provider.createAsync(adapter)
+const database = await provider.create(adapter)
 await database.read()
 const post = new Post('Hello world')
 database.data?.users[0]?.addPost(post)

@@ -1,6 +1,6 @@
 # stenodb [![](https://img.shields.io/npm/v/stenodb)](https://www.npmjs.org/package/stenodb)
 
-> ✍ Easy to use local JSON database. Ready to use in browser (localStorage, sessionStorage) and Node.js.
+> ✍ Easy to use local JSON database.
 
 ## Install
 
@@ -19,8 +19,9 @@ pnpm add stenodb
 | Package | Version | Description |
 | ------- | ------ | ----------- |
 | [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser storages (localStorage, sessionStorage) |
-| [@stenodb/nest](./packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js module |
+| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser (localStorage, sessionStorage) |
+| [@stenodb/nest](./packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js |
+| [@stenodb/logger](./packages/logger) | [![](https://img.shields.io/npm/v/@stenodb/logger)](https://npm.im/@stenodb/logger) | Logger |
 
 ## Usage
 
@@ -75,7 +76,7 @@ import { Users, User, Post } from './entities.js'
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
-const provider = new NodeProvider(path)
+const provider = new NodeProvider({ path })
 const database = provider.createAsync(adapter)
 
 await database.read()
@@ -160,7 +161,7 @@ export class UsersService implements OnModuleInit {
   constructor(private readonly stenoService: StenoService) {}
 
   async onModuleInit(): Promise<void> {
-    this.usersProvider = await this.stenoService.createAsync(
+    this.usersProvider = await this.stenoService.create(
       'users',
       Users,
       new Users(

@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { AsyncAdapter, NodeProvider, SyncAdapter } from '@stenodb/node'
+import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import { MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } from './config.js'
 import type { Steno } from '@stenodb/node'
 
@@ -7,31 +7,16 @@ import type { Steno } from '@stenodb/node'
 export class StenoService {
   private readonly provider: NodeProvider
 
-  constructor(
-    @Inject(MODULE_OPTIONS_TOKEN) private readonly options: typeof OPTIONS_TYPE
-  ) {
-    this.provider = new NodeProvider(options.path)
+  constructor(@Inject(MODULE_OPTIONS_TOKEN) options: typeof OPTIONS_TYPE) {
+    this.provider = new NodeProvider(options)
   }
 
   async create<T>(
-    name: string,
+    fileName: string,
     entity: Steno.Entity<T>,
     initialData?: T
   ): Promise<Steno.NodeProvider<T>> {
-    const adapter = new SyncAdapter(name, entity, initialData)
-    const db = await this.provider.create(adapter)
-    db.read()
-    return db
-  }
-
-  async createAsync<T>(
-    name: string,
-    entity: Steno.Entity<T>,
-    initialData?: T
-  ): Promise<Steno.NodeProvider<T>> {
-    const adapter = new AsyncAdapter(name, entity, initialData)
-    const db = await this.provider.createAsync(adapter)
-    await db.read()
-    return db
+    const adapter = new AsyncAdapter(fileName, entity, initialData)
+    return await this.provider.create(adapter)
   }
 }

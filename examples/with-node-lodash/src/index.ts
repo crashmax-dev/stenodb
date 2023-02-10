@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url'
 import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import lodash from 'lodash'
 import { User, Users } from './entities.js'
-import type { Steno } from '@stenodb/node/types'
+import type { Steno } from '@stenodb/node'
 
 export class NodeWithLodash<T> {
   chain: lodash.ExpChain<T>
@@ -33,11 +33,10 @@ export class NodeWithLodash<T> {
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const initialData = new Users(new User(1, 'John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
-const provider = new NodeProvider(path)
+const provider = new NodeProvider({ path })
 
-const database = new NodeWithLodash(provider.createAsync(adapter))
+const database = new NodeWithLodash(await provider.create(adapter))
 await database.read()
-await database.write()
 
 function findUserById(id: number) {
   return database.chain.get('users').find({ id }).value()

@@ -1,6 +1,6 @@
 # @stenodb/node [![](https://img.shields.io/npm/v/@stenodb/node)](https://www.npmjs.org/package/@stenodb/node)
 
-> ✍ Easy to use local JSON database.
+> ✍ Easy to use local JSON database for [Node.js](https://nodejs.org)
 
 ## Install
 
@@ -17,9 +17,6 @@ pnpm add @stenodb/node
 ```
 
 ## Usage
-
-> **Warning**\
-> stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
 ```typescript
 // entities.ts
@@ -70,7 +67,7 @@ import { Users, User, Post } from './entities.js'
 const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
-const provider = new NodeProvider(path)
+const provider = new NodeProvider({ path })
 const database = provider.createAsync(adapter)
 
 await database.read()

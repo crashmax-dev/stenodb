@@ -1,19 +1,16 @@
 import { StorageProvider } from './StorageProvider.js'
 import type { Steno } from '../types.js'
-import type { CreateLogger } from '@stenodb/logger'
 
 export class BrowserProvider {
-  #options: Steno.BrowserProviderOptions | undefined
-  #logger: CreateLogger
+  #options: Steno.BrowserProviderOptions
 
-  constructor(options?: Steno.BrowserProviderOptions) {
+  constructor(options: Steno.BrowserProviderOptions = {}) {
     this.#options = options
-    this.#logger = options?.logger
   }
 
   private registerAdapterModules<T>(adapter: Steno.BrowserAdapter<T>) {
-    if (!this.#logger) return
-    const logger = this.#logger(adapter.name)
+    if (!this.#options?.logger) return
+    const logger = this.#options.logger(adapter.name)
     adapter.registerLogger(logger)
   }
 

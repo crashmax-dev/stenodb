@@ -13,10 +13,6 @@ export class SyncAdapter<T> extends BaseAdapter<T> {
       this.data = this.dataTransformer.toJSON(file)
       this.logger?.info('Read data from file', this.data)
     } catch (err) {
-      if (!this.data) {
-        this.reset()
-      }
-
       if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
         this.logger?.error('Failed to read data from file', err)
       }
@@ -34,20 +30,14 @@ export class SyncAdapter<T> extends BaseAdapter<T> {
       return
     }
 
-    try {
+    if (this.data) {
       this.directory
-        .createTemporaryFile(
-          this.fileName,
-          this.dataTransformer.toString(this.data)
-        )
-        ?.write()
-      this.data = this.dataTransformer.toJSON(this.initialData)
-      this.write()
-    } catch (err) {
-      if ((err as NodeJS.ErrnoException).code !== 'ENOENT') {
-        this.logger?.error('Failed to read data from file', err)
-      }
+        .writerTemporaryFile(this.fileName)
+        .write(this.dataTransformer.toString(this.data))
     }
+
+    this.data = this.dataTransformer.toJSON(this.initialData)
+    this.write()
   }
 
   exists(): boolean {

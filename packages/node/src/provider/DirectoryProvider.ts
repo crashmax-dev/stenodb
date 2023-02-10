@@ -1,6 +1,6 @@
-import { mkdir, readFile, rmSync } from 'node:fs'
+import { mkdir } from 'node:fs/promises'
 import { join } from 'node:path'
-import { Writer } from 'steno'
+import { Writer } from '@stenodb/writer'
 
 export class DirectoryProvider {
   databasePath: string
@@ -9,23 +9,16 @@ export class DirectoryProvider {
   constructor(path: string) {
     this.databasePath = path
     this.temporaryPath = join(this.databasePath, 'temp')
-    this.createDatabaseDir()
   }
 
-  private createDatabaseDir(): void {
-    mkdir(this.temporaryPath, { recursive: true }, (err) => {
-      if (err) throw err
-    })
-  }
-
-  removeFile(path: string, size = 0): void {
-    readFile(path, (err, buffer) => {
-      if (err) return
-
-      if (size > 0 || buffer.byteLength === size) {
-        rmSync(path)
+  async createDatabaseDir(): Promise<void> {
+    try {
+      await mkdir(this.temporaryPath, { recursive: true })
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== 'EEXIST') {
+        throw err
       }
-    })
+    }
   }
 
   databaseFilePath(filename: string): string {
@@ -36,15 +29,8 @@ export class DirectoryProvider {
     return join(this.temporaryPath, `${filename}-${Date.now()}.json`)
   }
 
-  createTemporaryFile<T>(filename: string, data: string) {
-    if (!data) return
-
+  writerTemporaryFile(filename: string) {
     const file = this.temporaryFilePath(filename)
-    const writer = new Writer(file)
-
-    return {
-      write: () => writer.write(data),
-      writeAsync: async () => await writer.write(data)
-    }
+    return new Writer(file)
   }
 }

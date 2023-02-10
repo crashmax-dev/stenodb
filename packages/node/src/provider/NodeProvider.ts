@@ -7,14 +7,17 @@ import type { Steno } from '../types.js'
 
 export class NodeProvider {
   #directory: DirectoryProvider
-  #options: Steno.NodeProviderOptions | undefined
+  #options: Steno.NodeProviderOptions
 
-  constructor(path: string, options?: Steno.NodeProviderOptions) {
-    this.#directory = new DirectoryProvider(path)
+  constructor(options: Steno.NodeProviderOptions) {
     this.#options = options
+    this.#directory = new DirectoryProvider(options.path)
   }
 
-  private registerAdapterModules<T>(adapter: Steno.NodeAdapter<T>): void {
+  private async registerAdapterModules<T>(
+    adapter: Steno.NodeAdapter<T>
+  ): Promise<void> {
+    await this.#directory.createDatabaseDir()
     adapter.registerDirectory(this.#directory)
 
     if (this.#options?.logger) {
@@ -23,27 +26,17 @@ export class NodeProvider {
     }
   }
 
-  create<T>(adapter: SyncAdapter<T>): SyncProvider<T>
-  create<T>(adapter: AsyncAdapter<T>): AsyncProvider<T>
-  create<T>(adapter: Steno.NodeAdapter<T>): Steno.NodeProvider<T> {
-    if (adapter instanceof SyncAdapter) {
-      return this.createSync(adapter)
-    }
+  async create<T>(
+    adapter: Steno.NodeAdapter<T>
+  ): Promise<Steno.NodeProvider<T>> {
+    await this.registerAdapterModules(adapter)
 
     if (adapter instanceof AsyncAdapter) {
-      return this.createAsync(adapter)
+      return new AsyncProvider(adapter)
+    } else if (adapter instanceof SyncAdapter) {
+      return new SyncProvider(adapter)
     }
 
     throw new Error('Invalid adapter')
-  }
-
-  createSync<T>(adapter: SyncAdapter<T>): SyncProvider<T> {
-    this.registerAdapterModules(adapter)
-    return new SyncProvider(adapter)
-  }
-
-  createAsync<T>(adapter: AsyncAdapter<T>): AsyncProvider<T> {
-    this.registerAdapterModules(adapter)
-    return new AsyncProvider(adapter)
   }
 }

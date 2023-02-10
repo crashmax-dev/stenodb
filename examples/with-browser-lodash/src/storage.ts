@@ -1,7 +1,7 @@
 import { BrowserProvider, LocalStorage } from '@stenodb/browser'
-import { Steno } from '@stenodb/browser/types'
 import lodash from 'lodash'
 import { User, Users } from './entities.js'
+import type { Steno } from '@stenodb/browser'
 
 export class BrowserWithLodash<T> {
   chain: lodash.ExpChain<T>

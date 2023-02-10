@@ -18,9 +18,6 @@ pnpm add @stenodb/browser
 
 ## Usage
 
-> **Warning**\
-> stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
-
 ```typescript
 // entities.ts
 import { Type } from 'class-transformer'

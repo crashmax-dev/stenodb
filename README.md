@@ -16,15 +16,13 @@ yarn add stenodb
 pnpm add stenodb
 ```
 
-| Package | Version | Platform |
+| Package | Version | Description |
 | ------- | ------ | ----------- |
 | [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser |
+| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser storages (localStorage, sessionStorage) |
+| [@stenodb/nest](./packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js module |
 
 ## Usage
-
-> **Warning**\
-> stenodb is a pure ESM package. If you're having trouble using it in your project, please [read this](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c).
 
 ### Database entities
 ```typescript
@@ -86,6 +84,7 @@ await database.write()
 ```
 
 ### `@stenodb/browser`
+
 ```typescript
 import 'reflect-metadata'
 import { LocalStorage, BrowserProvider } from '@stenodb/browser'
@@ -99,6 +98,83 @@ const storage = provider.create(adapter)
 storage.read()
 storage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
 storage.write()
+```
+
+### `@stenodb/nest`
+
+```typescript
+// users.dto.ts
+import { Exclude, Type } from 'class-transformer'
+import { Length, Max, Min } from 'class-validator'
+
+export class Users {
+  @Type(() => CreateUserDto)
+  users: CreateUserDto[] = []
+
+  constructor(...users: CreateUserDto[]) {
+    this.users = users
+  }
+}
+
+export class CreateUserDto {
+  @Exclude({ toPlainOnly: true })
+  id: number
+
+  @Length(1, 20)
+  name: string
+
+  @Min(12)
+  @Max(100)
+  age: number
+
+  constructor(id: number, name: string, age: number) {
+    this.id = id
+    this.name = name
+    this.age = age
+  }
+}
+
+// app.module.ts
+import { resolve } from 'node:path'
+import { Module } from '@nestjs/common'
+import { StenoModule } from '@stenodb/nest'
+
+@Module({
+  imports: [
+    StenoModule.register({
+      path: resolve(process.cwd(), 'db')
+    })
+  ]
+})
+export class AppModule {}
+
+// users.service.ts
+import { Injectable, OnModuleInit } from '@nestjs/common'
+import { Steno, StenoService } from '@stenodb/nest'
+import { Users, CreateUserDto } from './users.dto'
+
+@Injectable()
+export class UsersService implements OnModuleInit {
+  private usersProvider: Steno.NodeProvider<Users>
+
+  constructor(private readonly stenoService: StenoService) {}
+
+  async onModuleInit(): Promise<void> {
+    this.usersProvider = await this.stenoService.createAsync(
+      'users',
+      Users,
+      new Users(
+        new CreateUserDto(1, 'John', 22)
+      )
+    )
+
+    await this.usersProvider.read()
+  }
+
+  get users(): CreateUserDto[] {
+    return this.usersProvider.data.users
+  }
+}
 ```
 
 ## Credits

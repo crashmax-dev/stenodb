@@ -1,3 +1,3 @@
 export * from './stenodb.module.js'
 export * from './stenodb.service.js'
-export { Steno } from '@stenodb/node'
+export type { Steno } from '@stenodb/node'

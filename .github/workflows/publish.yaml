@@ -8,11 +8,10 @@ jobs:
   version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@master
       - name: Checkout submodules
-        uses: srt32/git-actions@v0.0.3
-        with:
-          args: git submodule update --init --recursive
+        uses: textbook/git-checkout-submodule-action@master
       - uses: pnpm/action-setup@v2
         with:
           version: 7

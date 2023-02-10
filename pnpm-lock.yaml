@@ -170,8 +170,8 @@ importers:
 
   packages/browser:
     specifiers:
-      '@stenodb/logger': workspace:3.2.0
-      '@stenodb/utils': workspace:3.2.0
+      '@stenodb/logger': workspace:3.2.1
+      '@stenodb/utils': workspace:3.2.1
       class-transformer: '>=0.5.0'
     dependencies:
       '@stenodb/logger': link:../logger
@@ -192,7 +192,7 @@ importers:
   packages/nest:
     specifiers:
       '@nestjs/common': 9.3.7
-      '@stenodb/node': workspace:3.2.0
+      '@stenodb/node': workspace:3.2.1
       '@types/node': 18.11.19
       tslib: ^2.5.0
     dependencies:
@@ -204,9 +204,9 @@ importers:
 
   packages/node:
     specifiers:
-      '@stenodb/logger': workspace:3.2.0
-      '@stenodb/utils': workspace:3.2.0
-      '@stenodb/writer': workspace:3.2.0
+      '@stenodb/logger': workspace:3.2.1
+      '@stenodb/utils': workspace:3.2.1
+      '@stenodb/writer': workspace:3.2.1
       '@types/node': 18.11.19
       class-transformer: '>=0.5.0'
     dependencies:

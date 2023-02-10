@@ -19,8 +19,7 @@
   "module": "./dist/index.esm.js",
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle -i src/index.ts -i src/rotation.ts",
-    "prepublishOnly": "pnpm build"
+    "build": "del-cli dist && microbundle -i src/index.ts -i src/rotation.ts"
   },
   "devDependencies": {
     "@types/node": "18.11.19"

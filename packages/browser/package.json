@@ -41,8 +41,7 @@
   ],
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format esm,cjs --target web",
-    "prepublishOnly": "pnpm build"
+    "build": "del-cli dist && microbundle --format esm,cjs --target web"
   },
   "dependencies": {
     "@stenodb/logger": "workspace:3.2.0",

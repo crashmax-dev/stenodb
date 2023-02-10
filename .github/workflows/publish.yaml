@@ -21,4 +21,5 @@ jobs:
       - run: |
           echo "//registry.npmjs.org/:_authToken="${{secrets.NPM_TOKEN}}"" > ~/.npmrc
         shell: sh
+      - run: pnpm build
       - run: pnpm -r --filter='./packages/*' publish --access public

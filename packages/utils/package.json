@@ -13,8 +13,7 @@
   "module": "./dist/index.esm.js",
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format esm,cjs",
-    "prepublishOnly": "pnpm build"
+    "build": "del-cli dist && microbundle --format esm,cjs"
   },
   "dependencies": {
     "class-transformer": "0.5.1",

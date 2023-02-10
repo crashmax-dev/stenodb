@@ -36,8 +36,7 @@
   ],
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format cjs --target node",
-    "prepublishOnly": "pnpm build"
+    "build": "del-cli dist && microbundle --format cjs --target node"
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",

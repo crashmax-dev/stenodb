@@ -11,6 +11,10 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "microbundle watch",
     "build": "del-cli dist && microbundle --format esm,cjs"

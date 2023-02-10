@@ -11,6 +11,10 @@
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
+  "files": [
+    "dist",
+    "src"
+  ],
   "author": {
     "name": "Vitalij Ryndin",
     "email": "sys@crashmax.ru",

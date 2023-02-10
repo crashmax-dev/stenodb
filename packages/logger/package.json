@@ -17,6 +17,10 @@
   "types": "./dist/index.d.ts",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "microbundle watch",
     "build": "del-cli dist && microbundle -i src/index.ts -i src/rotation.ts"

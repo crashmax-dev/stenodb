@@ -7,7 +7,7 @@ import { UsersService } from './app.service'
 @Module({
   imports: [
     StenoModule.register({
-      path: resolve(process.cwd(), 'db', 'users')
+      path: resolve(process.cwd(), 'db')
     })
   ],
   controllers: [UsersController],

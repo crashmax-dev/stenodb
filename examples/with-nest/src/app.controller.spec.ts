@@ -3,7 +3,7 @@ import { StenoModule } from '@stenodb/nest'
 import { resolve } from 'path'
 import { UsersController } from './app.controller'
 import { UsersService } from './app.service'
-import { initialUsersData } from './constants'
+import { initialUsersData } from './dto/users.dto'
 
 describe('UsersController', () => {
   let usersController: UsersController

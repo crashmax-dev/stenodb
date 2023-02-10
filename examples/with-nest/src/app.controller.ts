@@ -7,7 +7,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
-  getUsers(): CreateUserDto[] {
+  getUsers() {
     return this.usersService.users
   }
 

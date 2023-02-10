@@ -1,7 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
 import { Steno, StenoService } from '@stenodb/nest'
-import { initialUsersData } from './constants'
-import { CreateUserDto, Users } from './dto/users.dto'
+import { CreateUserDto, initialUsersData, Users } from './dto/users.dto'
 
 @Injectable()
 export class UsersService implements OnModuleInit {

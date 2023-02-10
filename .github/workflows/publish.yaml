@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Checkout submodules
+        uses: srt32/git-actions@v0.0.3
+        with:
+          args: git submodule update --init --recursive
       - uses: pnpm/action-setup@v2
         with:
           version: 7
@@ -17,8 +21,9 @@ jobs:
         with:
           node-version: 18.x
           cache: 'pnpm'
-      - run: pnpm install --frozen-lockfile && pnpm build
+      - run: pnpm install --frozen-lockfile
       - run: |
           echo "//registry.npmjs.org/:_authToken="${{secrets.NPM_TOKEN}}"" > ~/.npmrc
         shell: sh
+      - run: pnpm build
       - run: pnpm -r --filter='./packages/*' publish --access public

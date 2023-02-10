@@ -7,3 +7,16 @@
 **/db
 **/logs
 **/temp
+
+# Tests
+**/coverage
+**/.nyc_output
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*

@@ -1,0 +1,51 @@
+{
+  "name": "@stenodb/lodash",
+  "version": "3.3.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.esm.js"
+    },
+    "./node": {
+      "types": "./dist/node.d.ts",
+      "require": "./dist/node.cjs",
+      "default": "./dist/node.esm.js"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.ts",
+      "require": "./dist/browser.cjs",
+      "default": "./dist/browser.esm.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "microbundle watch",
+    "build": "del-cli dist && microbundle -i src/index.ts -i src/node.ts -i src/browser.ts --format esm,cjs"
+  },
+  "dependencies": {
+    "@stenodb/browser": "workspace:3.3.0",
+    "@stenodb/node": "workspace:3.3.0",
+    "@types/lodash": "4.14.191",
+    "lodash": "4.17.21"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  },
+  "peerDependencies": {
+    "@stenodb/browser": "workspace:3.3.0",
+    "@stenodb/node": "workspace:3.3.0",
+    "@types/lodash": "^4.14.191",
+    "lodash": "^4.17.21"
+  },
+  "engines": {
+    "node": ">=14.16"
+  }
+}

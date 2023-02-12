@@ -52,8 +52,7 @@
     "@stenodb/utils": "workspace:3.2.1"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:3.2.1",
-    "class-transformer": ">=0.5.0"
+    "@stenodb/logger": "workspace:3.2.1"
   },
   "engines": {
     "node": ">=14.16"

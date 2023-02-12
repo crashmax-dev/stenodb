@@ -68,7 +68,7 @@ const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
 const provider = new NodeProvider({ path })
-const database = provider.createAsync(adapter)
+const database = await provider.create(adapter)
 
 await database.read()
 database.data?.users[0]?.addPost(new Post('Lorem ipsum'))

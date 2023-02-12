@@ -1,5 +1,5 @@
 import { Exclude, Type } from 'class-transformer'
-import { Length, Max, Min } from 'class-validator'
+import { IsNumber, IsString, Length, Max, Min } from 'class-validator'
 
 export class Users {
   @Type(() => CreateUserDto)
@@ -11,12 +11,15 @@ export class Users {
 }
 
 export class CreateUserDto {
+  @IsNumber()
   @Exclude({ toPlainOnly: true })
   id: number
 
+  @IsString()
   @Length(1, 20)
   name: string
 
+  @IsNumber()
   @Min(12)
   @Max(100)
   age: number

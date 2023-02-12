@@ -26,10 +26,6 @@ export class UsersService implements OnModuleInit {
     this.usersProvider.data.users = users
   }
 
-  async reset(): Promise<void> {
-    await this.usersProvider.reset()
-  }
-
   findById(id: number): CreateUserDto {
     return this.users.find((user) => user.id === id)
   }

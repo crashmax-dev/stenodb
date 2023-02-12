@@ -1,0 +1,31 @@
+{
+  "name": "stenodb",
+  "version": "0.0.0",
+  "type": "module",
+  "source": "src/index.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.esm.js"
+  },
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.esm.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "microbundle watch",
+    "build": "del-cli dist && microbundle --format esm,cjs"
+  },
+  "dependencies": {
+    "@stenodb/browser": "workspace:3.2.1",
+    "@stenodb/lodash": "workspace:0.0.0",
+    "@stenodb/nest": "workspace:3.2.1",
+    "@stenodb/node": "workspace:3.2.1"
+  },
+  "engines": {
+    "node": ">=14.16"
+  }
+}

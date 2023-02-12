@@ -205,6 +205,18 @@ importers:
     devDependencies:
       '@types/node': 18.11.19
 
+  packages/stenodb:
+    specifiers:
+      '@stenodb/browser': workspace:3.2.1
+      '@stenodb/lodash': workspace:0.0.0
+      '@stenodb/nest': workspace:3.2.1
+      '@stenodb/node': workspace:3.2.1
+    dependencies:
+      '@stenodb/browser': link:../browser
+      '@stenodb/lodash': link:../lodash
+      '@stenodb/nest': link:../nest
+      '@stenodb/node': link:../node
+
   packages/utils:
     specifiers:
       '@types/node': 18.11.19

@@ -28,17 +28,20 @@
   ],
   "scripts": {
     "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle -i src/*.ts --format esm,cjs"
+    "build": "del-cli dist && microbundle -i src/index.ts -i src/node.ts -i src/browser.ts --format esm,cjs"
   },
   "dependencies": {
-    "@stenodb/browser": "^3.2.0",
-    "@stenodb/node": "^3.2.0",
+    "@stenodb/browser": "workspace:3.2.1",
+    "@stenodb/node": "workspace:3.2.1",
     "@types/lodash": "4.14.191",
     "lodash": "4.17.21"
   },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  },
   "peerDependencies": {
-    "@stenodb/browser": "^3.2.0",
-    "@stenodb/node": "^3.2.0",
+    "@stenodb/browser": "workspace:3.2.1",
+    "@stenodb/node": "workspace:3.2.1",
     "@types/lodash": "^4.14.191",
     "lodash": "^4.17.21"
   },

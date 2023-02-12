@@ -6,12 +6,12 @@
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.cjs",
-      "import": "./dist/index.esm.js"
+      "default": "./dist/index.esm.js"
     },
     "./rotation": {
       "types": "./dist/rotation.d.ts",
       "require": "./dist/rotation.cjs",
-      "import": "./dist/rotation.esm.js"
+      "default": "./dist/rotation.esm.js"
     }
   },
   "types": "./dist/index.d.ts",

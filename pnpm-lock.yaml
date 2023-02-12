@@ -43,26 +43,20 @@ importers:
       typescript: 4.9.5
       vite: 4.1.1
 
-  examples/with-browser-lodash:
+  examples/with-lodash:
     specifiers:
-      '@stenodb/browser': workspace:*
-      '@types/lodash': 4.14.191
-      '@zero-dependency/dom': 0.12.0
+      '@stenodb/lodash': workspace:^0.0.0
+      '@stenodb/node': workspace:*
+      '@types/node': 18.11.19
       class-transformer: 0.5.1
-      lodash: 4.17.21
       reflect-metadata: 0.1.13
-      typescript: 4.9.5
-      vite: 4.1.1
     dependencies:
-      '@stenodb/browser': link:../../packages/browser
-      '@zero-dependency/dom': 0.12.0
+      '@stenodb/lodash': link:../../packages/lodash
+      '@stenodb/node': link:../../packages/node
       class-transformer: 0.5.1
-      lodash: 4.17.21
       reflect-metadata: 0.1.13
     devDependencies:
-      '@types/lodash': 4.14.191
-      typescript: 4.9.5
-      vite: 4.1.1
+      '@types/node': 18.11.19
 
   examples/with-logger:
     specifiers:
@@ -151,23 +145,6 @@ importers:
     devDependencies:
       '@types/node': 18.11.19
 
-  examples/with-node-lodash:
-    specifiers:
-      '@stenodb/node': workspace:*
-      '@types/lodash': 4.14.191
-      '@types/node': 18.11.19
-      class-transformer: 0.5.1
-      lodash: 4.17.21
-      reflect-metadata: 0.1.13
-    dependencies:
-      '@stenodb/node': link:../../packages/node
-      class-transformer: 0.5.1
-      lodash: 4.17.21
-      reflect-metadata: 0.1.13
-    devDependencies:
-      '@types/lodash': 4.14.191
-      '@types/node': 18.11.19
-
   packages/browser:
     specifiers:
       '@stenodb/logger': workspace:3.2.1
@@ -178,15 +155,18 @@ importers:
 
   packages/lodash:
     specifiers:
-      '@stenodb/browser': ^3.2.0
-      '@stenodb/node': ^3.2.0
+      '@stenodb/browser': workspace:3.2.1
+      '@stenodb/node': workspace:3.2.1
       '@types/lodash': 4.14.191
+      '@types/node': 18.11.19
       lodash: 4.17.21
     dependencies:
       '@stenodb/browser': link:../browser
       '@stenodb/node': link:../node
       '@types/lodash': 4.14.191
       lodash: 4.17.21
+    devDependencies:
+      '@types/node': 18.11.19
 
   packages/logger:
     specifiers:
@@ -2608,13 +2588,13 @@ packages:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
     dependencies:
       '@types/connect': 3.4.35
-      '@types/node': 18.13.0
+      '@types/node': 16.18.12
     dev: true
 
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 18.13.0
+      '@types/node': 16.18.12
     dev: true
 
   /@types/cookiejar/2.1.2:
@@ -2646,7 +2626,7 @@ packages:
   /@types/express-serve-static-core/4.17.33:
     resolution: {integrity: sha512-TPBqmR/HRYI3eC2E5hmiivIzv+bidAfXofM+sbonAGvyDhySGw9/PQZFt2BLOrjUUR++4eJVpx6KnLQK1Fk9tA==}
     dependencies:
-      '@types/node': 18.13.0
+      '@types/node': 16.18.12
       '@types/qs': 6.9.7
       '@types/range-parser': 1.2.4
     dev: true
@@ -2695,6 +2675,7 @@ packages:
 
   /@types/lodash/4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
+    dev: false
 
   /@types/mime/3.0.1:
     resolution: {integrity: sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==}
@@ -2746,7 +2727,7 @@ packages:
     resolution: {integrity: sha512-z5xyF6uh8CbjAu9760KDKsH2FcDxZ2tFCsA4HIMWE6IkiYMXfVoa+4f9KX+FN0ZLsaMw1WNG2ETLA6N+/YA+cg==}
     dependencies:
       '@types/mime': 3.0.1
-      '@types/node': 18.13.0
+      '@types/node': 16.18.12
     dev: true
 
   /@types/stack-utils/2.0.1:
@@ -2757,7 +2738,7 @@ packages:
     resolution: {integrity: sha512-tLfnlJf6A5mB6ddqF159GqcDizfzbMUB1/DeT59/wBNqzRTNNKsaw79A/1TZ84X+f/EwWH8FeuSkjlCLyqS/zQ==}
     dependencies:
       '@types/cookiejar': 2.1.2
-      '@types/node': 18.13.0
+      '@types/node': 16.18.12
     dev: true
 
   /@types/supertest/2.0.12:

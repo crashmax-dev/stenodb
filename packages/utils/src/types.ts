@@ -1,3 +1,5 @@
+import type { ClassConstructor } from 'class-transformer'
+
 export type Data<T> = T | string | null
 
 export type DataTransformer<T> = {
@@ -6,3 +8,5 @@ export type DataTransformer<T> = {
 }
 
 export type EntityTransformer<T> = (data: Data<T>) => T | null
+
+export type ClassEntity<T> = ClassConstructor<T>

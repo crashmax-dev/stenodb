@@ -8,7 +8,7 @@
     "build": "del-cli dist && tsc"
   },
   "dependencies": {
-    "@stenodb/lodash": "workspace:^0.0.0",
+    "@stenodb/lodash": "workspace:*",
     "@stenodb/node": "workspace:*",
     "class-transformer": "0.5.1",
     "reflect-metadata": "0.1.13"

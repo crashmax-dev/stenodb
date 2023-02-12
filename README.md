@@ -22,7 +22,6 @@ pnpm add stenodb
 | [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser (localStorage, sessionStorage) |
 | [@stenodb/nest](./packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js |
 | [@stenodb/lodash](./packages/lodash) | [![](https://img.shields.io/npm/v/@stenodb/lodash)](https://npm.im/@stenodb/lodash) | Lodash wrapper |
-
 | [@stenodb/logger](./packages/logger) | [![](https://img.shields.io/npm/v/@stenodb/logger)](https://npm.im/@stenodb/logger) | Logger |
 
 ## Usage

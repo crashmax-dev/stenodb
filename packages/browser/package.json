@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/browser",
   "description": "✍ Easy to use local JSON database",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "type": "module",
   "source": "./src/index.ts",
   "exports": {
@@ -46,11 +46,11 @@
     "build": "del-cli dist && microbundle --format esm,cjs --target web"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:3.3.0",
-    "@stenodb/utils": "workspace:3.3.0"
+    "@stenodb/logger": "workspace:3.3.1",
+    "@stenodb/utils": "workspace:3.3.1"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:3.3.0"
+    "@stenodb/logger": "workspace:3.3.1"
   },
   "engines": {
     "node": ">=14.16"

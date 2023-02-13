@@ -1,22 +1,37 @@
 import { SyncAdapter } from '../index.js'
-import { BaseProvider } from './BaseProvider.js'
 
-export class SyncProvider<T> extends BaseProvider<T> {
+export class SyncProvider<T> {
   #adapter: SyncAdapter<T>
 
   constructor(adapter: SyncAdapter<T>) {
-    super(adapter)
     this.#adapter = adapter
+  }
+
+  get data(): T | null {
+    return this.data
+  }
+
+  set data(data: T | null) {
+    this.#adapter.data = data
+  }
+
+  get initialData(): T | null {
+    return this.#adapter.initialData
+  }
+
+  set initialData(data: T | undefined | null) {
+    if (!data) return
+    this.#adapter.initialData = data
   }
 
   read(): T | null {
     this.#adapter.read()
 
-    if (!this.data) {
+    if (!this.#adapter.data) {
       this.reset()
     }
 
-    return this.data
+    return this.#adapter.data
   }
 
   write(): void {

@@ -1,22 +1,37 @@
 import { AsyncAdapter } from '../index.js'
-import { BaseProvider } from './BaseProvider.js'
 
-export class AsyncProvider<T> extends BaseProvider<T> {
+export class AsyncProvider<T> {
   #adapter: AsyncAdapter<T>
 
   constructor(adapter: AsyncAdapter<T>) {
-    super(adapter)
     this.#adapter = adapter
+  }
+
+  get data(): T | null {
+    return this.#adapter.data
+  }
+
+  set data(data: T | null) {
+    this.#adapter.data = data
+  }
+
+  get initialData(): T | null {
+    return this.#adapter.initialData
+  }
+
+  set initialData(data: T | undefined | null) {
+    if (!data) return
+    this.#adapter.initialData = data
   }
 
   async read(): Promise<T | null> {
     await this.#adapter.read()
 
-    if (!this.data) {
+    if (!this.#adapter.data) {
       await this.reset()
     }
 
-    return this.data
+    return this.#adapter.data
   }
 
   async write(): Promise<void> {

@@ -6,7 +6,7 @@ import { createRotation } from '@stenodb/logger/rotation'
 import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import { Post, User, Users } from './entities.js'
 
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db')
 const logger = createLogger({
   rotation: createRotation({
     path: 'logs',

@@ -5,7 +5,7 @@ import { NodeLodash } from '@stenodb/lodash'
 import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import { User, Users } from './entities.js'
 
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db')
 const initialData = new Users(new User(1, 'John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
 const provider = new NodeProvider({ path })

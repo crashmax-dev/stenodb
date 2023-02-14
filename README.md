@@ -26,7 +26,7 @@ pnpm add stenodb
 
 ## Examples
 
-> **Note**
+> **Note**\
 > You can find more detailed examples [here](./examples)
 
 <details>

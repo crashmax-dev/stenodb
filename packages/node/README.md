@@ -18,7 +18,7 @@ pnpm add @stenodb/node
 
 ## Usage
 
-```typescript
+```ts
 // entities.ts
 import { Type } from 'class-transformer'
 
@@ -54,9 +54,7 @@ export class Post {
     this.title = title
   }
 }
-```
 
-```typescript
 // index.ts
 import 'reflect-metadata'
 import { dirname, resolve } from 'node:path'
@@ -64,15 +62,15 @@ import { fileURLToPath } from 'node:url'
 import { AsyncAdapter, NodeProvider } from '@stenodb/node'
 import { Users, User, Post } from './entities.js'
 
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'database')
+const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db')
 const initialData = new Users(new User('John Doe'))
 const adapter = new AsyncAdapter('users', Users, initialData)
 const provider = new NodeProvider({ path })
-const database = await provider.create(adapter)
+const db = await provider.create(adapter)
 
-await database.read()
-database.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-await database.write()
+await db.read()
+db.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+await db.write()
 ```
 
 ## Credits

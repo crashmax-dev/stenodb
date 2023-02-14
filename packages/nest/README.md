@@ -18,7 +18,7 @@ pnpm add @stenodb/nest
 
 ## Usage
 
-```typescript
+```ts
 // users.dto.ts
 import { Exclude, Type } from 'class-transformer'
 import { Length, Max, Min } from 'class-validator'

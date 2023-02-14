@@ -18,7 +18,7 @@ pnpm add @stenodb/browser
 
 ## Usage
 
-```typescript
+```ts
 // entities.ts
 import { Type } from 'class-transformer'
 
@@ -54,9 +54,7 @@ export class Post {
     this.title = title
   }
 }
-```
 
-```typescript
 // index.ts
 import 'reflect-metadata'
 import { LocalStorage, BrowserProvider } from '@stenodb/browser'
@@ -65,11 +63,11 @@ import { Users, User, Post } from './entities.js'
 const initialData = new Users(new User('John Doe'))
 const adapter = new LocalStorage('users', Users, initialData)
 const provider = new BrowserProvider()
-const storage = provider.create(adapter)
+const db = provider.create(adapter)
 
-storage.read()
-storage.data?.users[0]?.addPost(new Post('Lorem ipsum'))
-storage.write()
+db.read()
+db.data?.users[0]?.addPost(new Post('Lorem ipsum'))
+db.write()
 ```
 
 ## Credits

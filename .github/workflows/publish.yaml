@@ -11,31 +11,41 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Cache PNPM
-        uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          submodules: true
 
-      - name: Setup Node
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: Installing dependencies
-        uses: pnpm/action-setup@v2.2.2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
         with:
-          version: 7.x.x
+          version: 7
           run_install: |
-            - args: [--frozen-lockfile]
+            args: [--frozen-lockfile]
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Build packages
         run: pnpm build
 
       - name: Publish packages
+        shell: bash
         run: |
           echo "//registry.npmjs.org/:_authToken="${{secrets.NPM_TOKEN}}"" > ~/.npmrc
           pnpm -r --filter='./packages/*' publish --access public

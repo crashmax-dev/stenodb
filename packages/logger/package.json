@@ -1,29 +1,28 @@
 {
   "name": "@stenodb/logger",
   "version": "3.3.1",
-  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "default": "./dist/index.esm.js"
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
     },
     "./rotation": {
       "types": "./dist/rotation.d.ts",
-      "require": "./dist/rotation.cjs",
-      "default": "./dist/rotation.esm.js"
+      "require": "./dist/rotation.js",
+      "default": "./dist/rotation.mjs"
     }
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle -i src/index.ts -i src/rotation.ts"
+    "dev": "pnpm build -- --watch src",
+    "build": "tsup src/index.ts src/rotation.ts --format esm,cjs --dts --clean"
   },
   "devDependencies": {
     "@types/node": "18.11.19"

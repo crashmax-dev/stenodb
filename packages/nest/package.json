@@ -1,6 +1,6 @@
 {
   "name": "@stenodb/nest",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",
-    "@stenodb/node": "workspace:3.3.1",
+    "@stenodb/node": "workspace:3.3.2",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

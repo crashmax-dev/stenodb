@@ -1,6 +1,6 @@
 {
   "name": "@stenodb/lodash",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -30,8 +30,8 @@
     "build": "tsup src/index.ts src/node.ts src/browser.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "@stenodb/browser": "workspace:3.3.1",
-    "@stenodb/node": "workspace:3.3.1",
+    "@stenodb/browser": "workspace:3.3.2",
+    "@stenodb/node": "workspace:3.3.2",
     "@types/lodash": "4.14.191",
     "lodash": "4.17.21"
   },
@@ -39,8 +39,8 @@
     "@types/node": "18.11.19"
   },
   "peerDependencies": {
-    "@stenodb/browser": "workspace:3.3.1",
-    "@stenodb/node": "workspace:3.3.1",
+    "@stenodb/browser": "workspace:3.3.2",
+    "@stenodb/node": "workspace:3.3.2",
     "@types/lodash": "^4.14.191",
     "lodash": "^4.17.21"
   },

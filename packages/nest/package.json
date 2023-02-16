@@ -1,16 +1,16 @@
 {
   "name": "@stenodb/nest",
-  "version": "3.3.1",
-  "type": "module",
-  "source": "./src/index.ts",
+  "version": "3.3.2",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
     }
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "files": [
     "dist",
     "src"
@@ -35,16 +35,15 @@
     "local",
     "class-transformer",
     "JSON",
-    "ESM",
     "nestjs"
   ],
   "scripts": {
-    "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format cjs --target node"
+    "dev": "pnpm build -- --watch src",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node14"
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",
-    "@stenodb/node": "workspace:3.3.1",
+    "@stenodb/node": "workspace:3.3.2",
     "tslib": "^2.5.0"
   },
   "devDependencies": {

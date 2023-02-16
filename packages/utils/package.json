@@ -1,23 +1,23 @@
 {
   "name": "@stenodb/utils",
-  "version": "3.3.1",
-  "type": "module",
-  "source": "src/index.ts",
+  "version": "3.3.2",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.esm.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    }
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "files": [
     "dist",
     "src"
   ],
   "scripts": {
-    "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format esm,cjs --target node"
+    "dev": "pnpm build -- --watch src",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
     "class-transformer": "0.5.1",

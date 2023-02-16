@@ -1,29 +1,51 @@
 {
   "name": "stenodb",
-  "version": "0.0.0",
-  "type": "module",
-  "source": "src/index.ts",
+  "description": "✍ Easy to use local JSON database",
+  "version": "3.3.2",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "require": "./dist/index.cjs",
-    "default": "./dist/index.esm.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.mjs"
+    }
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "files": [
     "dist",
     "src"
   ],
+  "author": {
+    "name": "Vitalij Ryndin",
+    "email": "sys@crashmax.ru",
+    "url": "https://crashmax.ru"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/crashmax-dev/stenodb/packages/node#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crashmax-dev/stenodb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/crashmax-dev/stenodb/issues"
+  },
+  "keywords": [
+    "db",
+    "database",
+    "local",
+    "class-transformer",
+    "JSON"
+  ],
   "scripts": {
-    "dev": "microbundle watch",
-    "build": "del-cli dist && microbundle --format esm,cjs"
+    "dev": "pnpm build -- --watch src",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "@stenodb/browser": "workspace:3.3.1",
-    "@stenodb/lodash": "workspace:3.3.1",
-    "@stenodb/nest": "workspace:3.3.1",
-    "@stenodb/node": "workspace:3.3.1"
+    "@stenodb/browser": "workspace:3.3.2",
+    "@stenodb/lodash": "workspace:3.3.2",
+    "@stenodb/nest": "workspace:3.3.2",
+    "@stenodb/node": "workspace:3.3.2"
   },
   "engines": {
     "node": ">=14.16"

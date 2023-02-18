@@ -1,6 +1,7 @@
 {
   "extends": "@crashmax/tsconfig",
   "compilerOptions": {
+    "moduleResolution": "NodeNext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "outDir": "dist"

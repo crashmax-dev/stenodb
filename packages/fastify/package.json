@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@stenodb/node": "workspace:3.3.2",
+    "class-validator-jsonschema": "5.0.0",
     "fastify-plugin": "4.5.0"
   },
   "devDependencies": {

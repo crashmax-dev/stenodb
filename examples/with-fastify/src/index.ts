@@ -6,19 +6,21 @@ import Fastify from 'fastify'
 import { Post, User, Users } from './entities.js'
 
 const fastify = Fastify()
-const path = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db')
 
-fastify.register(FastifySteno, { path })
+fastify.register(FastifySteno, {
+  path: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db'),
+  entities: [User, Post]
+})
 
-fastify.get('/', async (req, rep) => {
-  const users = fastify.steno.get<Users>('users')
-  return users?.data
+fastify.post('/', { schema: { body: fastify.getSchema('User') } }, (req) => {
+  return {
+    body: req.body,
+    schema: req.routeSchema
+  }
 })
 
 fastify.listen({ host: '0.0.0.0', port: 3000 }, async (err, address) => {
   if (err) throw err
-
-  await fastify.steno.create('users', Users, new Users(new User('John')))
-
+  console.log(fastify.getSchemas())
   console.log(address)
 })

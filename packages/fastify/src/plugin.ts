@@ -13,11 +13,7 @@ export class StenoPlugin {
   #options: StenoOptions
   #provider: NodeProvider
 
-  constructor(
-    fastify: FastifyInstance,
-    options: StenoOptions,
-    next: () => void
-  ) {
+  constructor(fastify: FastifyInstance, options: StenoOptions, done: () => void) {
     this.#fastify = fastify
     this.#options = options
     this.#provider = new NodeProvider(options)
@@ -25,15 +21,15 @@ export class StenoPlugin {
     this.#fastify.decorate('steno', {})
     this.registerSchemas()
 
-    next()
+    done()
   }
 
-  static createInstance(
+  static async createInstance(
     fastify: FastifyInstance,
     options: StenoOptions,
-    next: () => void
-  ): StenoPlugin {
-    return new StenoPlugin(fastify, options, next)
+    done: () => void
+  ): Promise<StenoPlugin> {
+    return new StenoPlugin(fastify, options, done)
   }
 
   private registerSchemas(options?: IOptions): void {

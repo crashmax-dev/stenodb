@@ -12,7 +12,7 @@ fastify.register(FastifySteno, {
   entities: [User, Post]
 })
 
-fastify.post('/', { schema: { body: fastify.getSchema('User') } }, (req) => {
+fastify.post('/', { schema: { body: { $ref: 'User' } } }, (req) => {
   return {
     body: req.body,
     schema: req.routeSchema
@@ -21,6 +21,5 @@ fastify.post('/', { schema: { body: fastify.getSchema('User') } }, (req) => {
 
 fastify.listen({ host: '0.0.0.0', port: 3000 }, async (err, address) => {
   if (err) throw err
-  console.log(fastify.getSchemas())
   console.log(address)
 })

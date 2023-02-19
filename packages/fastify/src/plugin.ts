@@ -48,7 +48,7 @@ export class StenoPlugin {
     }
   }
 
-  private registerEntities() {
+  private registerEntities(): void {
     if (!this.#options.entities) return
     for (const entity of this.#options.entities) {
       this.addSchema(entity)
@@ -61,10 +61,13 @@ export class StenoPlugin {
       entity,
       this.#options.entityOptions
     )
+    if (!schema.properties) return
     this.#fastify.addSchema({ ...schema, $id: entity.name })
   }
 
-  private getDatabase<T>(name: string): Steno.NodeProvider<T> | undefined {
+  private getDatabase<T extends Steno.Entity<any>>(
+    name: string
+  ): Steno.NodeProvider<T> | undefined {
     return this.#databases.get(name)
   }
 }

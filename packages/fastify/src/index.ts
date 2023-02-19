@@ -1,4 +1,4 @@
-import { AsyncAdapter, SyncAdapter } from '@stenodb/node'
+import { AsyncAdapter, Steno, SyncAdapter } from '@stenodb/node'
 import fp from 'fastify-plugin'
 import { StenoPlugin } from './plugin.js'
 import type { StenoOptions } from './types.js'
@@ -9,5 +9,5 @@ const FastifySteno = fp(StenoPlugin.createInstance, {
 })
 
 export { FastifySteno, AsyncAdapter, SyncAdapter }
-export type { StenoOptions }
+export type { StenoOptions, Steno }
 export default StenoPlugin.createInstance

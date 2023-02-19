@@ -1,32 +1,44 @@
 import 'reflect-metadata'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { AsyncAdapter, FastifySteno } from '@stenodb/fastify'
+import { FastifySteno } from '@stenodb/fastify'
 import Fastify from 'fastify'
-import { Post, User, Users } from './entities.js'
+import { postsController } from './api/posts/posts.controller.js'
+import { userController } from './api/users/users.controller.js'
+import { UserService } from './api/users/users.service.js'
+import { userEntities, users } from './dto/users.dto.js'
 
 const fastify = Fastify()
 
 fastify.register(FastifySteno, {
   path: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db'),
-  entities: [User, Post],
-  adapters: [new AsyncAdapter('users', Users, new Users(new User('John', 18)))]
+  entities: [...userEntities],
+  adapters: [users]
 })
 
-fastify.get('/', () => {
-  const users = fastify.steno.get<Users>('users')!
-  return users.data
-})
+fastify.register(
+  (instance, _, done) => {
+    const userService = new UserService(fastify)
 
-fastify.post<{ Body: User }>(
-  '/',
-  { schema: { body: { $ref: 'User' } } },
-  async (req) => {
-    const users = fastify.steno.get<Users>('users')!
-    users.data!.users.push(req.body)
-    await users.write()
-    return users.data
-  }
+    instance.register(
+      (instance, _, done) => {
+        userController(instance, userService)
+        done()
+      },
+      { prefix: '/users' }
+    )
+
+    instance.register(
+      (instance, _, done) => {
+        postsController(instance, userService)
+        done()
+      },
+      { prefix: '/posts' }
+    )
+
+    done()
+  },
+  { prefix: '/api' }
 )
 
 fastify.get('/schemas', () => {

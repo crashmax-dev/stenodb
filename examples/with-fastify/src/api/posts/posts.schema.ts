@@ -8,9 +8,7 @@ export const userIdParamsSchema = {
 
 export const userIdAndPostIdParamsSchema = {
   params: {
-    userId: {
-      $ref: 'User#/properties/userId'
-    },
+    ...userIdParamsSchema.params,
     postId: {
       $ref: 'Post#/properties/postId'
     }

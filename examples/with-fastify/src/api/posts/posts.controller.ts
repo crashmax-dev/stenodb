@@ -35,6 +35,7 @@ export function postsController(
 
       const post = user.findPost(postId)
       if (!post) return reply.status(404).send('Post not found')
+
       return post
     }
   )
@@ -53,6 +54,7 @@ export function postsController(
       )
       user.addPost(post)
       await service.write()
+
       return post
     }
   )

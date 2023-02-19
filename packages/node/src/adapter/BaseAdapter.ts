@@ -9,6 +9,7 @@ export class BaseAdapter<T> {
   fileName: string
   filePath: string
 
+  entity: Steno.Entity<T>
   entityTransformer: EntityTransformer<T>
   dataTransformer: DataTransformer<T>
 
@@ -21,6 +22,7 @@ export class BaseAdapter<T> {
 
   constructor(fileName: string, entity: Steno.Entity<T>, initialData?: T) {
     this.fileName = fileName
+    this.entity = entity
     this.entityTransformer = entityTransformer(entity)
     this.dataTransformer = dataTransformer(this.entityTransformer)
 

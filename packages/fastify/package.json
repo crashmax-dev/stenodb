@@ -1,5 +1,5 @@
 {
-  "name": "@stenodb/utils",
+  "name": "@stenodb/fastify",
   "version": "3.4.0",
   "exports": {
     ".": {
@@ -20,14 +20,17 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "class-transformer": "0.5.1",
-    "json-difference": "1.9.1"
+    "@stenodb/node": "workspace:3.4.0",
+    "class-validator-jsonschema": "5.0.0",
+    "fastify-plugin": "4.5.0"
   },
   "devDependencies": {
-    "@types/node": "18.11.19"
+    "@types/node": "18.11.19",
+    "fastify": "^4.13.0"
   },
   "peerDependencies": {
-    "class-transformer": ">=0.5.0"
+    "@stenodb/node": "workspace:3.4.0",
+    "fastify": "^4.0.0"
   },
   "engines": {
     "node": ">=14.16"

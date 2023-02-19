@@ -1,6 +1,6 @@
 {
   "name": "@stenodb/nest",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -38,15 +38,15 @@
     "nestjs"
   ],
   "scripts": {
-    "dev": "pnpm build -- --watch src",
+    "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node14"
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",
-    "@stenodb/node": "workspace:3.3.2",
-    "tslib": "^2.5.0"
+    "@stenodb/node": "workspace:3.4.0"
   },
   "devDependencies": {
+    "@swc/core": "1.3.35",
     "@types/node": "18.11.19"
   },
   "peerDependencies": {

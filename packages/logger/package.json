@@ -21,7 +21,7 @@
     "src"
   ],
   "scripts": {
-    "dev": "pnpm build -- --watch src",
+    "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts src/rotation.ts --format esm,cjs --dts --clean"
   },
   "devDependencies": {

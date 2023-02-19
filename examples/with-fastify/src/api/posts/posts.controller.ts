@@ -1,4 +1,5 @@
-import { Post, User } from '../../dto/users.dto.js'
+import { Post } from '../../dto/posts.dto.js'
+import { User } from '../../dto/users.dto.js'
 import {
   userIdAndPostIdParamsSchema,
   userIdParamsSchema

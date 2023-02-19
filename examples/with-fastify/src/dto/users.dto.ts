@@ -1,6 +1,6 @@
-import { AsyncAdapter } from '@stenodb/fastify'
 import { Exclude, Type } from 'class-transformer'
-import { IsNumber, IsOptional, IsString, Length } from 'class-validator'
+import { IsNumber, IsString, Length } from 'class-validator'
+import { Post } from './posts.dto.js'
 
 export class Users {
   @Type(() => User)
@@ -46,32 +46,3 @@ export class User {
     return this.posts.at(-1)!.postId
   }
 }
-
-export class Post {
-  @Exclude({ toPlainOnly: true })
-  @IsNumber()
-  postId: number
-
-  @IsString()
-  @Length(1, 128)
-  subject: string
-
-  @Exclude({ toPlainOnly: true })
-  @Type(() => Date)
-  createdAt: Date
-
-  constructor(postId: number, subject: string, createdAt: Date) {
-    this.postId = postId
-    this.subject = subject
-    this.createdAt = createdAt
-  }
-}
-
-const initialData = new Users(
-  new User(1, 'john', 18, new Post(1, 'Lorem ipsum', new Date())),
-  new User(2, 'alice', 23)
-)
-
-export const userEntities = [User, Post]
-
-export const users = new AsyncAdapter('users', Users, initialData)

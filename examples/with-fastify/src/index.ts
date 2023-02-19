@@ -1,19 +1,31 @@
 import 'reflect-metadata'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { FastifySteno } from '@stenodb/fastify'
+import { AsyncAdapter, FastifySteno } from '@stenodb/fastify'
 import Fastify from 'fastify'
 import { postsController } from './api/posts/posts.controller.js'
 import { userController } from './api/users/users.controller.js'
 import { UserService } from './api/users/users.service.js'
-import { userEntities, users } from './dto/users.dto.js'
+import { Post } from './dto/posts.dto.js'
+import { User, Users } from './dto/users.dto.js'
 
 const fastify = Fastify()
 
+const usersInitialData = new Users(
+  new User(1, 'john', 18, new Post(1, 'Lorem ipsum', new Date())),
+  new User(2, 'alice', 23)
+)
+
+const usersAdapter = new AsyncAdapter(
+  'users',
+  Users,
+  usersInitialData
+)
+
 fastify.register(FastifySteno, {
   path: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db'),
-  entities: [...userEntities],
-  adapters: [users]
+  entities: [User, Post],
+  adapters: [usersAdapter]
 })
 
 fastify.register(

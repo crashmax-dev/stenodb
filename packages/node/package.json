@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/node",
   "description": "✍ Easy to use local JSON database",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -42,15 +42,15 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node14"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:3.3.2",
-    "@stenodb/utils": "workspace:3.3.2",
-    "@stenodb/writer": "workspace:3.3.2"
+    "@stenodb/logger": "workspace:3.4.0",
+    "@stenodb/utils": "workspace:3.4.0",
+    "@stenodb/writer": "workspace:3.4.0"
   },
   "devDependencies": {
     "@types/node": "18.11.19"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:3.3.2"
+    "@stenodb/logger": "workspace:3.4.0"
   },
   "engines": {
     "node": ">=14.16"

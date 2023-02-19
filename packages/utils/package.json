@@ -1,6 +1,6 @@
 {
   "name": "@stenodb/utils",
-  "version": "3.3.2",
+  "version": "3.4.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

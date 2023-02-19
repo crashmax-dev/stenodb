@@ -14,12 +14,23 @@ fastify.register(FastifySteno, {
 })
 
 fastify.get('/', () => {
-  const users = fastify.steno.get<Users>('users')
-  return users?.data
+  const users = fastify.steno.get<Users>('users')!
+  return users.data
 })
 
-fastify.post('/', { schema: { body: { $ref: 'User' } } }, (req) => {
-  return req.body
+fastify.post<{ Body: User }>(
+  '/',
+  { schema: { body: { $ref: 'User' } } },
+  async (req) => {
+    const users = fastify.steno.get<Users>('users')!
+    users.data!.users.push(req.body)
+    await users.write()
+    return users.data
+  }
+)
+
+fastify.get('/schemas', () => {
+  return fastify.getSchemas()
 })
 
 fastify.listen({ host: '0.0.0.0', port: 3000 }, (err, address) => {

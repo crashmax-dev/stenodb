@@ -1,14 +1,8 @@
 import { AsyncAdapter, NodeProvider, SyncAdapter } from '@stenodb/node'
 import { targetConstructorToSchema } from 'class-validator-jsonschema'
+import type { StenoOptions } from './types'
 import type { Steno } from '@stenodb/node'
-import type { IOptions } from 'class-validator-jsonschema/build/options'
 import type { FastifyInstance } from 'fastify'
-
-export interface StenoOptions extends Steno.NodeProviderOptions {
-  adapters: Steno.NodeAdapter<any>[]
-  entities?: Steno.Entity<any>[]
-  entityOptions?: IOptions
-}
 
 export class StenoPlugin {
   #fastify: FastifyInstance

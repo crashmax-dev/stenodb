@@ -1,0 +1,20 @@
+{
+  "name": "with-fastify",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "pnpm build && node dist/index.js",
+    "dev": "nodemon",
+    "build": "rm -rf dist && tsc"
+  },
+  "dependencies": {
+    "@stenodb/fastify": "workspace:*",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.14.0",
+    "fastify": "4.13.0",
+    "reflect-metadata": "0.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.19"
+  }
+}

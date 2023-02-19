@@ -42,7 +42,7 @@
     "ESM"
   ],
   "scripts": {
-    "dev": "pnpm build -- --watch src",
+    "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {

@@ -15,4 +15,8 @@ export {
   StenoService,
   Steno as NestStenoTypes
 } from '@stenodb/nest'
+export {
+  FastifySteno,
+  StenoOptions as FastifyStenoOptions
+} from '@stenodb/fastify'
 export * from '@stenodb/lodash'

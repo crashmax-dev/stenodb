@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "@stenodb/browser": "workspace:3.4.0",
+    "@stenodb/fastify": "workspace:3.4.0",
     "@stenodb/lodash": "workspace:3.4.0",
     "@stenodb/nest": "workspace:3.4.0",
     "@stenodb/node": "workspace:3.4.0"

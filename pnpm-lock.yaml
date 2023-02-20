@@ -238,11 +238,13 @@ importers:
   packages/stenodb:
     specifiers:
       '@stenodb/browser': workspace:3.4.0
+      '@stenodb/fastify': workspace:3.4.0
       '@stenodb/lodash': workspace:3.4.0
       '@stenodb/nest': workspace:3.4.0
       '@stenodb/node': workspace:3.4.0
     dependencies:
       '@stenodb/browser': link:../browser
+      '@stenodb/fastify': link:../fastify
       '@stenodb/lodash': link:../lodash
       '@stenodb/nest': link:../nest
       '@stenodb/node': link:../node

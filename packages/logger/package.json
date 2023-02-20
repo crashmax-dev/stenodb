@@ -24,14 +24,14 @@
     "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts src/rotation.ts --format esm,cjs --dts --clean"
   },
+  "dependencies": {
+    "rotating-file-stream": "3.0.4",
+    "tslog": "4.7.2"
+  },
   "devDependencies": {
     "@types/node": "18.11.19"
   },
   "engines": {
     "node": ">=14.16"
-  },
-  "dependencies": {
-    "rotating-file-stream": "3.0.4",
-    "tslog": "4.7.2"
   }
 }

@@ -18,16 +18,17 @@ pnpm add stenodb
 
 | Package | Version | Description |
 | ------- | ------ | ----------- |
-| [@stenodb/node](../packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
-| [@stenodb/browser](../packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser (localStorage, sessionStorage) |
-| [@stenodb/nest](../packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js |
-| [@stenodb/lodash](../packages/lodash) | [![](https://img.shields.io/npm/v/@stenodb/lodash)](https://npm.im/@stenodb/lodash) | Lodash wrapper |
-| [@stenodb/logger](../packages/logger) | [![](https://img.shields.io/npm/v/@stenodb/logger)](https://npm.im/@stenodb/logger) | Logger |
+| [@stenodb/node](./packages/node) | [![](https://img.shields.io/npm/v/@stenodb/node)](https://npm.im/@stenodb/node) | Node.js |
+| [@stenodb/browser](./packages/browser) | [![](https://img.shields.io/npm/v/@stenodb/browser)](https://npm.im/@stenodb/browser) | Browser (localStorage, sessionStorage) |
+| [@stenodb/nest](./packages/nest) | [![](https://img.shields.io/npm/v/@stenodb/nest)](https://npm.im/@stenodb/nest) | Nest.js module |
+| [@stenodb/fastify](./packages/fastify) | [![](https://img.shields.io/npm/v/@stenodb/fastify)](https://npm.im/@stenodb/fastify) | Fastify plugin |
+| [@stenodb/lodash](./packages/lodash) | [![](https://img.shields.io/npm/v/@stenodb/lodash)](https://npm.im/@stenodb/lodash) | Lodash wrapper for Node.js and Browser |
+| [@stenodb/logger](./packages/logger) | [![](https://img.shields.io/npm/v/@stenodb/logger)](https://npm.im/@stenodb/logger) | Logger |
 
 ## Examples
 
-> **Note**
-> You can find more detailed examples [here](../../examples)
+> **Note**\
+> You can find more detailed examples [here](./examples)
 
 <details>
   <summary>class-transformer entity</summary>
@@ -194,8 +195,11 @@ pnpm add stenodb
 ## Credits
 
 - [steno](https://github.com/typicode/steno) - Specialized fast async file writer.
+- [fastify-plugin](https://github.com/fastify/fastify-plugin) - Plugin helper for Fastify.
+- [nest](https://github.com/nestjs/nest) - A progressive Node.js framework for building efficient and scalable server-side applications.
 - [class-transformer](https://github.com/typestack/class-transformer) - Decorator-based transformation, serialization, and deserialization between objects and classes.
 - [class-validator](https://github.com/typestack/class-validator) - Decorator-based property validation for classes.
+- [class-validator-jsonschema](https://github.com/epiphone/class-validator-jsonschema) - Convert `class-validator` decorated classes into JSON schema.
 - [json-difference](https://github.com/lukascivil/json-difference) - A simple way to find the difference between two objects or json diff.
 - [tslog](https://github.com/fullstack-build/tslog) - Universal Logger for TypeScript and JavaScript.
 

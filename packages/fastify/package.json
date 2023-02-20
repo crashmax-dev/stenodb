@@ -1,6 +1,6 @@
 {
   "name": "@stenodb/fastify",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -20,7 +20,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "@stenodb/node": "workspace:3.4.0",
+    "@stenodb/node": "workspace:3.4.1",
     "class-validator-jsonschema": "5.0.0",
     "fastify-plugin": "4.5.0"
   },
@@ -29,7 +29,7 @@
     "fastify": "^4.13.0"
   },
   "peerDependencies": {
-    "@stenodb/node": "workspace:3.4.0",
+    "@stenodb/node": "workspace:3.4.1",
     "fastify": "^4.0.0"
   },
   "engines": {

@@ -1,7 +1,7 @@
 {
   "name": "stenodb",
   "description": "✍ Easy to use local JSON database",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -42,11 +42,11 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "@stenodb/browser": "workspace:3.4.0",
-    "@stenodb/fastify": "workspace:3.4.0",
-    "@stenodb/lodash": "workspace:3.4.0",
-    "@stenodb/nest": "workspace:3.4.0",
-    "@stenodb/node": "workspace:3.4.0"
+    "@stenodb/browser": "workspace:3.4.1",
+    "@stenodb/fastify": "workspace:3.4.1",
+    "@stenodb/lodash": "workspace:3.4.1",
+    "@stenodb/nest": "workspace:3.4.1",
+    "@stenodb/node": "workspace:3.4.1"
   },
   "engines": {
     "node": ">=14.16"

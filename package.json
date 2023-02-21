@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@crashmax/prettier-config": "3.0.1",
-    "@crashmax/tsconfig": "1.0.2",
+    "@crashmax/tsconfig": "2.0.0",
     "cross-env": "7.0.3",
     "nodemon": "2.0.20",
     "ts-node": "10.9.1",

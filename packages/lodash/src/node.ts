@@ -18,11 +18,23 @@ export class NodeLodash<T> {
     return await this.#provider.read()
   }
 
-  async write(): Promise<void> {
+  async write(data?: T): Promise<void> {
+    if (data) {
+      this.#provider.data = data
+    }
+
     await this.#provider.write()
   }
 
-  async reset(): Promise<void> {
+  async reset(data?: T): Promise<void> {
+    if (data) {
+      this.#provider.initialData = data
+    }
+
     await this.#provider.reset()
+  }
+
+  async exist(): Promise<boolean> {
+    return this.#provider.exists()
   }
 }

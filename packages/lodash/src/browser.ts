@@ -18,11 +18,23 @@ export class BrowserLodash<T> {
     return this.#provider.read()
   }
 
-  write(): void {
+  write(data?: T): void {
+    if (data) {
+      this.#provider.data = data
+    }
+
     this.#provider.write()
   }
 
-  reset(): void {
+  reset(data?: T): void {
+    if (data) {
+      this.#provider.initialData = data
+    }
+
     this.#provider.reset()
+  }
+
+  exist(): boolean {
+    return this.#provider.exists()
   }
 }

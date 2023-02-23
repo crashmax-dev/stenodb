@@ -1,7 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common'
-import { AsyncAdapter, NodeProvider } from '@stenodb/node'
+import {
+  AsyncAdapter,
+  NodeProvider,
+  SyncAdapter,
+  SyncProvider
+} from '@stenodb/node'
 import { MODULE_OPTIONS_TOKEN, OPTIONS_TYPE } from './config.js'
-import type { Steno } from '@stenodb/node'
+import type { AsyncProvider } from '@stenodb/node'
+import type { ClassEntity } from '@stenodb/utils'
 
 @Injectable()
 export class StenoService {
@@ -13,10 +19,19 @@ export class StenoService {
 
   async create<T>(
     fileName: string,
-    entity: Steno.Entity<T>,
+    entity: ClassEntity<T>,
     initialData?: T
-  ): Promise<Steno.NodeProvider<T>> {
+  ): Promise<AsyncProvider<T>> {
     const adapter = new AsyncAdapter(fileName, entity, initialData)
     return await this.provider.create(adapter)
+  }
+
+  createSync<T>(
+    fileName: string,
+    entity: ClassEntity<T>,
+    initialData?: T
+  ): SyncProvider<T> {
+    const adapter = new SyncAdapter(fileName, entity, initialData)
+    return this.provider.createSync(adapter)
   }
 }

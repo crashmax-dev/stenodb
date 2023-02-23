@@ -12,11 +12,13 @@
     "dev:examples": "turbo run dev --filter=./examples/*",
     "build": "turbo run build --filter=./packages/*",
     "build:examples": "turbo run build --filter=./examples/*",
+    "test": "turbo run test",
     "format": "prettier --write --ignore-unknown **"
   },
   "devDependencies": {
     "@crashmax/prettier-config": "3.0.1",
     "@crashmax/tsconfig": "1.0.2",
+    "ava": "5.2.0",
     "cross-env": "7.0.3",
     "nodemon": "2.0.20",
     "ts-node": "10.9.1",

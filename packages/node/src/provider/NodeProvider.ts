@@ -1,23 +1,20 @@
-import { AsyncAdapter } from '../adapter/AsyncAdapter.js'
-import { SyncAdapter } from '../adapter/SyncAdapter.js'
 import { AsyncProvider } from './AsyncProvider.js'
 import { DirectoryProvider } from './DirectoryProvider.js'
 import { SyncProvider } from './SyncProvider.js'
-import type { Steno } from '../types.js'
+import type { AsyncAdapter } from '../adapter/AsyncAdapter.js'
+import type { SyncAdapter } from '../adapter/SyncAdapter.js'
+import type { NodeAdapter, NodeProviderOptions } from '../types.js'
 
 export class NodeProvider {
   #directory: DirectoryProvider
-  #options: Steno.NodeProviderOptions
+  #options: NodeProviderOptions
 
-  constructor(options: Steno.NodeProviderOptions) {
+  constructor(options: NodeProviderOptions) {
     this.#options = options
     this.#directory = new DirectoryProvider(options.path)
   }
 
-  private async registerAdapterModules<T>(
-    adapter: Steno.NodeAdapter<T>
-  ): Promise<void> {
-    await this.#directory.createDatabaseDir()
+  private registerAdapterModules<T>(adapter: NodeAdapter<T>): void {
     adapter.registerDirectory(this.#directory)
 
     if (this.#options?.logger) {
@@ -26,17 +23,15 @@ export class NodeProvider {
     }
   }
 
-  async create<T>(
-    adapter: Steno.NodeAdapter<T>
-  ): Promise<Steno.NodeProvider<T>> {
-    await this.registerAdapterModules(adapter)
+  async create<T>(adapter: AsyncAdapter<T>): Promise<AsyncProvider<T>> {
+    await this.#directory.createDirectory().withAsync()
+    this.registerAdapterModules(adapter)
+    return new AsyncProvider(adapter)
+  }
 
-    if (adapter instanceof AsyncAdapter) {
-      return new AsyncProvider(adapter)
-    } else if (adapter instanceof SyncAdapter) {
-      return new SyncProvider(adapter)
-    }
-
-    throw new Error('Invalid adapter')
+  createSync<T>(adapter: SyncAdapter<T>): SyncProvider<T> {
+    this.#directory.createDirectory().withSync()
+    this.registerAdapterModules(adapter)
+    return new SyncProvider(adapter)
   }
 }

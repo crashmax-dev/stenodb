@@ -17,7 +17,9 @@
   ],
   "scripts": {
     "dev": "pnpm build --watch src",
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "class-transformer": "0.5.1",
@@ -28,6 +30,16 @@
   },
   "peerDependencies": {
     "class-transformer": ">=0.5.0"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": [
+      "ts"
+    ],
+    "nodeArguments": [
+      "--loader=tsx",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

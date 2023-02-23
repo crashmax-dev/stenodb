@@ -11,12 +11,19 @@ export class DirectoryProvider {
     this.temporaryPath = join(this.databasePath, 'temp')
   }
 
-  async createDatabaseDir(): Promise<void> {
-    try {
-      await mkdir(this.temporaryPath, { recursive: true })
-    } catch (err) {
-      if ((err as NodeJS.ErrnoException).code !== 'EEXIST') {
-        throw err
+  createDirectory() {
+    return {
+      withSync: () => {
+        mkdir(this.databasePath, { recursive: true })
+      },
+      withAsync: async () => {
+        try {
+          await mkdir(this.temporaryPath, { recursive: true })
+        } catch (err) {
+          if ((err as NodeJS.ErrnoException).code !== 'EEXIST') {
+            throw err
+          }
+        }
       }
     }
   }
@@ -29,7 +36,7 @@ export class DirectoryProvider {
     return join(this.temporaryPath, `${filename}-${Date.now()}.json`)
   }
 
-  writerTemporaryFile(filename: string) {
+  writerTemporaryFile(filename: string): Writer {
     const file = this.temporaryFilePath(filename)
     return new Writer(file)
   }

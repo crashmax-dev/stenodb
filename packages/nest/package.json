@@ -43,7 +43,8 @@
   },
   "dependencies": {
     "@nestjs/common": "9.3.7",
-    "@stenodb/node": "workspace:3.4.1"
+    "@stenodb/node": "workspace:3.4.1",
+    "@stenodb/utils": "workspace:3.4.1"
   },
   "devDependencies": {
     "@swc/core": "1.3.35",
@@ -51,6 +52,16 @@
   },
   "peerDependencies": {
     "@nestjs/common": "^9.0.0"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": {
+      "ts": "commonjs"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/register",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

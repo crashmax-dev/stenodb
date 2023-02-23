@@ -16,11 +16,7 @@ const usersInitialData = new Users(
   new User(2, 'alice', 23)
 )
 
-const usersAdapter = new AsyncAdapter(
-  'users',
-  Users,
-  usersInitialData
-)
+const usersAdapter = new AsyncAdapter('users', Users, usersInitialData)
 
 fastify.register(FastifySteno, {
   path: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db'),

@@ -1,9 +1,9 @@
 import { User, Users } from '../../dto/users.dto.js'
-import type { Steno } from '@stenodb/fastify'
+import type { AsyncProvider } from '@stenodb/fastify'
 import type { FastifyInstance } from 'fastify'
 
 export class UserService {
-  #users: Steno.NodeProvider<Users>
+  #users: AsyncProvider<Users>
 
   constructor(private readonly fastify: FastifyInstance) {
     this.#users = this.fastify.steno.get<Users>('users')!

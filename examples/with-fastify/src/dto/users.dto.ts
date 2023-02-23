@@ -1,5 +1,5 @@
 import { Exclude, Type } from 'class-transformer'
-import { IsNumber, IsString, Length } from 'class-validator'
+import { IsNumber, IsOptional, IsString, Length } from 'class-validator'
 import { Post } from './posts.dto.js'
 
 export class Users {
@@ -13,6 +13,7 @@ export class Users {
 
 export class User {
   @Exclude({ toPlainOnly: true })
+  @IsOptional()
   @IsNumber()
   userId: number
 

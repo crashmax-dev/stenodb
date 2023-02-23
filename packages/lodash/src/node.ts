@@ -1,11 +1,11 @@
 import lodash from 'lodash'
-import type { Steno } from '@stenodb/node'
+import type { AsyncProvider } from '@stenodb/node'
 
 export class NodeLodash<T> {
-  #provider: Steno.NodeProvider<T>
+  #provider: AsyncProvider<T>
   #chain: lodash.ExpChain<T>
 
-  constructor(provider: Steno.NodeProvider<T>) {
+  constructor(provider: AsyncProvider<T>) {
     this.#provider = provider
     this.#chain = lodash.chain(provider).get('data')
   }
@@ -18,11 +18,23 @@ export class NodeLodash<T> {
     return await this.#provider.read()
   }
 
-  async write(): Promise<void> {
+  async write(data?: T): Promise<void> {
+    if (data) {
+      this.#provider.data = data
+    }
+
     await this.#provider.write()
   }
 
-  async reset(): Promise<void> {
+  async reset(data?: T): Promise<void> {
+    if (data) {
+      this.#provider.initialData = data
+    }
+
     await this.#provider.reset()
+  }
+
+  async exist(): Promise<boolean> {
+    return this.#provider.exists()
   }
 }

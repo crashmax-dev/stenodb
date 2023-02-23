@@ -1,9 +1,9 @@
-import type { Steno } from '../types.js'
+import type { BrowserStorageAdapter } from '../types.js'
 
 export class StorageProvider<T> {
-  #adapter: Steno.BrowserAdapter<T>
+  #adapter: BrowserStorageAdapter<T>
 
-  constructor(adapter: Steno.BrowserAdapter<T>) {
+  constructor(adapter: BrowserStorageAdapter<T>) {
     this.#adapter = adapter
   }
 

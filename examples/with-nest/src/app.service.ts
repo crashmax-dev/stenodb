@@ -1,10 +1,10 @@
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import { Steno, StenoService } from '@stenodb/nest'
+import { AsyncProvider, StenoService } from '@stenodb/nest'
 import { CreateUserDto, initialUsersData, Users } from './dto/users.dto'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
-  private usersProvider: Steno.NodeProvider<Users>
+  private usersProvider: AsyncProvider<Users>
 
   constructor(private readonly stenoService: StenoService) {}
 

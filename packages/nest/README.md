@@ -21,7 +21,7 @@ pnpm add @stenodb/nest
 ```ts
 // users.dto.ts
 import { Exclude, Type } from 'class-transformer'
-import { Length, Max, Min } from 'class-validator'
+import { IsOptional, Length, Max, Min } from 'class-validator'
 
 export class Users {
   @Type(() => CreateUserDto)
@@ -34,6 +34,7 @@ export class Users {
 
 export class CreateUserDto {
   @Exclude({ toPlainOnly: true })
+  @IsOptional()
   id: number
 
   @Length(1, 20)
@@ -66,12 +67,12 @@ export class AppModule {}
 
 // users.service.ts
 import { Injectable, OnModuleInit } from '@nestjs/common'
-import { Steno, StenoService } from '@stenodb/nest'
+import { StenoService, AsyncProvider } from '@stenodb/nest'
 import { Users, CreateUserDto } from './users.dto'
 
 @Injectable()
 export class UsersService implements OnModuleInit {
-  private usersProvider: Steno.NodeProvider<Users>
+  private usersProvider: AsyncProvider<Users>
 
   constructor(private readonly stenoService: StenoService) {}
 

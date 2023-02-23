@@ -1,8 +1,7 @@
 {
   "extends": "@crashmax/tsconfig",
   "compilerOptions": {
-    "sourceMap": false,
-    "outDir": "dist",
+    "target": "ESNext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },

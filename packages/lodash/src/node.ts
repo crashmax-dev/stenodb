@@ -1,11 +1,11 @@
 import lodash from 'lodash'
-import type { Steno } from '@stenodb/node'
+import type { AsyncProvider } from '@stenodb/node'
 
 export class NodeLodash<T> {
-  #provider: Steno.NodeProvider<T>
+  #provider: AsyncProvider<T>
   #chain: lodash.ExpChain<T>
 
-  constructor(provider: Steno.NodeProvider<T>) {
+  constructor(provider: AsyncProvider<T>) {
     this.#provider = provider
     this.#chain = lodash.chain(provider).get('data')
   }

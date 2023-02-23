@@ -3,14 +3,14 @@ import { BaseLogger } from '@stenodb/logger'
 import { dataTransformer, entityTransformer } from '@stenodb/utils'
 import { Writer } from '@stenodb/writer'
 import type { DirectoryProvider } from '../provider/DirectoryProvider.js'
-import type { Steno } from '../types.js'
+import type { ClassEntity } from '@stenodb/utils'
 import type { DataTransformer, EntityTransformer } from '@stenodb/utils'
 
 export class BaseAdapter<T> {
   fileName: string
   filePath: string
 
-  entity: Steno.Entity<T>
+  entity: ClassEntity<T>
   entityTransformer: EntityTransformer<T>
   dataTransformer: DataTransformer<T>
 
@@ -21,7 +21,7 @@ export class BaseAdapter<T> {
   data: T | null = null
   initialData: T | null = null
 
-  constructor(fileName: string, entity: Steno.Entity<T>, initialData?: T) {
+  constructor(fileName: string, entity: ClassEntity<T>, initialData?: T) {
     if (extname(fileName) !== '') {
       throw new Error(`File name must have an extension: ${fileName}`)
     }

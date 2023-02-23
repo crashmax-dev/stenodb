@@ -8,7 +8,7 @@ import { createRotation } from '../src/rotation.js'
 
 const logsPath = resolve('logs')
 
-test.before(async () => {
+test.beforeEach(async () => {
   if (existsSync(logsPath)) {
     await rm(logsPath, { recursive: true })
   }

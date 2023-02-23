@@ -6,7 +6,7 @@ import { DirectoryProvider } from '../src/provider/DirectoryProvider.js'
 test('DirectoryProvider', async (t) => {
   const path = resolve('db')
   const directoryProvider = new DirectoryProvider(path)
-  await directoryProvider.createDatabaseDir()
+  await directoryProvider.createDirectory().withAsync()
 
   t.is(directoryProvider.databasePath, path)
   t.is(directoryProvider.temporaryPath, join(path, 'temp'))

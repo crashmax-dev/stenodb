@@ -1,6 +1,6 @@
 import { dataTransformer, entityTransformer } from '@stenodb/utils'
-import type { Steno } from '../types.js'
 import type { BaseLogger } from '@stenodb/logger'
+import type { ClassEntity } from '@stenodb/utils'
 import type { DataTransformer, EntityTransformer } from '@stenodb/utils'
 
 export class BrowserStorage<T> {
@@ -17,7 +17,7 @@ export class BrowserStorage<T> {
   constructor(
     name: string,
     storage: Storage,
-    entity: Steno.Entity<T>,
+    entity: ClassEntity<T>,
     initialData?: T
   ) {
     this.name = name

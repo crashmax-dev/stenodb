@@ -1,20 +1,20 @@
 import { StorageProvider } from './StorageProvider.js'
-import type { Steno } from '../types.js'
+import type { BrowserProviderOptions, BrowserStorageAdapter } from '../types.js'
 
 export class BrowserProvider {
-  #options: Steno.BrowserProviderOptions
+  #options: BrowserProviderOptions
 
-  constructor(options: Steno.BrowserProviderOptions = {}) {
+  constructor(options: BrowserProviderOptions = {}) {
     this.#options = options
   }
 
-  private registerAdapterModules<T>(adapter: Steno.BrowserAdapter<T>) {
+  private registerAdapterModules<T>(adapter: BrowserStorageAdapter<T>): void {
     if (!this.#options?.logger) return
     const logger = this.#options.logger(adapter.name)
     adapter.registerLogger(logger)
   }
 
-  create<T>(adapter: Steno.BrowserAdapter<T>): StorageProvider<T> {
+  create<T>(adapter: BrowserStorageAdapter<T>): StorageProvider<T> {
     this.registerAdapterModules(adapter)
     return new StorageProvider(adapter)
   }

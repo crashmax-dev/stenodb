@@ -34,7 +34,7 @@ export function userController(
     { schema: userBodySchema },
     async (request, reply) => {
       const { username, age } = request.body
-      const newUser = service.addUser(username, age)
+      const newUser = await service.addUser(username, age)
       if (!newUser) return reply.status(400).send('Username exist')
       return newUser
     }

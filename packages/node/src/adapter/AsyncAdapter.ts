@@ -1,9 +1,9 @@
 import { readFile } from 'node:fs/promises'
 import { BaseAdapter } from './BaseAdapter.js'
-import type { Steno } from '../types.js'
+import type { ClassEntity } from '@stenodb/utils'
 
 export class AsyncAdapter<T> extends BaseAdapter<T> {
-  constructor(fileName: string, entity: Steno.Entity<T>, initialData?: T) {
+  constructor(fileName: string, entity: ClassEntity<T>, initialData?: T) {
     super(fileName, entity, initialData)
   }
 

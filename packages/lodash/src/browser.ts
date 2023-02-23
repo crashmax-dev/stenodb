@@ -1,11 +1,11 @@
 import lodash from 'lodash'
-import type { Steno } from '@stenodb/browser'
+import type { StorageProvider } from '@stenodb/browser'
 
 export class BrowserLodash<T> {
-  #provider: Steno.BrowserProvider<T>
+  #provider: StorageProvider<T>
   #chain: lodash.ExpChain<T>
 
-  constructor(provider: Steno.BrowserProvider<T>) {
+  constructor(provider: StorageProvider<T>) {
     this.#provider = provider
     this.#chain = lodash.chain(provider).get('data')
   }

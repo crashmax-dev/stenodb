@@ -1,9 +1,8 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { AsyncAdapter, NodeProvider } from '@stenodb/node'
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
-import { NodeLodash } from './node.js'
+import test from 'ava'
+import { NodeLodash } from '../src/node.js'
 
 const provider = new NodeProvider({
   path: resolve(dirname(fileURLToPath(import.meta.url)), '..', 'db')
@@ -19,7 +18,7 @@ class User {
   }
 }
 
-test('NodeLodash', async () => {
+test('NodeLodash', async (t) => {
   const adapter = new AsyncAdapter('users', User)
   const db = new NodeLodash(await provider.create(adapter))
   const user1 = new User(1, 'John')
@@ -29,12 +28,10 @@ test('NodeLodash', async () => {
     await db.write(user1)
   }
 
-  assert.equal(db.data.value(), user1)
-  assert.is(db.data.get('id').value(), 1)
-  assert.is(db.data.get('name').value(), 'John')
+  t.deepEqual(db.data.value(), user1)
+  t.is(db.data.get('id').value(), 1)
+  t.is(db.data.get('name').value(), 'John')
 
   await db.write(user2)
-  assert.equal(db.data.value(), user2)
+  t.deepEqual(db.data.value(), user2)
 })
-
-test.run()

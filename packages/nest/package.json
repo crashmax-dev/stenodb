@@ -52,6 +52,16 @@
   "peerDependencies": {
     "@nestjs/common": "^9.0.0"
   },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": {
+      "ts": "commonjs"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/register",
+      "--no-warnings"
+    ]
+  },
   "engines": {
     "node": ">=14.16"
   }

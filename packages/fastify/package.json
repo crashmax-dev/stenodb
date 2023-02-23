@@ -1,16 +1,17 @@
 {
   "name": "@stenodb/fastify",
   "version": "3.4.1",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "default": "./dist/index.mjs"
+      "default": "./dist/index.js"
     }
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "files": [
     "dist",
     "src"
@@ -31,6 +32,16 @@
   "peerDependencies": {
     "@stenodb/node": "workspace:3.4.1",
     "fastify": "^4.0.0"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

@@ -18,14 +18,14 @@
   "devDependencies": {
     "@crashmax/prettier-config": "3.0.1",
     "@crashmax/tsconfig": "1.0.2",
+    "ava": "5.2.0",
     "cross-env": "7.0.3",
     "nodemon": "2.0.20",
     "ts-node": "10.9.1",
     "tsup": "6.6.3",
     "tsx": "3.12.3",
     "turbo": "1.8.1",
-    "typescript": "4.9.5",
-    "uvu": "0.5.6"
+    "typescript": "4.9.5"
   },
   "engines": {
     "node": ">=14.16"

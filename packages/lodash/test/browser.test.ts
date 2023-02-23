@@ -1,7 +1,6 @@
 import { BrowserProvider, LocalStorage } from '@stenodb/browser'
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
-import { BrowserLodash } from './browser.js'
+import test from 'ava'
+import { BrowserLodash } from '../src/browser.js'
 
 const storage = new Map<string, string>()
 const mockStorage = () => ({
@@ -32,7 +31,7 @@ class User {
   }
 }
 
-test('BrowserLodash', () => {
+test('BrowserLodash', (t) => {
   const user1 = new User(1, 'John')
   const user2 = new User(2, 'Alice')
   const adapter = new LocalStorage('users', User, user1)
@@ -40,15 +39,13 @@ test('BrowserLodash', () => {
   const db = new BrowserLodash(provider.create(adapter))
 
   db.read()
-  assert.equal(db.data.value(), user1)
+  t.deepEqual(db.data.value(), user1)
 
   db.write(user2)
-  assert.equal(db.data.value(), user2)
+  t.deepEqual(db.data.value(), user2)
 
   db.reset()
-  assert.equal(db.data.value(), user1)
-  assert.is(db.data.get('id').value(), 1)
-  assert.is(db.data.get('name').value(), 'John')
+  t.deepEqual(db.data.value(), user1)
+  t.is(db.data.get('id').value(), 1)
+  t.is(db.data.get('name').value(), 'John')
 })
-
-test.run()

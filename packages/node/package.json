@@ -39,7 +39,9 @@
   ],
   "scripts": {
     "dev": "pnpm build --watch src",
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node14"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean --target node14",
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "@stenodb/logger": "workspace:3.4.1",
@@ -47,10 +49,22 @@
     "@stenodb/writer": "workspace:3.4.1"
   },
   "devDependencies": {
-    "@types/node": "18.11.19"
+    "@types/node": "18.11.19",
+    "class-transformer": "0.5.1",
+    "reflect-metadata": "0.1.13"
   },
   "peerDependencies": {
     "@stenodb/logger": "workspace:3.4.1"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": [
+      "ts"
+    ],
+    "nodeArguments": [
+      "--loader=tsx",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

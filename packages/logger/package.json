@@ -1,21 +1,22 @@
 {
   "name": "@stenodb/logger",
   "version": "3.4.1",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "default": "./dist/index.mjs"
+      "default": "./dist/index.js"
     },
     "./rotation": {
       "types": "./dist/rotation.d.ts",
       "require": "./dist/rotation.js",
-      "default": "./dist/rotation.mjs"
+      "default": "./dist/rotation.js"
     }
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "files": [
     "dist",
     "src"
@@ -23,8 +24,8 @@
   "scripts": {
     "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts src/rotation.ts --format esm,cjs --dts --clean",
-    "test": "tsx src/index.test.ts",
-    "test:watch": "tsx watch src/index.test.ts"
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "rotating-file-stream": "3.0.4",
@@ -32,6 +33,16 @@
   },
   "devDependencies": {
     "@types/node": "18.11.19"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

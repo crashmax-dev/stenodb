@@ -1,10 +1,9 @@
-import { test } from 'uvu'
-import * as assert from 'uvu/assert'
+import test from 'ava'
 import {
   dataTransformer,
   entityTransformer,
   getDifferenceData
-} from './utils.js'
+} from '../src/utils.js'
 
 class User {
   id: number
@@ -24,27 +23,22 @@ const userData = { id: 1, name: 'John' }
 const userJsonData = JSON.stringify(userData)
 const userEntityTransformer = entityTransformer(User)
 
-test('entityTransformer', () => {
-  assert.equal(userEntityTransformer(userJsonData), userJsonData)
-  assert.not(userEntityTransformer(null))
+test('entityTransformer', (t) => {
+  t.deepEqual(userEntityTransformer(userJsonData), userJsonData)
+  t.falsy(userEntityTransformer(null))
 })
 
-test('dataTransformer', () => {
+test('dataTransformer', (t) => {
   const transformer = dataTransformer(userEntityTransformer)
   const user = transformer.toJSON(userJsonData)!
   user.changeName('Alice')
-  assert.is(user.id, 1)
-  assert.is(user.name, 'Alice')
+  t.is(user.id, 1)
+  t.is(user.name, 'Alice')
 })
 
-test('getDifferenceData', () => {
+test('getDifferenceData', (t) => {
   const newUser = { name: 'Allice', role: 'user' }
   const diffData = getDifferenceData<unknown>(userData, newUser)
-  assert.ok(diffData)
-  assert.snapshot(
-    JSON.stringify(diffData),
-    '{"added":[["role","user"]],"removed":[["id",1]],"edited":[["name","John","Allice"]]}'
-  )
+  t.truthy(diffData)
+  t.snapshot(JSON.stringify(diffData))
 })
-
-test.run()

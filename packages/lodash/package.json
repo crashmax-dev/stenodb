@@ -1,11 +1,12 @@
 {
   "name": "@stenodb/lodash",
   "version": "3.4.1",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "default": "./dist/index.mjs"
+      "default": "./dist/index.js"
     },
     "./node": {
       "types": "./dist/node.d.ts",
@@ -20,7 +21,7 @@
   },
   "types": "./dist/index.d.ts",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "module": "./dist/index.js",
   "files": [
     "dist",
     "src"
@@ -28,8 +29,8 @@
   "scripts": {
     "dev": "pnpm build --watch src",
     "build": "tsup src/index.ts src/node.ts src/browser.ts --format esm,cjs --dts --clean",
-    "test": "tsx src/index.test.ts",
-    "test:watch": "tsx watch src/index.test.ts"
+    "test": "ava",
+    "test:watch": "ava --watch"
   },
   "dependencies": {
     "@stenodb/browser": "workspace:3.4.1",
@@ -45,6 +46,16 @@
     "@stenodb/node": "workspace:3.4.1",
     "@types/lodash": "^4.14.191",
     "lodash": "^4.17.21"
+  },
+  "ava": {
+    "snapshotDir": "test/snapshots",
+    "extensions": {
+      "ts": "module"
+    },
+    "nodeArguments": [
+      "--loader=ts-node/esm",
+      "--no-warnings"
+    ]
   },
   "engines": {
     "node": ">=14.16"

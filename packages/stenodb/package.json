@@ -2,7 +2,7 @@
   "name": "stenodb",
   "description": "✍ Easy to use local JSON database",
   "type": "module",
-  "version": "3.4.1",
+  "version": "4.0.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -45,11 +45,11 @@
     "test:watch": "ava --watch"
   },
   "dependencies": {
-    "@stenodb/browser": "workspace:3.4.1",
-    "@stenodb/fastify": "workspace:3.4.1",
-    "@stenodb/lodash": "workspace:3.4.1",
-    "@stenodb/nest": "workspace:3.4.1",
-    "@stenodb/node": "workspace:3.4.1"
+    "@stenodb/browser": "workspace:4.0.0",
+    "@stenodb/fastify": "workspace:4.0.0",
+    "@stenodb/lodash": "workspace:4.0.0",
+    "@stenodb/nest": "workspace:4.0.0",
+    "@stenodb/node": "workspace:4.0.0"
   },
   "ava": {
     "snapshotDir": "test/snapshots",

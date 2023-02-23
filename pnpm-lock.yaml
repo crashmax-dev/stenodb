@@ -164,16 +164,16 @@ importers:
 
   packages/browser:
     specifiers:
-      '@stenodb/logger': workspace:3.4.1
-      '@stenodb/utils': workspace:3.4.1
+      '@stenodb/logger': workspace:4.0.0
+      '@stenodb/utils': workspace:4.0.0
     dependencies:
       '@stenodb/logger': link:../logger
       '@stenodb/utils': link:../utils
 
   packages/fastify:
     specifiers:
-      '@stenodb/node': workspace:3.4.1
-      '@stenodb/utils': workspace:3.4.1
+      '@stenodb/node': workspace:4.0.0
+      '@stenodb/utils': workspace:4.0.0
       '@types/node': 18.11.19
       class-validator-jsonschema: 5.0.0
       fastify: ^4.13.0
@@ -189,8 +189,8 @@ importers:
 
   packages/lodash:
     specifiers:
-      '@stenodb/browser': workspace:3.4.1
-      '@stenodb/node': workspace:3.4.1
+      '@stenodb/browser': workspace:4.0.0
+      '@stenodb/node': workspace:4.0.0
       '@types/lodash': 4.14.191
       '@types/node': 18.11.19
       lodash: 4.17.21
@@ -216,8 +216,8 @@ importers:
   packages/nest:
     specifiers:
       '@nestjs/common': 9.3.7
-      '@stenodb/node': workspace:3.4.1
-      '@stenodb/utils': workspace:3.4.1
+      '@stenodb/node': workspace:4.0.0
+      '@stenodb/utils': workspace:4.0.0
       '@swc/core': 1.3.35
       '@types/node': 18.11.19
     dependencies:
@@ -230,9 +230,9 @@ importers:
 
   packages/node:
     specifiers:
-      '@stenodb/logger': workspace:3.4.1
-      '@stenodb/utils': workspace:3.4.1
-      '@stenodb/writer': workspace:3.4.1
+      '@stenodb/logger': workspace:4.0.0
+      '@stenodb/utils': workspace:4.0.0
+      '@stenodb/writer': workspace:4.0.0
       '@types/node': 18.11.19
       class-transformer: 0.5.1
       reflect-metadata: 0.1.13
@@ -247,11 +247,11 @@ importers:
 
   packages/stenodb:
     specifiers:
-      '@stenodb/browser': workspace:3.4.1
-      '@stenodb/fastify': workspace:3.4.1
-      '@stenodb/lodash': workspace:3.4.1
-      '@stenodb/nest': workspace:3.4.1
-      '@stenodb/node': workspace:3.4.1
+      '@stenodb/browser': workspace:4.0.0
+      '@stenodb/fastify': workspace:4.0.0
+      '@stenodb/lodash': workspace:4.0.0
+      '@stenodb/nest': workspace:4.0.0
+      '@stenodb/node': workspace:4.0.0
     dependencies:
       '@stenodb/browser': link:../browser
       '@stenodb/fastify': link:../fastify

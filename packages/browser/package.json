@@ -2,7 +2,7 @@
   "name": "@stenodb/browser",
   "description": "✍ Easy to use local JSON database",
   "type": "module",
-  "version": "3.4.1",
+  "version": "4.0.0",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -47,11 +47,11 @@
     "build": "tsup src/index.ts --format esm,cjs --dts --clean"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:3.4.1",
-    "@stenodb/utils": "workspace:3.4.1"
+    "@stenodb/logger": "workspace:4.0.0",
+    "@stenodb/utils": "workspace:4.0.0"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:3.4.1"
+    "@stenodb/logger": "workspace:4.0.0"
   },
   "ava": {
     "snapshotDir": "test/snapshots",

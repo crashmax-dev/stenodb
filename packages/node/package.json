@@ -1,7 +1,7 @@
 {
   "name": "@stenodb/node",
   "description": "✍ Easy to use local JSON database",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -44,9 +44,9 @@
     "test:watch": "ava --watch"
   },
   "dependencies": {
-    "@stenodb/logger": "workspace:4.0.0",
-    "@stenodb/utils": "workspace:4.0.0",
-    "@stenodb/writer": "workspace:4.0.0"
+    "@stenodb/logger": "workspace:4.0.1",
+    "@stenodb/utils": "workspace:4.0.1",
+    "@stenodb/writer": "workspace:4.0.1"
   },
   "devDependencies": {
     "@types/node": "18.11.19",
@@ -54,7 +54,7 @@
     "reflect-metadata": "0.1.13"
   },
   "peerDependencies": {
-    "@stenodb/logger": "workspace:4.0.0"
+    "@stenodb/logger": "workspace:4.0.1"
   },
   "ava": {
     "snapshotDir": "test/snapshots",

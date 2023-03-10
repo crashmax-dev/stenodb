@@ -5,17 +5,17 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "default": "./dist/index.js"
     },
     "./rotation": {
       "types": "./dist/rotation.d.ts",
-      "require": "./dist/rotation.js",
+      "require": "./dist/rotation.cjs",
       "default": "./dist/rotation.js"
     }
   },
   "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "files": [
     "dist",
